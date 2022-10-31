@@ -31,4 +31,9 @@ public struct Product
         get;
         set;
     }
+    public override string ToString() => $@"
+            Product ID= {ID}: {Name}, 
+            category - {Category}
+    	    Price: {Price}
+    	    Amount in stock: {InStock}";
 }

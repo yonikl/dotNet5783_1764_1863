@@ -2,4 +2,8 @@
 
 internal class Enums
 {
+    enum Myenum
+    {
+        
+    }
 }
