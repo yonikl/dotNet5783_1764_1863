@@ -1,6 +1,6 @@
 ﻿namespace Dal;
 
-public class Class1
+public class DalProduct
 {
     
 }
