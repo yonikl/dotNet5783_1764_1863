@@ -26,14 +26,17 @@ public struct Product
         set;
     }
 
-    public Category Category
+    public Enums.Category Category
     {
         get;
         set;
     }
-    public override string ToString() => $@"
+    public override string ToString()
+    {
+        return $@"
             Product ID= {ID}: {Name}, 
             category - {Category}
     	    Price: {Price}
     	    Amount in stock: {InStock}";
+    }
 }

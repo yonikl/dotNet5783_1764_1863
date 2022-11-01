@@ -1,9 +1,9 @@
 ﻿namespace DO;
 
-internal class Enums
+public class Enums
 {
-    enum Myenum
+    public enum Category
     {
-        
+        Pants, Shoe, Sock, Coat, Shirt
     }
 }

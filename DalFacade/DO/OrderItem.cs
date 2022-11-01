@@ -25,4 +25,13 @@ public struct OrderItem
         get;
         set;
     }
+
+    public override string ToString()
+    {
+        return $@"
+            Product ID = {ProductID} 
+            Order ID - {OrderID}
+    	    price - {Price}
+    	    Amount: {Amount}";
+    }
 }

@@ -47,5 +47,14 @@ public struct Order
         get;
     }
 
- 
+    public override string ToString()
+    {
+        return $@"
+            Order ID = {Id}: {CustomerName}, 
+            customer emile - {CustomerEmail}
+    	    customer Adress: {CustomerAdress}
+    	    Order date: {OrderDate}
+            Ship Date: {ShipDate}
+            Delivery Date:{DeliveryDate}";
+    }
 }
