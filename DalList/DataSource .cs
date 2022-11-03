@@ -8,35 +8,25 @@ internal static class DataSource
     internal static OrderItem[] OrdersItems = new OrderItem[200];
     internal static Product[] Products = new Product[50];
     
-    private static int OrdersSize = 0;
-    private static int ProductsSize = 0;
-    private static int OrdersItemSize = 0;
-
     public static void AddNewOrder(Order order)
     {
-        if (OrdersSize < 100)
-        {
-            Orders[OrdersSize] = order;
-            OrdersSize++;
-        }
+        
+        Orders[Config.OrdersSize++] = order;
+        
     }
 
     public static void AddNewOrderItem(OrderItem orderItem)
     {
-        if (OrdersItemSize < 200)
-        {
-            OrdersItems[OrdersSize] = orderItem;
-            OrdersItemSize++;
-        }
+        
+        OrdersItems[Config.OrdersItemsSize++] = orderItem;
+        
     }
 
     public static void AddNewProduct(Product product)
     {
-        if (ProductsSize < 50)
-        {
-            Products[ProductsSize] = product;
-            ProductsSize++;
-        }
+        
+        Products[Config.ProductsSize++] = product;
+        
     }
 
     static DataSource()
