@@ -49,7 +49,7 @@ internal static class DataSource
         internal static int IdForOrdersItems = 1;
         internal static int IdForOrders = 1;
 
-        internal static int GetIdForOrdersItems => ++IdForOrdersItems;
-        internal static int GetIdForOrders => ++IdForOrders;
+        internal static int GetIdForOrdersItems => IdForOrdersItems++;
+        internal static int GetIdForOrders => IdForOrders++;
     }
 } 
