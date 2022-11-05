@@ -6,14 +6,14 @@ public class DalOrderItem
 {
     public int AddOrderItem(OrderItem O)
     {
-        O.OrderID = Config.GetIdForOrdersItems;
-        DataSource.OrdersItems[Config.OrdersItemsSize++] = O;
+        O.OrderID = DataSource.Config.GetIdForOrdersItems;
+        DataSource.OrdersItems[DataSource.Config.OrdersItemsSize++] = O;
         return O.OrderID;
     }
 
     public OrderItem GetOrderItem(int Id)
     {
-        for (int i = 0; i < Config.OrdersItemsSize; i++)
+        for (int i = 0; i < DataSource.Config.OrdersItemsSize; i++)
         {
             if (Id == DataSource.OrdersItems[i].OrderID)
                 return DataSource.OrdersItems[i];
@@ -24,8 +24,8 @@ public class DalOrderItem
 
     public OrderItem[] GetAllOrdersItems()
     {
-        OrderItem[] NewOrderItems = new OrderItem[Config.OrdersItemsSize];
-        for (int i = 0; i < Config.OrdersItemsSize; i++)
+        OrderItem[] NewOrderItems = new OrderItem[DataSource.Config.OrdersItemsSize];
+        for (int i = 0; i < DataSource.Config.OrdersItemsSize; i++)
         {
             NewOrderItems[i] = DataSource.OrdersItems[i];
         }
@@ -35,7 +35,7 @@ public class DalOrderItem
 
     public void DeleteOrderItem(int Id)
     {
-        for (int i = 0; i < Config.OrdersItemsSize; i++)
+        for (int i = 0; i < DataSource.Config.OrdersItemsSize; i++)
         {
             if (Id == DataSource.OrdersItems[i].OrderID)
                 DataSource.OrdersItems[i].OrderID = 0;
@@ -46,7 +46,7 @@ public class DalOrderItem
 
     public void UpdateOrderItem(OrderItem O)
     {
-        for (int i = 0; i < Config.OrdersItemsSize; i++)
+        for (int i = 0; i < DataSource.Config.OrdersItemsSize; i++)
         {
             if (O.OrderID == DataSource.OrdersItems[i].OrderID)
                 DataSource.OrdersItems[i] = O;
@@ -57,7 +57,7 @@ public class DalOrderItem
 
     public OrderItem GetOrderItemByProductIdAndOrderId(int ProductId, int OrderId)
     {
-        for (int i = 0; i < Config.OrdersItemsSize; i++)
+        for (int i = 0; i < DataSource.Config.OrdersItemsSize; i++)
         {
             if (OrderId == DataSource.OrdersItems[i].OrderID && ProductId == DataSource.OrdersItems[i].ProductID)
                 return DataSource.OrdersItems[i];
@@ -69,7 +69,7 @@ public class DalOrderItem
     {
         int Size = 0;
        
-        for (int i = 0; i < Config.OrdersItemsSize; i++)
+        for (int i = 0; i < DataSource.Config.OrdersItemsSize; i++)
         {
             if (DataSource.OrdersItems[i].OrderID == OrderId)
                 Size++;
