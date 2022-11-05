@@ -3,29 +3,29 @@ using DO;
 
 internal static class DataSource
 {
-    static readonly Random Generator = new Random();
-    internal static Order[] Orders = new Order[100];
-    internal static OrderItem[] OrdersItems = new OrderItem[200];
-    internal static Product[] Products = new Product[50];
+    static readonly Random s_generator = new Random();
+    internal static Order[] s_orders = new Order[100];
+    internal static OrderItem[] s_ordersItems = new OrderItem[200];
+    internal static Product[] s_products = new Product[50];
     
     public static void AddNewOrder(Order order)
     {
         
-        Orders[Config.OrdersSize++] = order;
+        s_orders[Config.ordersSize++] = order;
         
     }
 
     public static void AddNewOrderItem(OrderItem orderItem)
     {
         
-        OrdersItems[Config.OrdersItemsSize++] = orderItem;
+        s_ordersItems[Config.ordersItemsSize++] = orderItem;
         
     }
 
     public static void AddNewProduct(Product product)
     {
         
-        Products[Config.ProductsSize++] = product;
+        s_products[Config.productsSize++] = product;
         
     }
 
@@ -35,16 +35,23 @@ internal static class DataSource
     }
     private static void s_Initialize()
     {
-
+        for (int i = 0; i < 20; i++)
+        {
+            Order order = new Order();
+            order.CustomerName = ((Enums.ClientsNames)(i % 10)).ToString();
+            order.CustomerAdress = ((Enums.ClientsAddresses)(i % 10)).ToString();
+            order.CustomerEmail = ((Enums.ClientsNames)(i % 10)).ToString() + "@gmail.com";
+            order.OrderDate = DateTime.Now - new TimeSpan();
+        }
     }
-}
+
 
 
     internal static class Config
     {
-        internal static int OrdersSize = 0;
-        internal static int OrdersItemsSize = 0;
-        internal static int ProductsSize = 0;
+        internal static int ordersSize = 0;
+        internal static int ordersItemsSize = 0;
+        internal static int productsSize = 0;
 
         internal static int IdForOrdersItems = 1;
         internal static int IdForOrders = 1;

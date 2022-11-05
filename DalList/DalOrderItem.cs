@@ -7,7 +7,7 @@ public class DalOrderItem
     public int AddOrderItem(OrderItem O)
     {
         O.OrderID = Config.GetIdForOrdersItems;
-        DataSource.OrdersItems[Config.OrdersItemsSize++] = O;
+        DataSource.s_ordersItems[Config.OrdersItemsSize++] = O;
         return O.OrderID;
     }
 
@@ -15,8 +15,8 @@ public class DalOrderItem
     {
         for (int i = 0; i < Config.OrdersItemsSize; i++)
         {
-            if (Id == DataSource.OrdersItems[i].OrderID)
-                return DataSource.OrdersItems[i];
+            if (Id == DataSource.s_ordersItems[i].OrderID)
+                return DataSource.s_ordersItems[i];
         }
 
         throw new Exception("Not Found");
@@ -27,7 +27,7 @@ public class DalOrderItem
         OrderItem[] NewOrderItems = new OrderItem[Config.OrdersItemsSize];
         for (int i = 0; i < Config.OrdersItemsSize; i++)
         {
-            NewOrderItems[i] = DataSource.OrdersItems[i];
+            NewOrderItems[i] = DataSource.s_ordersItems[i];
         }
 
         return NewOrderItems;
@@ -37,8 +37,8 @@ public class DalOrderItem
     {
         for (int i = 0; i < Config.OrdersItemsSize; i++)
         {
-            if (Id == DataSource.OrdersItems[i].OrderID)
-                DataSource.OrdersItems[i].OrderID = 0;
+            if (Id == DataSource.s_ordersItems[i].OrderID)
+                DataSource.s_ordersItems[i].OrderID = 0;
         }
 
         throw new Exception("Not Found");
@@ -48,8 +48,8 @@ public class DalOrderItem
     {
         for (int i = 0; i < Config.OrdersItemsSize; i++)
         {
-            if (O.OrderID == DataSource.OrdersItems[i].OrderID)
-                DataSource.OrdersItems[i] = O;
+            if (O.OrderID == DataSource.s_ordersItems[i].OrderID)
+                DataSource.s_ordersItems[i] = O;
         }
 
         throw new Exception("Not Found");
@@ -59,8 +59,8 @@ public class DalOrderItem
     {
         for (int i = 0; i < Config.OrdersItemsSize; i++)
         {
-            if (OrderId == DataSource.OrdersItems[i].OrderID && ProductId == DataSource.OrdersItems[i].ProductID)
-                return DataSource.OrdersItems[i];
+            if (OrderId == DataSource.s_ordersItems[i].OrderID && ProductId == DataSource.s_ordersItems[i].ProductID)
+                return DataSource.s_ordersItems[i];
         }
         throw new Exception("Not Found");
     }
@@ -71,7 +71,7 @@ public class DalOrderItem
        
         for (int i = 0; i < Config.OrdersItemsSize; i++)
         {
-            if (DataSource.OrdersItems[i].OrderID == OrderId)
+            if (DataSource.s_ordersItems[i].OrderID == OrderId)
                 Size++;
         }
 
@@ -79,8 +79,8 @@ public class DalOrderItem
         int Count = 0;
         for (int i = 0; i < Size; i++)
         {
-            if (DataSource.OrdersItems[i].OrderID == OrderId)
-                NewOrderItems[Count++] = DataSource.OrdersItems[i];
+            if (DataSource.s_ordersItems[i].OrderID == OrderId)
+                NewOrderItems[Count++] = DataSource.s_ordersItems[i];
         }
 
         return NewOrderItems;

@@ -6,7 +6,7 @@ public class DalOrder
     public int AddOrder(Order O)
     {
         O.Id = Config.GetIdForOrders;
-        DataSource.Orders[Config.OrdersSize++] = O;
+        DataSource.s_orders[Config.OrdersSize++] = O;
         return O.Id;
     }
 
@@ -14,9 +14,9 @@ public class DalOrder
     {
         for (int i = 0; i < Config.OrdersSize; i++)
         {
-            if(Id == DataSource.Orders[i].Id)
+            if(Id == DataSource.s_orders[i].Id)
             {
-                return DataSource.Orders[i];
+                return DataSource.s_orders[i];
             }
         }
 
@@ -28,7 +28,7 @@ public class DalOrder
         Order[] orders = new Order[Config.OrdersSize];
         for (int i = 0; i < Config.OrdersSize; i++)
         {
-            orders[i] = DataSource.Orders[i];
+            orders[i] = DataSource.s_orders[i];
         }
 
         return orders;
@@ -37,9 +37,9 @@ public class DalOrder
     {
         for (int i = 0; i < Config.OrdersSize; i++)
         {
-            if (Id == DataSource.Orders[i].Id)
+            if (Id == DataSource.s_orders[i].Id)
             {
-                DataSource.Orders[i].Id = 0;
+                DataSource.s_orders[i].Id = 0;
             }
         }
 
@@ -50,9 +50,9 @@ public class DalOrder
     {
         for (int i = 0; i < Config.OrdersSize; i++)
         {
-            if (O.Id == DataSource.Orders[i].Id)
+            if (O.Id == DataSource.s_orders[i].Id)
             {
-                DataSource.Orders[i] = O;
+                DataSource.s_orders[i] = O;
             }
         }
         throw new Exception("Not Found");

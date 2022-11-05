@@ -29,8 +29,8 @@ public struct OrderItem
     public override string ToString()
     {
         return $@"
-            Product ID = {ProductID} 
-            Order ID - {OrderID}
+            Product Id = {ProductID} 
+            Order Id - {OrderID}
     	    price - {Price}
     	    Amount: {Amount}";
     }
