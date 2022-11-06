@@ -141,7 +141,8 @@ public class DalOrderItem
             if (DataSource.s_ordersItems[i].OrderID == orderId)
                 NewOrderItems[Count++] = DataSource.s_ordersItems[i];
         }
-        if(size == 0) throw new Exception("Not Found")
+
+        if (size == 0) throw new Exception("Not Found");
         return NewOrderItems;
     }
 

@@ -11,6 +11,7 @@ public class Program
     private static DalProduct s_dalProduct = new DalProduct();
     public static int Main(string[] args)
     {
+
         int choice;
         PrintMenu();//print the menu 
         choice = int.Parse(Console.ReadLine());//read choice.
@@ -224,9 +225,11 @@ public class Program
                           "Check your order item by id - b\n" +
                           "To see all your order items - c\n" +
                           "To update your order item - d\n" +
-                          "To delete order item from your list- e\n");
+                          "To delete order item from your list- e\n"+
+                          "check your order item by order id and product id - f"+
+                          "print all orders whit the same product id - g");
         char choose = char.Parse(Console.ReadLine());
-        int id;
+        int orderId;
         OrderItem o = new OrderItem();
         switch (choose)
         {
@@ -241,10 +244,10 @@ public class Program
                 break;
             case 'b'://get order from the list 
                 Console.WriteLine("Enter order item id:");
-                id = int.Parse(Console.ReadLine());//read thr item id
+                orderId = int.Parse(Console.ReadLine());//read thr item id
                 try
                 {
-                    o = s_dalOrderItem.GetOrderItem(id);
+                    o = s_dalOrderItem.GetOrderItem(orderId);
                     Console.WriteLine(o);//print the item
                 }
                 catch (Exception e)//if the item id not found
@@ -284,10 +287,40 @@ public class Program
                 break;
             case 'e'://delete item from the list
                 Console.WriteLine("Enter order id:");
-                id = int.Parse(Console.ReadLine());//read the id
+                orderId = int.Parse(Console.ReadLine());//read the id
                 try
                 {
-                    s_dalOrder.DeleteOrder(id);//delete the item
+                    s_dalOrder.DeleteOrder(orderId);//delete the item
+                }
+                catch (Exception e)//if the item id not found
+                {
+                    Console.WriteLine(e);
+                }
+                break;
+            case 'f'://delete item from the list
+                Console.WriteLine("Enter order id and product id:");
+                orderId = int.Parse(Console.ReadLine());//read the id
+                int productId = int.Parse(Console.ReadLine());//read product id
+                try
+                {   
+                    o = s_dalOrderItem.GetOrderItemByProductIdAndOrderId(orderId,productId);//get the item
+                    Console.WriteLine(o);//print the item
+                }
+                catch (Exception e)//if the item id not found
+                {
+                    Console.WriteLine(e);
+                }
+                break;
+            case 'g'://delete item from the list
+                Console.WriteLine("Enter product id:");
+                productId = int.Parse(Console.ReadLine());//read product id
+                try
+                {
+                    OrderItem[] orders = s_dalOrderItem.GetOrderItemsInSpecificOrder(productId);//get the items
+                    foreach (OrderItem i in orders)//print the items
+                    {
+                        Console.WriteLine(i);
+                    } 
                 }
                 catch (Exception e)//if the item id not found
                 {
