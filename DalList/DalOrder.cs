@@ -3,6 +3,13 @@ using DO;
 
 public class DalOrder
 {
+    /// <summary>
+    /// adding new order to the array
+    /// </summary>
+    /// <param name="O"></param>
+    /// the product that we adding
+    /// <returns></returns>
+    /// return the id that was given to this order
     public int AddOrder(Order O)
     {
         O.Id = DataSource.Config.GetIdForOrders;
@@ -10,6 +17,15 @@ public class DalOrder
         return O.Id;
     }
 
+    /// <summary>
+    ///  getting order from the array
+    /// </summary>
+    /// <param name="Id"></param>
+    /// the id that we looking for in the array
+    /// <returns></returns>
+    /// return the order item
+    /// <exception cref="Exception"></exception>
+    /// if we didn't found
     public Order GetOrder(int Id)
     {
         for (int i = 0; i < DataSource.Config.ordersSize; i++)
@@ -23,6 +39,11 @@ public class DalOrder
         throw new Exception("Not Found");
     }
 
+    /// <summary>
+    /// return all the orders
+    /// </summary>
+    /// <returns></returns>
+    /// array of all the orders
     public Order[] GetAllOrders()
     {
         Order[] orders = new Order[DataSource.Config.ordersSize];
@@ -33,6 +54,14 @@ public class DalOrder
 
         return orders;
     }
+
+    /// <summary>
+    /// delete order item by the id parameter
+    /// </summary>
+    /// <param name="Id"></param>
+    /// the id that we looking to delete
+    /// <exception cref="Exception"></exception>
+    /// if we didn't found this id
     public void DeleteOrder(int Id)
     {
         for (int i = 0; i < DataSource.Config.ordersSize; i++)
@@ -47,6 +76,13 @@ public class DalOrder
         throw new Exception("Not Found");
     }
 
+    /// <summary>
+    /// updating given order in the array
+    /// </summary>
+    /// <param name="O"></param>
+    /// the order that we are updating
+    /// <exception cref="Exception"></exception>
+    /// if we didn't found what to update
     public void UpdateOrder(Order O)
     {
         for (int i = 0; i < DataSource.Config.ordersSize; i++)
