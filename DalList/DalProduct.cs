@@ -5,7 +5,7 @@ public class DalProduct
 {
     public void AddProduct(Product product)
     {
-        int ID;
+        int ID = 0;
         bool isIdExist = true;
         while (isIdExist)
         {
