@@ -2,6 +2,11 @@
 
 public struct OrderItem
 {
+    public int Id
+    {
+        get;
+        set;
+    }
     public int ProductID
     {
         get;

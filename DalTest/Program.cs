@@ -1,7 +1,4 @@
-﻿
-using DalFacade;
-
-using System;
+﻿using System;
 using Dal;
 using DO;
 

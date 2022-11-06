@@ -3,7 +3,7 @@ using DO;
 
 internal static class DataSource
 {
-    static readonly Random s_generator = new Random();
+    internal static readonly Random s_generator = new Random();
     internal static Order[] s_orders = new Order[100];
     internal static OrderItem[] s_ordersItems = new OrderItem[200];
     internal static Product[] s_products = new Product[50];
@@ -46,8 +46,6 @@ internal static class DataSource
         AddNewProduct(new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Nike training Socks 38-42", Price = 80.0 });
         AddNewProduct(new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Kumi Sneakers Socks 32-36", Price = 45.0 });
 
-        
-    }
         for (int i = 0; i < 20; i++)
         {
             Order order = new Order();
@@ -57,6 +55,8 @@ internal static class DataSource
             order.OrderDate = DateTime.Now - new TimeSpan();
         }
     }
+
+    
 
 
     internal static class Config
