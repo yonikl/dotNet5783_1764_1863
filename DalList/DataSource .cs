@@ -24,7 +24,7 @@ internal static class DataSource
             Order order = new Order();
             order.Id = Config.GetIdForOrders;
             order.CustomerName = ((Enums.ClientsNames)(i % 10)).ToString();
-            order.CustomerAdress = ((Enums.ClientsAddresses)(i % 10)).ToString();
+            order.CustomerAddress = ((Enums.ClientsAddresses)(i % 10)).ToString();
             order.CustomerEmail = ((Enums.ClientsNames)(i % 10)).ToString() + "@gmail.com";
 
             //adding max of 180 days to the start orders date until order date

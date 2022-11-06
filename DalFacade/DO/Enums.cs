@@ -2,11 +2,13 @@
 
 public class Enums
 {
+    //enum for categories
     public enum Category
     {
         Pants, Shoe, Sock, Coat, Shirt
     }
 
+    //enum for samples of client names 
     public enum ClientsNames
     {
         Yosef_Davaidovich,
@@ -20,6 +22,8 @@ public class Enums
         Tova_Rosental,
         Alex_Tal
     }
+
+    //enum for samples of client addresses
     public enum ClientsAddresses
     {
         Madar_53_Rehovot,

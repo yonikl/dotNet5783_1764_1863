@@ -12,6 +12,7 @@ public class Program
     private static DalOrder s_dalOrder = new DalOrder();
     private static DalOrderItem s_dalOrderItem = new DalOrderItem();
     private static DalProduct s_dalProduct = new DalProduct();
+    
     public static int Main(string[] args)
     {
 
@@ -75,7 +76,7 @@ public class Program
               
                 o.CustomerName = Console.ReadLine();//read the name of the user
                 o.CustomerEmail = Console.ReadLine();//read the emial of the user
-                o.CustomerAdress = Console.ReadLine();//read the adress of the user
+                o.CustomerAddress = Console.ReadLine();//read the adress of the user
                 s_dalOrder.AddOrder(o);//add the order 
                 break;
             case 'b'://check the order
@@ -117,7 +118,7 @@ public class Program
                 //read the details for the new order
                 o.CustomerName = Console.ReadLine();
                 o.CustomerEmail = Console.ReadLine();
-                o.CustomerAdress = Console.ReadLine();
+                o.CustomerAddress = Console.ReadLine();
                 s_dalOrder.UpdateOrder(o);//update the order
                 break;
             case 'e'://delete order from the array
