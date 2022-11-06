@@ -40,6 +40,7 @@ public class DalOrder
             if (Id == DataSource.s_orders[i].Id)
             {
                 DataSource.s_orders[i].Id = 0;
+                return;
             }
         }
 
@@ -53,6 +54,7 @@ public class DalOrder
             if (O.Id == DataSource.s_orders[i].Id)
             {
                 DataSource.s_orders[i] = O;
+                return;
             }
         }
         throw new Exception("Not Found");
