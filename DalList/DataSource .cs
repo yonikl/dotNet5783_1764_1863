@@ -45,9 +45,6 @@ internal static class DataSource
         AddNewProduct(new Product { Category = Enums.Category.Shirt, ID = 398475, InStock = 20, Name = "MJ Sport Shirt S", Price = 450.0 });
         AddNewProduct(new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Nike training Socks 38-42", Price = 80.0 });
         AddNewProduct(new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Kumi Sneakers Socks 32-36", Price = 45.0 });
-
-        
-    }
         for (int i = 0; i < 20; i++)
         {
             Order order = new Order();
@@ -56,8 +53,9 @@ internal static class DataSource
             order.CustomerEmail = ((Enums.ClientsNames)(i % 10)).ToString() + "@gmail.com";
             order.OrderDate = DateTime.Now - new TimeSpan();
         }
-    }
 
+    }
+    
 
     internal static class Config
     {

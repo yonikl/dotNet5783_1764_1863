@@ -6,13 +6,13 @@ public class DalOrder
     public int AddOrder(Order O)
     {
         O.Id = DataSource.Config.GetIdForOrders;
-        DataSource.s_orders[DataSource.Config.OrdersSize++] = O;
+        DataSource.s_orders[DataSource.Config.ordersSize++] = O;
         return O.Id;
     }
 
     public Order GetOrder(int Id)
     {
-        for (int i = 0; i < DataSource.Config.OrdersSize; i++)
+        for (int i = 0; i < DataSource.Config.ordersSize; i++)
         {
             if(Id == DataSource.s_orders[i].Id)
             {
@@ -25,8 +25,8 @@ public class DalOrder
 
     public Order[] GetAllOrders()
     {
-        Order[] orders = new Order[DataSource.Config.OrdersSize];
-        for (int i = 0; i < DataSource.Config.OrdersSize; i++)
+        Order[] orders = new Order[DataSource.Config.ordersSize];
+        for (int i = 0; i < DataSource.Config.ordersSize; i++)
         {
             orders[i] = DataSource.s_orders[i];
         }
@@ -35,7 +35,7 @@ public class DalOrder
     }
     public void DeleteOrder(int Id)
     {
-        for (int i = 0; i < DataSource.Config.OrdersSize; i++)
+        for (int i = 0; i < DataSource.Config.ordersSize; i++)
         {
             if (Id == DataSource.s_orders[i].Id)
             {
@@ -48,7 +48,7 @@ public class DalOrder
 
     public void UpdateOrder(Order O)
     {
-        for (int i = 0; i < DataSource.Config.OrdersSize; i++)
+        for (int i = 0; i < DataSource.Config.ordersSize; i++)
         {
             if (O.Id == DataSource.s_orders[i].Id)
             {
