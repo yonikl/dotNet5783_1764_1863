@@ -34,6 +34,7 @@ public struct OrderItem
     public override string ToString()
     {
         return $@"
+            ID = {Id}
             Product Id = {ProductID} 
             Order Id - {OrderID}
     	    price - {Price}

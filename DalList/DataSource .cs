@@ -28,7 +28,7 @@ internal static class DataSource
             order.CustomerEmail = ((Enums.ClientsNames)(i % 10)).ToString() + "@gmail.com";
 
             //adding max of 180 days to the start orders date until order date
-            order.OrderDate = startOfOrders + new TimeSpan(180, 0, 0, 0);
+            order.OrderDate = startOfOrders + new TimeSpan(s_generator.Next(180), 0, 0, 0);
             //adding 16 orders with shipping dates
             if (i <= 16)
             {

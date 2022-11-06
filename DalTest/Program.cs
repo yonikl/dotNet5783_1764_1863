@@ -5,12 +5,16 @@ using Dal;
 using DO;
 
 public class Program
-{   /// <summary> define del order, del order item, del product///
+{   /// <summary>
+    /// define del order, del order item, del product
+    /// </summary>
+
     private static DalOrder s_dalOrder = new DalOrder();
     private static DalOrderItem s_dalOrderItem = new DalOrderItem();
     private static DalProduct s_dalProduct = new DalProduct();
     public static int Main(string[] args)
     {
+        
         int choice;
         PrintMenu();//print the menu 
         choice = int.Parse(Console.ReadLine());//read choice.
@@ -24,11 +28,12 @@ public class Program
                     break;
 
                 case 2://for item
-                    PrintItemMenu();
+                    PrintProductMenu();
                     break;
                 
                 case 3://for product
-                    PrintProductMenu();
+                    
+                    PrintItemMenu();
                     break;
 
                 default:
