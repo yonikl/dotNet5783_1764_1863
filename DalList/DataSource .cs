@@ -7,9 +7,9 @@ internal static class DataSource
     internal static readonly Random s_generator = new Random();
 
     //lists to store the entities
-    internal static List<Order> s_orders;
-    internal static List<OrderItem> s_ordersItems;
-    internal static List<Product> s_products;
+    internal static List<Order> s_orders = new List<Order>();
+    internal static List<OrderItem> s_ordersItems = new List<OrderItem>();
+    internal static List<Product> s_products = new List<Product>();
     
     /// <summary>
     /// adding orders to the array

@@ -1,7 +1,4 @@
-﻿
-using System.Data.SqlTypes;
-
-namespace DalApi;
+﻿namespace DalApi;
 using DO;
 
 public interface IOrderItem : ICrud<OrderItem>

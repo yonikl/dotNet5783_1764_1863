@@ -1,7 +1,8 @@
 ﻿namespace Dal;
 using DO;
+using DalApi;
 
-public class DalOrder
+internal class DalOrder : IOrder
 {
     /// <summary>
     /// adding new order to the array
@@ -10,36 +11,36 @@ public class DalOrder
     /// the product that we adding
     /// <returns></returns>
     /// return the id that was given to this order
-    public int AddOrder(Order O)
+    public int Add(Order O)
     {
         O.Id = DataSource.Config.GetIdForOrders;
         O.OrderDate = DateTime.Now;
         O.ShipDate = DateTime.Now + TimeSpan.FromDays(10);
         O.DeliveryDate = O.ShipDate + TimeSpan.FromDays(10);
-        DataSource.s_orders[DataSource.Config.ordersSize++] = O;
+        DataSource.s_orders.Add(O);
         return O.Id;
     }
 
     /// <summary>
     ///  getting order from the array
     /// </summary>
-    /// <param name="Id"></param>
+    /// <param name="ID"></param>
     /// the id that we looking for in the array
     /// <returns></returns>
     /// return the order item
     /// <exception cref="Exception"></exception>
     /// if we didn't found
-    public Order GetOrder(int Id)
+    public Order Get(int ID)
     {
-        for (int i = 0; i < DataSource.Config.ordersSize; i++)
+        foreach (var t in DataSource.s_orders)
         {
-            if(Id == DataSource.s_orders[i].Id)
+            if(ID == t.Id)
             {
-                return DataSource.s_orders[i];
+                return t;
             }
         }
 
-        throw new Exception("Not Found");
+        throw new ItemNotFound();
     }
 
     /// <summary>
@@ -47,12 +48,12 @@ public class DalOrder
     /// </summary>
     /// <returns></returns>
     /// array of all the orders
-    public Order[] GetAllOrders()
+    public IEnumerable<Order> GetAll()
     {
-        Order[] orders = new Order[DataSource.Config.ordersSize];
-        for (int i = 0; i < DataSource.Config.ordersSize; i++)
+        List<Order> orders = new List<Order>();
+        foreach (var t in DataSource.s_orders)
         {
-            orders[i] = DataSource.s_orders[i];
+            orders.Add(t);
         }
 
         return orders;
@@ -65,37 +66,38 @@ public class DalOrder
     /// the id that we looking to delete
     /// <exception cref="Exception"></exception>
     /// if we didn't found this id
-    public void DeleteOrder(int Id)
+    public void Delete(int Id)
     {
-        for (int i = 0; i < DataSource.Config.ordersSize; i++)
+        foreach (var t in DataSource.s_orders)
         {
-            if (Id == DataSource.s_orders[i].Id)
+            if (Id == t.Id)
             {
-                DataSource.s_orders[i].Id = 0;
+                DataSource.s_orders.Remove(t);
                 return;
             }
         }
 
-        throw new Exception("Not Found");
+        throw new ItemNotFound();
     }
 
     /// <summary>
     /// updating given order in the array
     /// </summary>
-    /// <param name="O"></param>
+    /// <param name="orderItem"></param>
     /// the order that we are updating
     /// <exception cref="Exception"></exception>
     /// if we didn't found what to update
-    public void UpdateOrder(Order O)
+    public void Update(Order orderItem)
     {
-        for (int i = 0; i < DataSource.Config.ordersSize; i++)
+        foreach (var t in DataSource.s_orders)
         {
-            if (O.Id == DataSource.s_orders[i].Id)
+            if (orderItem.Id == t.Id)
             {
-                DataSource.s_orders[i] = O;
+                DataSource.s_orders.Remove(t);
+                DataSource.s_orders.Add(orderItem);
                 return;
             }
         }
-        throw new Exception("Not Found");
+        throw new ItemNotFound();
     }
 }

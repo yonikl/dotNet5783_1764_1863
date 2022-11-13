@@ -1,8 +1,11 @@
-﻿
-namespace DalApi;
+﻿namespace DalApi;
 
-public class Exceptions
+public class ItemNotFound : Exception
+{
+    
+}
+
+public class ItemAlreadyExist : Exception
 {
 
 }
-

@@ -3,10 +3,10 @@
 
 public interface ICrud<T>
 {
-    public void Add(T entity);
-    public void Delete(T entity);
-    public void Update(T entity);
-    public T GetById(int id);
+    public int Add(T entity);
+    public void Delete(int ID);
+    public void Update(T o);
+    public T Get(int ID);
     public IEnumerable<T> GetAll();
 
 
