@@ -1,15 +1,14 @@
 ﻿using System;
 using Dal;
+using DalApi;
 using DO;
 
 public class Program
-{   /// <summary>
+{
+    /// <summary>
     /// define del order, del order item, del product
     /// </summary>
-
-    private static DalOrder s_dalOrder = new DalOrder();
-    private static DalOrderItem s_dalOrderItem = new DalOrderItem();
-    private static DalProduct s_dalProduct = new DalProduct();
+    private IDal dalList = new DalList();
     
     public static int Main(string[] args)
     {

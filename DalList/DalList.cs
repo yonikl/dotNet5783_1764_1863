@@ -1,7 +1,7 @@
 ﻿namespace Dal;
 using DalApi;
 
-internal class DalList : IDal
+public class DalList : IDal
 {
     public IProduct Product => new DalProduct();
     public IOrderItem OrderItem => new DalOrderItem();

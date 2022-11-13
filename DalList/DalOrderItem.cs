@@ -3,7 +3,7 @@ using DO;
 using System;
 using DalApi;
 
-public class DalOrderItem : IOrderItem
+internal class DalOrderItem : IOrderItem
 {
     /// <summary>
     /// add order item to the array

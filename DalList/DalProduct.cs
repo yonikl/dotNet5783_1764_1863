@@ -1,7 +1,7 @@
 ﻿namespace Dal;
 using DO;
 using DalApi;
-public class DalProduct : IProduct
+internal class DalProduct : IProduct
 {
     /// <summary>
     /// adding new product to the array
