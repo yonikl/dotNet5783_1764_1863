@@ -84,9 +84,9 @@ public class Program
                     o = dalList.Order.Get(id);//get the order using the id
                     Console.WriteLine(o);//print the order
                 }
-                catch (Exception e)//in case the order id mot found
+                catch (ItemNotFound)//in case the order id mot found
                 {
-                    Console.WriteLine(e);
+                    break;
                 }
                 break;
             case 'c':
@@ -105,9 +105,8 @@ public class Program
                     o = dalList.Order.Get(o.Id);//get the order by using the id
                     Console.WriteLine(o);//print the order
                 }
-                catch (Exception e)//if the order id not found
+                catch (ItemNotFound)//if the order id not found
                 {
-                    Console.WriteLine(e);
                     break;
                 }
                 //update the order
@@ -125,9 +124,9 @@ public class Program
                 {
                      dalList.Order.Delete(id);//delete the order
                 }
-                catch (Exception e)//if the order id not found
+                catch (ItemNotFound)//if the order id not found
                 {
-                    Console.WriteLine(e);
+                    break;
                 }
                 break;
             default:
@@ -149,7 +148,7 @@ public class Program
         switch (choose)
         {
             case 'a'://add new product
-                Console.WriteLine("Enter your name, price, in stock and category\n");
+                Console.WriteLine("Enter product name, price, in stock and category\n");
                 //read the details of the product
                 p.Name = Console.ReadLine();
                 p.Price = double.Parse(Console.ReadLine());
@@ -166,9 +165,9 @@ public class Program
                     p = dalList.Product.Get(id);
                     Console.WriteLine(p);//print the product
                 }
-                catch (Exception e)//if the product id not found
+                catch (ItemNotFound)//if the product id not found
                 {
-                    Console.WriteLine(e);
+                    break;
                 }
 
                 break;
@@ -189,12 +188,11 @@ public class Program
                     p = dalList.Product.Get(p.ID);
                     Console.WriteLine(p);//print the product
                 }
-                catch (Exception e)//if the product id not found
+                catch (ItemNotFound)//if the product id not found
                 {
-                    Console.WriteLine(e);
                     break;
                 }
-                Console.WriteLine("Enter your name, price, in stock and category\n");
+                Console.WriteLine("Enter product name, price, in stock and category\n");
                 //update the product
                 p.Name = Console.ReadLine();
                 p.Price = double.Parse(Console.ReadLine());
@@ -209,9 +207,9 @@ public class Program
                 {
                     dalList.Product.Delete(id);//delete the product
                 }
-                catch (Exception e)//if the product not found
+                catch (ItemNotFound)//if the product not found
                 {
-                    Console.WriteLine(e);
+                    break;
                 }
 
                 break;
@@ -252,9 +250,9 @@ public class Program
                     o = dalList.OrderItem.Get(orderId);
                     Console.WriteLine(o);//print the item
                 }
-                catch (Exception e)//if the item id not found
+                catch (ItemNotFound)//if the item id not found
                 {
-                    Console.WriteLine(e);
+                    break;
                 }
                 break;
             case 'c'://print all item orders
@@ -266,16 +264,15 @@ public class Program
                 }
                 break;
             case 'd'://update the item
-                Console.WriteLine("Enter order id");
+                Console.WriteLine("Enter order item id");
                 o.Id = int.Parse(Console.ReadLine());//read the item id
                 try
                 {
                     o = dalList.OrderItem.Get(o.Id);
                     Console.WriteLine(o);//print the item to update
                 }
-                catch (Exception e)
+                catch (ItemNotFound)
                 {
-                    Console.WriteLine(e);
                     break;
                 }
              
@@ -288,15 +285,15 @@ public class Program
                 dalList.OrderItem.Update(o);//update item
                 break;
             case 'e'://delete item from the list
-                Console.WriteLine("Enter order id:");
+                Console.WriteLine("Enter order item id:");
                 orderId = int.Parse(Console.ReadLine());//read the id
                 try
                 {
                     dalList.OrderItem.Delete(orderId);//delete the item
                 }
-                catch (Exception e)//if the item id not found
+                catch (ItemNotFound)//if the item id not found
                 {
-                    Console.WriteLine(e);
+                    break;
                 }
                 break;
             case 'f'://delete item from the list
@@ -308,14 +305,14 @@ public class Program
                     o = dalList.OrderItem.GetOrderItemByProductIdAndOrderId(orderId,productId);//get the item
                     Console.WriteLine(o);//print the item
                 }
-                catch (Exception e)//if the item id not found
+                catch (ItemNotFound)//if the item id not found
                 {
-                    Console.WriteLine(e);
+                    break;
                 }
                 break;
             case 'g'://delete item from the list
-                Console.WriteLine("Enter product id:");
-                productId = int.Parse(Console.ReadLine());//read product id
+                Console.WriteLine("Enter order id:");
+                productId = int.Parse(Console.ReadLine());//read order id
                 try
                 {
                     IEnumerable<OrderItem> orders = dalList.OrderItem.GetOrderItemsInSpecificOrder(productId);//get the items
@@ -324,9 +321,9 @@ public class Program
                         Console.WriteLine(i);
                     } 
                 }
-                catch (Exception e)//if the item id not found
+                catch (ItemNotFound)//if the order id not found
                 {
-                    Console.WriteLine(e);
+                    break;
                 }
                 break;
             default:
