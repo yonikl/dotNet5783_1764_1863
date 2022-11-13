@@ -8,7 +8,7 @@ public class Program
     /// <summary>
     /// define del order, del order item, del product
     /// </summary>
-    private IDal dalList = new DalList();
+    private static IDal dalList = new DalList();
     
     public static int Main(string[] args)
     {
@@ -242,14 +242,14 @@ public class Program
                 o.OrderID = int.Parse(Console.ReadLine());
                 o.Price = double.Parse(Console.ReadLine());
                 o.Amount = int.Parse(Console.ReadLine());
-                s_dalOrderItem.AddOrderItem(o);//add the order item to the list
+                dalList.OrderItem.Add(o);//add the order item to the list
                 break;
             case 'b'://get order from the list 
                 Console.WriteLine("Enter order item id:");
                 orderId = int.Parse(Console.ReadLine());//read thr item id
                 try
                 {
-                    o = s_dalOrderItem.GetOrderItem(orderId);
+                    o = dalList.OrderItem.Get(orderId);
                     Console.WriteLine(o);//print the item
                 }
                 catch (Exception e)//if the item id not found
@@ -258,7 +258,7 @@ public class Program
                 }
                 break;
             case 'c'://print all item orders
-                OrderItem[] items = s_dalOrderItem.GetAllOrdersItems();
+                IEnumerable <OrderItem> items = dalList.OrderItem.GetAll();
 
                 foreach (OrderItem i in items)//print all items
                 {
@@ -270,7 +270,7 @@ public class Program
                 o.Id = int.Parse(Console.ReadLine());//read the item id
                 try
                 {
-                    o = s_dalOrderItem.GetOrderItem(o.Id);
+                    o = dalList.OrderItem.Get(o.Id);
                     Console.WriteLine(o);//print the item to update
                 }
                 catch (Exception e)
@@ -285,14 +285,14 @@ public class Program
                 o.OrderID = int.Parse(Console.ReadLine());
                 o.Price = double.Parse(Console.ReadLine());
                 o.Amount = int.Parse(Console.ReadLine());
-                s_dalOrderItem.UpdateOrderItem(o);//update item
+                dalList.OrderItem.Update(o);//update item
                 break;
             case 'e'://delete item from the list
                 Console.WriteLine("Enter order id:");
                 orderId = int.Parse(Console.ReadLine());//read the id
                 try
                 {
-                    s_dalOrder.DeleteOrder(orderId);//delete the item
+                    dalList.OrderItem.Delete(orderId);//delete the item
                 }
                 catch (Exception e)//if the item id not found
                 {
@@ -305,7 +305,7 @@ public class Program
                 int productId = int.Parse(Console.ReadLine());//read product id
                 try
                 {   
-                    o = s_dalOrderItem.GetOrderItemByProductIdAndOrderId(orderId,productId);//get the item
+                    o = dalList.OrderItem.GetOrderItemByProductIdAndOrderId(orderId,productId);//get the item
                     Console.WriteLine(o);//print the item
                 }
                 catch (Exception e)//if the item id not found
@@ -318,7 +318,7 @@ public class Program
                 productId = int.Parse(Console.ReadLine());//read product id
                 try
                 {
-                    OrderItem[] orders = s_dalOrderItem.GetOrderItemsInSpecificOrder(productId);//get the items
+                    IEnumerable<OrderItem> orders = dalList.OrderItem.GetOrderItemsInSpecificOrder(productId);//get the items
                     foreach (OrderItem i in orders)//print the items
                     {
                         Console.WriteLine(i);
