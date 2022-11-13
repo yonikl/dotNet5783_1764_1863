@@ -6,10 +6,10 @@ internal static class DataSource
     
     internal static readonly Random s_generator = new Random();
 
-    //arrays to store the entities
-    internal static Order[] s_orders = new Order[100];
-    internal static OrderItem[] s_ordersItems = new OrderItem[200];
-    internal static Product[] s_products = new Product[50];
+    //lists to store the entities
+    internal static List<Order> s_orders;
+    internal static List<OrderItem> s_ordersItems;
+    internal static List<Product> s_products;
     
     /// <summary>
     /// adding orders to the array
@@ -49,7 +49,7 @@ internal static class DataSource
             {
                 order.DeliveryDate = DateTime.MinValue;
             }
-            s_orders[Config.ordersSize++] = order;
+            s_orders.Add(order);
 
         }
 
@@ -63,7 +63,7 @@ internal static class DataSource
         OrderItem orderItem = new OrderItem();
 
         //adding 40 - 80 orders items (2-4 for each order
-        for (int i = 0; i < Config.ordersSize; i++)
+        for (int i = 0; i < s_orders.Count; i++)
         {
             for (int j = 0; j < s_generator.Next(2, 4); j++)
             {
@@ -71,11 +71,11 @@ internal static class DataSource
                 orderItem.OrderID = s_orders[i].Id;
 
                 //random product
-                Product product = s_products[s_generator.Next(0, Config.productsSize)];
+                Product product = s_products[s_generator.Next(0, s_products.Count)];
                 orderItem.ProductID = product.ID;
                 orderItem.Price = product.Price;
                 orderItem.Amount = s_generator.Next(1, 10);
-                s_ordersItems[Config.ordersItemsSize++] = orderItem;
+                s_ordersItems.Add(orderItem);
             }
         }
         
@@ -88,16 +88,16 @@ internal static class DataSource
     public static void AddNewProducts()
     {
         //adding 10 products
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Pants, ID = 944737, InStock = 0, Name = "Simon Pants 48", Price = 200.0 };
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Pants, ID = 189456, InStock = 7, Name = "Jeans Pants 45", Price = 250.0 };
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Coat, ID = 242897, InStock = 6, Name = "Outdoor Coat 42", Price = 300.0 };
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Coat, ID = 347348, InStock = 12, Name = "The North Face Coat 43", Price = 340.0 };
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Shoe, ID = 365462, InStock = 3, Name = "Adidas Shoes 40", Price = 280.0 };
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Shoe, ID = 298765, InStock = 18, Name = "Nike Shoes 38", Price = 290.0 };
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Shirt, ID = 867452, InStock = 10, Name = "Castro T-Shirt L", Price = 150.0 };
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Shirt, ID = 398475, InStock = 20, Name = "MJ Sport Shirt S", Price = 450.0 };
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Nike training Socks 38-42", Price = 80.0 };
-        s_products[Config.productsSize++] = new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Kumi Sneakers Socks 32-36", Price = 45.0 };
+        s_products.Add(new Product { Category = Enums.Category.Pants, ID = 944737, InStock = 0, Name = "Simon Pants 48", Price = 200.0 });
+        s_products.Add(new Product { Category = Enums.Category.Pants, ID = 189456, InStock = 7, Name = "Jeans Pants 45", Price = 250.0 });
+        s_products.Add(new Product { Category = Enums.Category.Coat, ID = 242897, InStock = 6, Name = "Outdoor Coat 42", Price = 300.0 });
+        s_products.Add(new Product { Category = Enums.Category.Coat, ID = 347348, InStock = 12, Name = "The North Face Coat 43", Price = 340.0 });
+        s_products.Add(new Product { Category = Enums.Category.Shoe, ID = 365462, InStock = 3, Name = "Adidas Shoes 40", Price = 280.0 });
+        s_products.Add(new Product { Category = Enums.Category.Shoe, ID = 298765, InStock = 18, Name = "Nike Shoes 38", Price = 290.0 });
+        s_products.Add(new Product { Category = Enums.Category.Shirt, ID = 867452, InStock = 10, Name = "Castro T-Shirt L", Price = 150.0 }); 
+        s_products.Add(new Product { Category = Enums.Category.Shirt, ID = 398475, InStock = 20, Name = "MJ Sport Shirt S", Price = 450.0 });
+        s_products.Add(new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Nike training Socks 38-42", Price = 80.0 });
+        s_products.Add(new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Kumi Sneakers Socks 32-36", Price = 45.0 });
         
         
     }
@@ -129,11 +129,6 @@ internal static class DataSource
 
     internal static class Config
     {
-        //the arrays sizes
-        internal static int ordersSize = 0;
-        internal static int ordersItemsSize = 0;
-        internal static int productsSize = 0;
-
         //id for entities
         internal static int IdForOrdersItems = 1;
         internal static int IdForOrders = 1;
