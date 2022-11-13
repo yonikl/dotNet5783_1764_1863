@@ -13,6 +13,9 @@ public class DalOrder
     public int AddOrder(Order O)
     {
         O.Id = DataSource.Config.GetIdForOrders;
+        O.OrderDate = DateTime.Now;
+        O.ShipDate = DateTime.Now + TimeSpan.FromDays(10);
+        O.DeliveryDate = O.ShipDate + TimeSpan.FromDays(10);
         DataSource.s_orders[DataSource.Config.ordersSize++] = O;
         return O.Id;
     }
