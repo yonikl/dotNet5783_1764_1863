@@ -35,7 +35,7 @@ internal class DalOrderItem : IOrderItem
                 return t;
         }
 
-        throw new ItemNotFound();
+        throw new DalItemNotFound();
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ internal class DalOrderItem : IOrderItem
             }
         }
 
-        throw new ItemNotFound();
+        throw new DalItemNotFound();
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ internal class DalOrderItem : IOrderItem
             }
         }
 
-        throw new ItemNotFound();
+        throw new DalItemNotFound();
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ internal class DalOrderItem : IOrderItem
                 return t;
         }
 
-        throw new ItemNotFound();
+        throw new DalItemNotFound();
     }
 
     /// <summary>

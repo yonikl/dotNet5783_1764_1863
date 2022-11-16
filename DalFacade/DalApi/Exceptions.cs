@@ -1,11 +1,11 @@
 ﻿namespace DalApi;
 
-public class ItemNotFound : Exception
+public class DalItemNotFound : Exception
 {
     
 }
 
-public class ItemAlreadyExist : Exception
+public class DalItemAlreadyExist : Exception
 {
 
 }

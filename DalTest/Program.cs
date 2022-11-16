@@ -84,7 +84,7 @@ public class Program
                     o = dalList.Order.Get(id);//get the order using the id
                     Console.WriteLine(o);//print the order
                 }
-                catch (ItemNotFound)//in case the order id mot found
+                catch (DalItemNotFound)//in case the order id mot found
                 {
                     break;
                 }
@@ -105,7 +105,7 @@ public class Program
                     o = dalList.Order.Get(o.Id);//get the order by using the id
                     Console.WriteLine(o);//print the order
                 }
-                catch (ItemNotFound)//if the order id not found
+                catch (DalItemNotFound)//if the order id not found
                 {
                     break;
                 }
@@ -124,7 +124,7 @@ public class Program
                 {
                      dalList.Order.Delete(id);//delete the order
                 }
-                catch (ItemNotFound)//if the order id not found
+                catch (DalItemNotFound)//if the order id not found
                 {
                     break;
                 }
@@ -165,7 +165,7 @@ public class Program
                     p = dalList.Product.Get(id);
                     Console.WriteLine(p);//print the product
                 }
-                catch (ItemNotFound)//if the product id not found
+                catch (DalItemNotFound)//if the product id not found
                 {
                     break;
                 }
@@ -188,7 +188,7 @@ public class Program
                     p = dalList.Product.Get(p.ID);
                     Console.WriteLine(p);//print the product
                 }
-                catch (ItemNotFound)//if the product id not found
+                catch (DalItemNotFound)//if the product id not found
                 {
                     break;
                 }
@@ -207,7 +207,7 @@ public class Program
                 {
                     dalList.Product.Delete(id);//delete the product
                 }
-                catch (ItemNotFound)//if the product not found
+                catch (DalItemNotFound)//if the product not found
                 {
                     break;
                 }
@@ -250,7 +250,7 @@ public class Program
                     o = dalList.OrderItem.Get(orderId);
                     Console.WriteLine(o);//print the item
                 }
-                catch (ItemNotFound)//if the item id not found
+                catch (DalItemNotFound)//if the item id not found
                 {
                     break;
                 }
@@ -271,7 +271,7 @@ public class Program
                     o = dalList.OrderItem.Get(o.Id);
                     Console.WriteLine(o);//print the item to update
                 }
-                catch (ItemNotFound)
+                catch (DalItemNotFound)
                 {
                     break;
                 }
@@ -291,7 +291,7 @@ public class Program
                 {
                     dalList.OrderItem.Delete(orderId);//delete the item
                 }
-                catch (ItemNotFound)//if the item id not found
+                catch (DalItemNotFound)//if the item id not found
                 {
                     break;
                 }
@@ -305,7 +305,7 @@ public class Program
                     o = dalList.OrderItem.GetOrderItemByProductIdAndOrderId(orderId,productId);//get the item
                     Console.WriteLine(o);//print the item
                 }
-                catch (ItemNotFound)//if the item id not found
+                catch (DalItemNotFound)//if the item id not found
                 {
                     break;
                 }
@@ -321,7 +321,7 @@ public class Program
                         Console.WriteLine(i);
                     } 
                 }
-                catch (ItemNotFound)//if the order id not found
+                catch (DalItemNotFound)//if the order id not found
                 {
                     break;
                 }

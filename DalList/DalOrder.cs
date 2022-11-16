@@ -40,7 +40,7 @@ internal class DalOrder : IOrder
             }
         }
 
-        throw new ItemNotFound();
+        throw new DalItemNotFound();
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ internal class DalOrder : IOrder
             }
         }
 
-        throw new ItemNotFound();
+        throw new DalItemNotFound();
     }
 
     /// <summary>
@@ -98,6 +98,6 @@ internal class DalOrder : IOrder
                 return;
             }
         }
-        throw new ItemNotFound();
+        throw new DalItemNotFound();
     }
 }
