@@ -1,8 +1,10 @@
 ﻿
 namespace BO;
 
-internal class Exceptions
-{
+
+
+public class BlItemNotFound : Exception{
 
 }
+
 

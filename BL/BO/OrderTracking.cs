@@ -1,4 +1,6 @@
 ﻿
+using System.Xml.Xsl;
+
 namespace BO;
 
 public class OrderTracking 
@@ -12,5 +14,10 @@ public class OrderTracking
     /// Status of the order tracking
     /// </summary>
     public Enums.OrderStatus Status { get; set; }
+    /// <summary>
+    /// Tuple of pairs of date and string that represent the order events in timeline
+    /// </summary>
+    public Tuple<DateTime, string> OrderTimeLine { get; set; }
+
 }
 

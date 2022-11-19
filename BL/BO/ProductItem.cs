@@ -24,7 +24,7 @@ public class ProductItem
     public Enums.Category Category { get; set; }
 
     /// <summary>
-    /// Amount of the product
+    /// Amount of the product in the shopper cart
     /// </summary>
     public int Amount { get; set; }
 
