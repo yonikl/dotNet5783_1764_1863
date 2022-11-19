@@ -6,10 +6,10 @@ public interface IBl
     /// <summary>
     /// 
     /// </summary>
-    public IOrder Order { get; }
+    public IOrder Order { get; internal set; }
 
-    public IProduct Product { get; }
+    public IProduct Product { get; internal set; }
 
-    public ICart Cart { get; }
+    public ICart Cart { get; internal set; }
 }
 
