@@ -1,17 +1,14 @@
-﻿using System.Runtime.Serialization;
-using BO;
-using Dal;
-using DalApi;
-using IProduct = BlApi.IProduct;
+﻿using Dal;
+using BlApi;
 
 namespace BlImplementation;
 
 internal class Product : IProduct
 {
-    private IDal dal = new DalList();
-    public IEnumerable<ProductForList> GetAlProducts()
+    private DalApi.IDal dal = new DalList();
+    public IEnumerable<BO.ProductForList> GetAlProducts()
     {
-        List<ProductForList> forList = new List<ProductForList>();
+        List<BO.ProductForList> forList = new List<BO.ProductForList>();
         IEnumerable<DO.Product> products = dal.Product.GetAll();
         foreach (var i in products)
         {
@@ -42,7 +39,7 @@ internal class Product : IProduct
         return doProductToBoProduct(product);
     }
 
-    public ProductItem GetProductForUser(int id, Cart c)
+    public BO.ProductItem GetProductForUser(int id, BO.Cart c)
     {
         if (id <= 0)
         {
@@ -59,28 +56,84 @@ internal class Product : IProduct
             Console.WriteLine(e);
             throw;
         }
-        ///to repair
-        return doProductToBoProductItem(product, 0);
+        BO.OrderItem orderItem = c.Items.Find(x => x.ID == id);
+        if (orderItem != null)
+        {
+            return doProductToBoProductItem(product, orderItem.Amount);
+        }
+        else
+        {
+            throw new Exception();
+        }
     }
 
     public void AddProduct(BO.Product item)
     {
-        throw new NotImplementedException();
+        if (item.ID <= 0) throw new Exception();
+        if (item.Name == "") throw new Exception();
+        if (item.InStock < 0) throw new Exception();
+        if(item.Price <= 0) throw new Exception();
+        try
+        {
+            dal.Product.Add(new DO.Product()
+            {
+                Category = (DO.Enums.Category)System.Enum.Parse(typeof(DO.Enums.Category), item.Category.ToString()),
+                Name = item.Name,
+                InStock = item.InStock,
+                Price = item.Price
+            });
+        }
+        catch(DalApi.DalItemAlreadyExist)
+        {
+            throw new Exception();
+        }
     }
 
     public void UpdateProduct(BO.Product item)
     {
-        throw new NotImplementedException();
+        if (item.ID <= 0) throw new Exception();
+        if (item.Name == "") throw new Exception();
+        if (item.InStock < 0) throw new Exception();
+        if (item.Price <= 0) throw new Exception();
+
+        try
+        {
+            dal.Product.Update((new DO.Product()
+            {
+                Category = (DO.Enums.Category)System.Enum.Parse(typeof(DO.Enums.Category), item.Category.ToString()),
+                Name = item.Name,
+                InStock = item.InStock,
+                Price = item.Price
+            }));
+        }
+        catch (DalApi.DalItemNotFound e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public void RemoveProduct(BO.Product item)
+    public void RemoveProduct(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            DO.Product product = dal.Product.Get(id);
+        }
+        catch (DalApi.DalItemNotFound e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        List<DO.OrderItem> orderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
+        if (((List<DO.OrderItem>)dal.OrderItem.GetAll()).Find(x => x.ProductID == id).ProductID == id)
+            throw new Exception();
+        dal.Product.Delete(id);
     }
 
     private BO.ProductForList doProductToBoProductForList(DO.Product p)
     {
-        return new ProductForList
+        return new BO.ProductForList
         {
             ID = p.ID,
             Name = p.Name,
@@ -109,7 +162,7 @@ internal class Product : IProduct
             InStock = p.InStock > 0,
             Name = p.Name,
             Price = p.Price,
-            Amount = 
+            Amount = amount
             
         };
     }
