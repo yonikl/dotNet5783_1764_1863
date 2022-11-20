@@ -34,11 +34,6 @@ public class Order
     public Enums.OrderStatus Status { get; set; }
 
     /// <summary>
-    /// The payment date
-    /// </summary>
-    public DateTime PaymentDate { get; set; }
-
-    /// <summary>
     /// Ship date
     /// </summary>
     public DateTime ShipDate { get; set; }
@@ -51,7 +46,7 @@ public class Order
     /// <summary>
     /// items that the customer choose
     /// </summary>
-    public OrderItem Items { get; set; }
+    public List<OrderItem> Items { get; set; }
 
     /// <summary>
     /// The total price
