@@ -1,24 +1,36 @@
-﻿using BO;
+﻿
 using Dal;
-using DalApi;
-using IOrder = BlApi.IOrder;
+using BlApi;
 
 namespace BlImplementation;
 internal class Order : IOrder
 {
-    private IDal dal = new DalList();
-    public IEnumerable<OrderForList> GetAllOrders()
+    private DalApi.IDal dal = new DalList();
+    public IEnumerable<BO.OrderForList> GetAllOrders()
     {
         IEnumerable<DO.Order> orders = dal.Order.GetAll();
-        List<BO.OrderForList> list = new List<OrderForList>();
+        List<BO.OrderForList> list = new List<BO.OrderForList>();
         foreach (var i in orders)
         {
             BO.OrderForList order = new BO.OrderForList()
             {
                 CustomerName = i.CustomerName,
                 ID = i.Id,
-
             };
+            if (i.DeliveryDate != DateTime.MinValue)
+                order.Status = BO.Enums.OrderStatus.Delivered;
+            else if (i.ShipDate != DateTime.MinValue)
+                order.Status =BO.Enums.OrderStatus.shipped;
+            else
+                order.Status = BO.Enums.OrderStatus.InProcess;
+            order.AmountOfItems = 0;
+            order.TotalPrice = 0;
+            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(i.Id);
+            foreach (var j in orderItems)
+            {
+                order.AmountOfItems += j.Amount;
+                order.TotalPrice += j.Amount * j.Price;
+            }
             list.Add(order);
         }
 
@@ -30,7 +42,6 @@ internal class Order : IOrder
         if (id > 0)
         {
             DO.Order order = dal.Order.Get(id);
-            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(id);
             BO.Order orderBo = new BO.Order()
             {
                 CustomerAddress = order.CustomerAddress,
@@ -41,41 +52,83 @@ internal class Order : IOrder
                 OrderDate = order.OrderDate,
                 ShipDate = order.ShipDate,
             };
-            if (order.DeliveryDate != DateTime.MinValue)
-                orderBo.Status = Enums.OrderStatus.Delivered;
-            else if (order.ShipDate != DateTime.MinValue)
-                orderBo.Status = Enums.OrderStatus.shipped;
-            else
-                orderBo.Status = Enums.OrderStatus.InProcess;
-            double sum = 0;
-            foreach (var i in orderItems)
-            {
-                orderBo.Items.Add(new BO.OrderItem()
-                {
-                    Amount = i.Amount,
-                    ID = i.Id,
-                    Name = dal.Product.Get(i.ProductID).Name,
-                    Price = i.Price,
-                    ProductID = i.ProductID,
-                    TotalPrice = i.Price * i.Amount
-                });
-                sum += i.Price * i.Amount;
-            }
+            orderBo.Status = getOrderStatus(order);
+            orderBo.TotalPrice = 0;
+            orderBo.Items = new List<BO.OrderItem>();
+            orderBo = setOrderItemsAndTotalPrice(orderBo);
 
-            orderBo.TotalPrice = sum;
-          
             return orderBo;
         }
-
-        throw new NotImplementedException();
+        else
+        {
+            throw new Exception();
+        }
     }
 
     public BO.Order UpdateShipping(int id)
     {
-        if (dal.Order.Get(id).DeliveryDate == DateTime.MinValue)
+        DO.Order order;
+        try
         {
-           
+            order = dal.Order.Get(id);
         }
+        catch (DalApi.DalItemNotFound e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        if (order.ShipDate != DateTime.MinValue)
+        {
+            throw new Exception();
+        }
+        order.ShipDate = DateTime.Now;
+        try
+        {
+            dal.Order.Update(order);
+        }
+        catch (DalApi.DalItemNotFound e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        IEnumerable<DO.OrderItem> orderItems;
+        try
+        {
+            orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        
+        BO.Order orderBo = new BO.Order()
+        {
+            
+            CustomerEmail = order.CustomerEmail,
+            CustomerAddress = order.CustomerAddress, 
+            CustomerName = order.CustomerName,
+            DeliveryrDate = order.DeliveryDate,
+            ID = order.Id
+        };
+        orderBo.Status = getOrderStatus(order);
+        foreach (var i in orderItems)
+        {
+            orderBo.Items.Add(new BO.OrderItem()
+            {
+                Amount = i.Amount,
+                ID = i.Id,
+                Name = dal.Product.Get(i.ProductID).Name,
+                Price = i.Price,
+                ProductID = i.ProductID,
+                TotalPrice = i.Price * i.Amount
+            });
+            orderBo.TotalPrice += i.Price * i.Amount;
+        }
+
+        return orderBo;
     }
 
     public BO.Order UpdateDelivery(int id)
@@ -83,9 +136,48 @@ internal class Order : IOrder
         throw new NotImplementedException();
     }
 
-    public OrderTracking TrackOrder(int id)
+    public BO.OrderTracking TrackOrder(int id)
     {
         throw new NotImplementedException();
+    }
+
+    private BO.Enums.OrderStatus getOrderStatus(DO.Order order)
+    {
+        if (order.DeliveryDate != DateTime.MinValue)
+            return BO.Enums.OrderStatus.Delivered;
+        if (order.ShipDate != DateTime.MinValue)
+            return BO.Enums.OrderStatus.shipped;
+        return BO.Enums.OrderStatus.InProcess;
+    }
+
+    private BO.Order setOrderItemsAndTotalPrice(BO.Order order)
+    {
+        IEnumerable<DO.OrderItem> orderItems;
+        try
+        {
+            orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(order.ID);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        order.TotalPrice = 0;
+        foreach (var i in orderItems)
+        {
+            order.Items.Add(new BO.OrderItem()
+            {
+                Amount = i.Amount,
+                ID = i.Id,
+                Name = dal.Product.Get(i.ProductID).Name,
+                Price = i.Price,
+                ProductID = i.ProductID,
+                TotalPrice = i.Price * i.Amount
+            });
+            order.TotalPrice += i.Price * i.Amount;
+        }
+        return order;
     }
 }
 
