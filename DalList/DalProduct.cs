@@ -10,14 +10,14 @@ internal class DalProduct : IProduct
     /// the product that we adding
     public int Add(Product product)
     {
-        int ID = 0;
+        int id = 0;
         bool isIdExist = true;
         while (isIdExist)
         {
-            ID = DataSource.s_generator.Next(100000, 999999);
+            id = DataSource.s_generator.Next(100000, 999999);
             try
             {
-                Get(ID);
+                Get(id);
             }
             catch (DalItemNotFound)
             {
@@ -26,10 +26,10 @@ internal class DalProduct : IProduct
 
         }
 
-        product.ID = ID;
+        product.ID = id;
 
         DataSource.s_products.Add(product);
-        return ID;
+        return id;
     }
 
     /// <summary>

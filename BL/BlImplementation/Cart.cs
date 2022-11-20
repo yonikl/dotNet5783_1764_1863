@@ -1,18 +1,17 @@
 ﻿
 using BlApi;
-using BO;
 using Dal;
 using DalApi;
-using DO;
+
 
 namespace BlImplementation;
 internal class Cart : ICart
 {
 
     private IDal dal = new DalList();
-    public void MakeAnOrder(BO.Cart c, string name, string adress, string email)
+    public void MakeAnOrder(BO.Cart c, string name, string address, string email)
     {
-        if (name == "" || adress == "" || email == "")
+        if (name == "" || address == "" || email == "")
             throw new Exception() { };
       //need to check email
         foreach (var i in c.Items)
@@ -24,7 +23,7 @@ internal class Cart : ICart
         }
 
         int id = dal.Order.Add(new DO.Order() { 
-            CustomerAddress = adress,
+            CustomerAddress = address,
             CustomerEmail = email,
             CustomerName = name,
             DeliveryDate = DateTime.MinValue,
