@@ -2,6 +2,7 @@
 using Dal;
 using BlApi;
 
+
 namespace BlImplementation;
 internal class Order : IOrder
 {
@@ -17,15 +18,14 @@ internal class Order : IOrder
                 CustomerName = i.CustomerName,
                 ID = i.Id,
             };
-            if (i.DeliveryDate != DateTime.MinValue)
-                order.Status = BO.Enums.OrderStatus.Delivered;
-            else if (i.ShipDate != DateTime.MinValue)
-                order.Status =BO.Enums.OrderStatus.shipped;
-            else
-                order.Status = BO.Enums.OrderStatus.InProcess;
+            
+            order.Status = getOrderStatus(i);
+                
             order.AmountOfItems = 0;
             order.TotalPrice = 0;
             IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(i.Id);
+            if (!orderItems.Any()) throw new BO.BlEmptyOrderExistsException();
+
             foreach (var j in orderItems)
             {
                 order.AmountOfItems += j.Amount;
@@ -39,30 +39,36 @@ internal class Order : IOrder
 
     public BO.Order GetOrder(int id)
     {
-        if (id > 0)
+        if (id <= 0)
         {
-            DO.Order order = dal.Order.Get(id);
-            BO.Order orderBo = new BO.Order()
-            {
-                CustomerAddress = order.CustomerAddress,
-                ID = order.Id,
-                CustomerEmail = order.CustomerEmail,
-                CustomerName = order.CustomerName,
-                DeliveryrDate = order.DeliveryDate,
-                OrderDate = order.OrderDate,
-                ShipDate = order.ShipDate,
-            };
-            orderBo.Status = getOrderStatus(order);
-            orderBo.TotalPrice = 0;
-            orderBo.Items = new List<BO.OrderItem>();
-            orderBo = setOrderItemsAndTotalPrice(orderBo);
+            throw new BO.BlIDNotValidException();
+        }
 
-            return orderBo;
-        }
-        else
+        DO.Order order;
+        try
         {
-            throw new Exception();
+            order = dal.Order.Get(id);
         }
+        catch (DO.DalItemNotFoundException ex)
+        {
+
+            throw new BO.BlItemNotFoundException("", ex);
+        }
+
+        BO.Order orderBo = new BO.Order()
+        {
+            CustomerAddress = order.CustomerAddress,
+            ID = order.Id,
+            CustomerEmail = order.CustomerEmail,
+            CustomerName = order.CustomerName,
+            DeliveryrDate = order.DeliveryDate,
+            OrderDate = order.OrderDate,
+            ShipDate = order.ShipDate,
+        };
+        orderBo.Status = getOrderStatus(order);
+        orderBo = setOrderItemsAndTotalPrice(orderBo);
+
+        return orderBo;
     }
 
     public BO.Order UpdateShipping(int id)
@@ -72,38 +78,25 @@ internal class Order : IOrder
         {
             doOrder = dal.Order.Get(id);
         }
-        catch (DalApi.DalItemNotFound e)
+        catch (DO.DalItemNotFoundException ex)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new BO.BlItemNotFoundException("", ex);
         }
 
         if (doOrder.ShipDate != DateTime.MinValue)
         {
-            throw new Exception();
+            throw new BO.BlOrderAlreadyShippedException();
         }
         doOrder.ShipDate = DateTime.Now;
         try
         {
             dal.Order.Update(doOrder);
         }
-        catch (DalApi.DalItemNotFound e)
+        catch (DO.DalItemNotFoundException ex)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new BO.BlItemNotFoundException("", ex);
         }
 
-        IEnumerable<DO.OrderItem> orderItems;
-        try
-        {
-            orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(id);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-        
         BO.Order boOrder = new BO.Order()
         {
             CustomerEmail = doOrder.CustomerEmail,
@@ -113,19 +106,7 @@ internal class Order : IOrder
             ID = doOrder.Id
         };
         boOrder.Status = getOrderStatus(doOrder);
-        foreach (var i in orderItems)
-        {
-            boOrder.Items.Add(new BO.OrderItem()
-            {
-                Amount = i.Amount,
-                ID = i.Id,
-                Name = dal.Product.Get(i.ProductID).Name,
-                Price = i.Price,
-                ProductID = i.ProductID,
-                TotalPrice = i.Price * i.Amount
-            });
-            boOrder.TotalPrice += i.Price * i.Amount;
-        }
+        boOrder = setOrderItemsAndTotalPrice(boOrder);
 
         return boOrder;
     }
@@ -137,38 +118,30 @@ internal class Order : IOrder
         {
             doOrder = dal.Order.Get(id);
         }
-        catch (DalApi.DalItemNotFound)
+        catch (DO.DalItemNotFoundException ex)
         {
-            throw new Exception();
+            throw new BO.BlItemNotFoundException("", ex);
         }
         if (doOrder.ShipDate == DateTime.MinValue)
         {
-            throw new Exception();
+            throw new BO.BlOrderDoesNotShippedException();
         }
         if (doOrder.DeliveryDate != DateTime.MinValue)
         {
-            throw new Exception();
+            throw new BO.BlOrderAlreadyDeliveredException();
         }
+
+        doOrder.DeliveryDate = DateTime.Now;
+
         try
         {
             dal.Order.Update(doOrder);
         }
-        catch (DalApi.DalItemNotFound e)
+        catch (DO.DalItemNotFoundException ex)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new BO.BlItemNotFoundException("", ex);
         }
-        doOrder.DeliveryDate = DateTime.Now;
-        IEnumerable<DO.OrderItem> orderItems;
-        try
-        {
-            orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(id);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        
         BO.Order boOrder = new BO.Order()
         {
             CustomerEmail = doOrder.CustomerEmail,
@@ -178,19 +151,7 @@ internal class Order : IOrder
             ID = doOrder.Id
         };
         boOrder.Status = getOrderStatus(doOrder);
-        foreach (var i in orderItems)
-        {
-            boOrder.Items.Add(new BO.OrderItem()
-            {
-                Amount = i.Amount,
-                ID = i.Id,
-                Name = dal.Product.Get(i.ProductID).Name,
-                Price = i.Price,
-                ProductID = i.ProductID,
-                TotalPrice = i.Price * i.Amount
-            });
-            boOrder.TotalPrice += i.Price * i.Amount;
-        }
+        boOrder = setOrderItemsAndTotalPrice(boOrder);
 
         return boOrder;
 
@@ -203,10 +164,9 @@ internal class Order : IOrder
         {
             doOrder = dal.Order.Get(id);
         }
-        catch (DalApi.DalItemNotFound e)
+        catch (DO.DalItemNotFoundException ex)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new BO.BlItemNotFoundException("", ex);
         }
         BO.OrderTracking boTracking = new BO.OrderTracking()
         {
@@ -232,16 +192,10 @@ internal class Order : IOrder
 
     private BO.Order setOrderItemsAndTotalPrice(BO.Order order)
     {
-        IEnumerable<DO.OrderItem> orderItems;
-        try
-        {
-            orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(order.ID);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        order.TotalPrice = 0;
+        order.Items = new List<BO.OrderItem>();
+        IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(order.ID);
+        if (!orderItems.Any()) throw new BO.BlEmptyOrderExistsException();
 
         order.TotalPrice = 0;
         foreach (var i in orderItems)

@@ -111,14 +111,14 @@ namespace BlTest
                             "Get product for admin - b\n" +
                             "Get product for user - c\n" +
                             "Add Product - d\n" +
-                            "Update Product- e\n" +
+                            "UpdateAmountOfOrder Product- e\n" +
                             "Remove product - f" );
             char choose = char.Parse(Console.ReadLine());//read the choose
             int id;
             switch (choose)
             {
                 case 'a'://to add new order
-                    var products = bl.Product.GetAlProducts();
+                    var products = bl.Product.GetAllProducts();
                     foreach (var Product in products)
                         Console.WriteLine(Product);
                     break;
@@ -180,7 +180,7 @@ namespace BlTest
                     Console.WriteLine("Enter order id and amount\n");
                     orderId = int.Parse(Console.ReadLine());//read choice.
                     var amount = int.Parse(Console.ReadLine());
-                    C = bl.Cart.Update(orderId, amount, C);
+                    C = bl.Cart.UpdateAmountOfOrder(orderId, amount, C);
                     break;
                 default:
                     Console.WriteLine("ERROR INPUT");

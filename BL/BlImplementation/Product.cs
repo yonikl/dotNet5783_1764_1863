@@ -6,10 +6,11 @@ namespace BlImplementation;
 internal class Product : IProduct
 {
     private DalApi.IDal dal = new DalList();
-    public IEnumerable<BO.ProductForList> GetAlProducts()
+    public IEnumerable<BO.ProductForList> GetAllProducts()
     {
         List<BO.ProductForList> forList = new List<BO.ProductForList>();
         IEnumerable<DO.Product> products = dal.Product.GetAll();
+        if (!products.Any()) throw new BO.BlNoProductsException();
         foreach (var i in products)
         {
             forList.Add(doProductToBoProductForList(i));
@@ -22,7 +23,7 @@ internal class Product : IProduct
     {
         if (id <= 0)
         {
-            throw new Exception();
+            throw new BO.BlIDNotValidException();
         }
 
         DO.Product product;
@@ -30,10 +31,9 @@ internal class Product : IProduct
         {
             product = dal.Product.Get(id);
         }
-        catch (Exception e)
+        catch (DO.DalItemNotFoundException ex)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new BO.BlItemNotFoundException("", ex);
         }
 
         return doProductToBoProduct(product);
@@ -43,7 +43,7 @@ internal class Product : IProduct
     {
         if (id <= 0)
         {
-            throw new Exception();
+            throw new BO.BlIDNotValidException();
         }
 
         DO.Product product;
@@ -51,20 +51,17 @@ internal class Product : IProduct
         {
             product = dal.Product.Get(id);
         }
-        catch (Exception e)
+        catch (DO.DalItemNotFoundException ex)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new BO.BlItemNotFoundException("", ex);
         }
         BO.OrderItem orderItem = c.Items.Find(x => x.ID == id);
-        if (orderItem != null)
-        {
-            return doProductToBoProductItem(product, orderItem.Amount);
+        if (orderItem == null)
+        { 
+            throw new BO.BlProductNotInCartsException();
+           
         }
-        else
-        {
-            throw new Exception();
-        }
+        return doProductToBoProductItem(product, orderItem.Amount);
     }
 
     public void AddProduct(BO.Product item)
@@ -83,9 +80,9 @@ internal class Product : IProduct
                 Price = item.Price
             });
         }
-        catch(DalApi.DalItemAlreadyExist)
+        catch(DO.DalItemAlreadyExistException ex)
         {
-            throw new Exception();
+            throw new BO.BlItemNotFoundException("", ex);
         }
     }
 
@@ -106,10 +103,9 @@ internal class Product : IProduct
                 Price = item.Price
             }));
         }
-        catch (DalApi.DalItemNotFound e)
+        catch (DO.DalItemNotFoundException ex)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new BO.BlItemNotFoundException("", ex);
         }
     }
 
@@ -119,15 +115,14 @@ internal class Product : IProduct
         {
             DO.Product product = dal.Product.Get(id);
         }
-        catch (DalApi.DalItemNotFound e)
+        catch (DO.DalItemNotFoundException ex)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new BO.BlItemNotFoundException("", ex);
         }
 
         List<DO.OrderItem> orderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
-        if (((List<DO.OrderItem>)dal.OrderItem.GetAll()).Find(x => x.ProductID == id).ProductID == id)
-            throw new Exception();
+        if (orderItems.Find(x => x.ProductID == id).ProductID == id) throw new BO.BlProductExistsInOrdersException();
+            
         dal.Product.Delete(id);
     }
 

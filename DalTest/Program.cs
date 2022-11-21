@@ -84,7 +84,7 @@ public class Program
                     o = s_dalList.Order.Get(id);//get the order using the id
                     Console.WriteLine(o);//print the order
                 }
-                catch (DalItemNotFound)//in case the order id mot found
+                catch (DalItemNotFoundException)//in case the order id mot found
                 {
                     break;
                 }
@@ -105,7 +105,7 @@ public class Program
                     o = s_dalList.Order.Get(o.Id);//get the order by using the id
                     Console.WriteLine(o);//print the order
                 }
-                catch (DalItemNotFound)//if the order id not found
+                catch (DalItemNotFoundException)//if the order id not found
                 {
                     break;
                 }
@@ -124,7 +124,7 @@ public class Program
                 {
                      s_dalList.Order.Delete(id);//delete the order
                 }
-                catch (DalItemNotFound)//if the order id not found
+                catch (DalItemNotFoundException)//if the order id not found
                 {
                     break;
                 }
@@ -165,7 +165,7 @@ public class Program
                     p = s_dalList.Product.Get(id);
                     Console.WriteLine(p);//print the product
                 }
-                catch (DalItemNotFound)//if the product id not found
+                catch (DalItemNotFoundException)//if the product id not found
                 {
                     break;
                 }
@@ -188,7 +188,7 @@ public class Program
                     p = s_dalList.Product.Get(p.ID);
                     Console.WriteLine(p);//print the product
                 }
-                catch (DalItemNotFound)//if the product id not found
+                catch (DalItemNotFoundException)//if the product id not found
                 {
                     break;
                 }
@@ -207,7 +207,7 @@ public class Program
                 {
                     s_dalList.Product.Delete(id);//delete the product
                 }
-                catch (DalItemNotFound)//if the product not found
+                catch (DalItemNotFoundException)//if the product not found
                 {
                     break;
                 }
@@ -250,7 +250,7 @@ public class Program
                     o = s_dalList.OrderItem.Get(orderId);
                     Console.WriteLine(o);//print the item
                 }
-                catch (DalItemNotFound)//if the item id not found
+                catch (DalItemNotFoundException)//if the item id not found
                 {
                     break;
                 }
@@ -271,7 +271,7 @@ public class Program
                     o = s_dalList.OrderItem.Get(o.Id);
                     Console.WriteLine(o);//print the item to update
                 }
-                catch (DalItemNotFound)
+                catch (DalItemNotFoundException)
                 {
                     break;
                 }
@@ -291,7 +291,7 @@ public class Program
                 {
                     s_dalList.OrderItem.Delete(orderId);//delete the item
                 }
-                catch (DalItemNotFound)//if the item id not found
+                catch (DalItemNotFoundException)//if the item id not found
                 {
                     break;
                 }
@@ -305,7 +305,7 @@ public class Program
                     o = s_dalList.OrderItem.GetOrderItemByProductIdAndOrderId(orderId,productId);//get the item
                     Console.WriteLine(o);//print the item
                 }
-                catch (DalItemNotFound)//if the item id not found
+                catch (DalItemNotFoundException)//if the item id not found
                 {
                     break;
                 }
@@ -321,7 +321,7 @@ public class Program
                         Console.WriteLine(i);
                     } 
                 }
-                catch (DalItemNotFound)//if the order id not found
+                catch (DalItemNotFoundException)//if the order id not found
                 {
                     break;
                 }

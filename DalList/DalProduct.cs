@@ -19,7 +19,7 @@ internal class DalProduct : IProduct
             {
                 Get(id);
             }
-            catch (DalItemNotFound)
+            catch (DalItemNotFoundException)
             {
                 isIdExist = false;
             }
@@ -48,7 +48,7 @@ internal class DalProduct : IProduct
             if (t.ID == ID) return t;
         }
 
-        throw new DalItemNotFound();
+        throw new DalItemNotFoundException();
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ internal class DalProduct : IProduct
             return;
         }
 
-        throw new DalItemNotFound();
+        throw new DalItemNotFoundException();
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ internal class DalProduct : IProduct
             }
         }
         //if we don't found the product
-        throw new DalItemNotFound();
+        throw new DalItemNotFoundException();
     }
 }
 

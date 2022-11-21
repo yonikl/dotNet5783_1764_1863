@@ -1,15 +1,13 @@
 ﻿
 using BlApi;
-using BO;
 using Dal;
-using DalApi;
 
 
 namespace BlImplementation;
 internal class Cart : ICart
 {
 
-    private IDal dal = new DalList();
+    private DalApi.IDal dal = new DalList();
     public void MakeAnOrder(BO.Cart c, string name, string address, string email)
     {
         if (name == "" || address == "" || email == "")
@@ -30,15 +28,15 @@ internal class Cart : ICart
             {
                 DO.Product product = dal.Product.Get(i.ProductID);
                 if (i.Amount <= 0)
-                    throw new BlAmountNotValidException() { };
+                    throw new BO.BlAmountNotValidException() { };
                 if (i.Amount > dal.OrderItem.Get(i.ID).Amount)
-                    throw new BlNotEnoughInStockException() { };
+                    throw new BO.BlNotEnoughInStockException() { };
                 product.InStock -= i.Amount;
                 dal.Product.Update(product);
             }
-            catch (DalApi.DalItemNotFound ex)
+            catch (DO.DalItemNotFoundException ex)
             {
-                throw new BlItemNotFoundException("",ex);
+                throw new BO.BlItemNotFoundException("",ex);
             }
             dal.OrderItem.Add(new DO.OrderItem()
             {
@@ -59,9 +57,9 @@ internal class Cart : ICart
         {
             product = dal.Product.Get(id);
         }
-        catch (DalApi.DalItemNotFound ex)
+        catch (DO.DalItemNotFoundException ex)
         {
-            throw new BlItemNotFoundException("", ex);
+            throw new BO.BlItemNotFoundException("", ex);
         }
 
         foreach (var i in c.Items)
@@ -85,14 +83,14 @@ internal class Cart : ICart
         }
         else
         {
-            throw new BlAmountNotValidException();
+            throw new BO.BlAmountNotValidException();
         }
     }
 
 
 
 
-    public BO.Cart Update(int id, int amount, BO.Cart c)
+    public BO.Cart UpdateAmountOfOrder(int id, int amount, BO.Cart c)
     {
 
         foreach (var i in c.Items)
@@ -106,14 +104,14 @@ internal class Cart : ICart
                 else
                 {
                     c.TotalPrice += (amount - i.Amount) * i.Price;
-                    i.Price = i.Price * amount;
+                    i.TotalPrice = i.Price * amount;
                     i.Amount = amount;
                     return c;
                 }
             }
         }
 
-        throw new Exception() { };
+        throw new BO.BlItemNotFoundInCartException();
 
     }
 

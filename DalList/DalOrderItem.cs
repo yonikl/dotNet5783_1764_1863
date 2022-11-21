@@ -35,7 +35,7 @@ internal class DalOrderItem : IOrderItem
                 return t;
         }
 
-        throw new DalItemNotFound();
+        throw new DalItemNotFoundException();
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ internal class DalOrderItem : IOrderItem
             }
         }
 
-        throw new DalItemNotFound();
+        throw new DalItemNotFoundException();
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ internal class DalOrderItem : IOrderItem
             }
         }
 
-        throw new DalItemNotFound();
+        throw new DalItemNotFoundException();
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ internal class DalOrderItem : IOrderItem
                 return t;
         }
 
-        throw new DalItemNotFound();
+        throw new DalItemNotFoundException();
     }
 
     /// <summary>
@@ -135,8 +135,6 @@ internal class DalOrderItem : IOrderItem
             if (t.OrderID == orderId)
                 newOrderItems.Add(t);
         }
-
-        if (newOrderItems.Count == 0) throw new Exception("Not Found");
         return newOrderItems;
     }
 
