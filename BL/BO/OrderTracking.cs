@@ -15,14 +15,14 @@ public class OrderTracking
     /// </summary>
     public Enums.OrderStatus Status { get; set; }
     /// <summary>
-    /// Tuple of pairs of date and string that represent the order events in timeline
+    /// List of tuples of pairs of date and string that represent the order events in timeline
     /// </summary>
-    public Tuple<DateTime, string> OrderTimeLine { get; set; }
+    public List<Tuple<DateTime, string>> OrderTimeLine { get; set; }
 
     public override string ToString()
     {
         return $"{nameof(ID)}: {ID}, {nameof(Status)}: {Status}, {nameof(OrderTimeLine)}: {OrderTimeLine}";
     }
-    public List<Tuple<DateTime, string>> OrderTimeLine { get; set; }
+    
 }
 
