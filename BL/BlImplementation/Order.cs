@@ -67,10 +67,10 @@ internal class Order : IOrder
 
     public BO.Order UpdateShipping(int id)
     {
-        DO.Order order;
+        DO.Order doOrder;
         try
         {
-            order = dal.Order.Get(id);
+            doOrder = dal.Order.Get(id);
         }
         catch (DalApi.DalItemNotFound e)
         {
@@ -78,14 +78,14 @@ internal class Order : IOrder
             throw;
         }
 
-        if (order.ShipDate != DateTime.MinValue)
+        if (doOrder.ShipDate != DateTime.MinValue)
         {
             throw new Exception();
         }
-        order.ShipDate = DateTime.Now;
+        doOrder.ShipDate = DateTime.Now;
         try
         {
-            dal.Order.Update(order);
+            dal.Order.Update(doOrder);
         }
         catch (DalApi.DalItemNotFound e)
         {
@@ -104,19 +104,18 @@ internal class Order : IOrder
             throw;
         }
         
-        BO.Order orderBo = new BO.Order()
+        BO.Order boOrder = new BO.Order()
         {
-            
-            CustomerEmail = order.CustomerEmail,
-            CustomerAddress = order.CustomerAddress, 
-            CustomerName = order.CustomerName,
-            DeliveryrDate = order.DeliveryDate,
-            ID = order.Id
+            CustomerEmail = doOrder.CustomerEmail,
+            CustomerAddress = doOrder.CustomerAddress, 
+            CustomerName = doOrder.CustomerName,
+            DeliveryrDate = doOrder.DeliveryDate,
+            ID = doOrder.Id
         };
-        orderBo.Status = getOrderStatus(order);
+        boOrder.Status = getOrderStatus(doOrder);
         foreach (var i in orderItems)
         {
-            orderBo.Items.Add(new BO.OrderItem()
+            boOrder.Items.Add(new BO.OrderItem()
             {
                 Amount = i.Amount,
                 ID = i.Id,
@@ -125,20 +124,101 @@ internal class Order : IOrder
                 ProductID = i.ProductID,
                 TotalPrice = i.Price * i.Amount
             });
-            orderBo.TotalPrice += i.Price * i.Amount;
+            boOrder.TotalPrice += i.Price * i.Amount;
         }
 
-        return orderBo;
+        return boOrder;
     }
 
     public BO.Order UpdateDelivery(int id)
     {
-        throw new NotImplementedException();
+        DO.Order doOrder;
+        try
+        {
+            doOrder = dal.Order.Get(id);
+        }
+        catch (DalApi.DalItemNotFound)
+        {
+            throw new Exception();
+        }
+        if (doOrder.ShipDate == DateTime.MinValue)
+        {
+            throw new Exception();
+        }
+        if (doOrder.DeliveryDate != DateTime.MinValue)
+        {
+            throw new Exception();
+        }
+        try
+        {
+            dal.Order.Update(doOrder);
+        }
+        catch (DalApi.DalItemNotFound e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        doOrder.DeliveryDate = DateTime.Now;
+        IEnumerable<DO.OrderItem> orderItems;
+        try
+        {
+            orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        BO.Order boOrder = new BO.Order()
+        {
+            CustomerEmail = doOrder.CustomerEmail,
+            CustomerAddress = doOrder.CustomerAddress,
+            CustomerName = doOrder.CustomerName,
+            DeliveryrDate = doOrder.DeliveryDate,
+            ID = doOrder.Id
+        };
+        boOrder.Status = getOrderStatus(doOrder);
+        foreach (var i in orderItems)
+        {
+            boOrder.Items.Add(new BO.OrderItem()
+            {
+                Amount = i.Amount,
+                ID = i.Id,
+                Name = dal.Product.Get(i.ProductID).Name,
+                Price = i.Price,
+                ProductID = i.ProductID,
+                TotalPrice = i.Price * i.Amount
+            });
+            boOrder.TotalPrice += i.Price * i.Amount;
+        }
+
+        return boOrder;
+
     }
 
     public BO.OrderTracking TrackOrder(int id)
     {
-        throw new NotImplementedException();
+        DO.Order doOrder;
+        try
+        {
+            doOrder = dal.Order.Get(id);
+        }
+        catch (DalApi.DalItemNotFound e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        BO.OrderTracking boTracking = new BO.OrderTracking()
+        {
+            ID = doOrder.Id,
+            Status = getOrderStatus(doOrder)
+        };
+        boTracking.OrderTimeLine = new List<Tuple<DateTime, string>>();
+        boTracking.OrderTimeLine.Add(new Tuple<DateTime, string>(doOrder.OrderDate,"Ordered"));
+        if (doOrder.ShipDate != DateTime.MinValue) boTracking.OrderTimeLine.Add(new Tuple<DateTime, string>(doOrder.ShipDate, "Order shipped"));
+        if (doOrder.DeliveryDate != DateTime.MinValue) boTracking.OrderTimeLine.Add(new Tuple<DateTime, string>(doOrder.DeliveryDate, "Order delivered"));
+        return boTracking;
+
     }
 
     private BO.Enums.OrderStatus getOrderStatus(DO.Order order)

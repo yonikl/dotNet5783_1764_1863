@@ -17,7 +17,6 @@ public class OrderTracking
     /// <summary>
     /// Tuple of pairs of date and string that represent the order events in timeline
     /// </summary>
-    public Tuple<DateTime, string> OrderTimeLine { get; set; }
-
+    public List<Tuple<DateTime, string>> OrderTimeLine { get; set; }
 }
 

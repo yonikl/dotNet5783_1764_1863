@@ -1,5 +1,6 @@
 ﻿
 using BlApi;
+using BO;
 using Dal;
 using DalApi;
 
@@ -13,14 +14,7 @@ internal class Cart : ICart
     {
         if (name == "" || address == "" || email == "")
             throw new Exception() { };
-      //need to check email
-        foreach (var i in c.Items)
-        {
-          if(i.Amount <= 0 )
-              throw new Exception() { };
-          if (i.Amount > dal.OrderItem.Get(i.ID).Amount)
-                throw new Exception() { };
-        }
+        //need to check email
 
         int id = dal.Order.Add(new DO.Order() { 
             CustomerAddress = address,
@@ -35,17 +29,16 @@ internal class Cart : ICart
             try
             {
                 DO.Product product = dal.Product.Get(i.ProductID);
-                if (product.InStock < i.Amount)
-                {
-                    throw new Exception();
-                }
+                if (i.Amount <= 0)
+                    throw new BlAmountNotValidException() { };
+                if (i.Amount > dal.OrderItem.Get(i.ID).Amount)
+                    throw new BlNotEnoughInStockException() { };
                 product.InStock -= i.Amount;
                 dal.Product.Update(product);
             }
-            catch (Exception e)
+            catch (DalApi.DalItemNotFound ex)
             {
-                Console.WriteLine(e);
-                throw;
+                throw new BlItemNotFoundException("",ex);
             }
             dal.OrderItem.Add(new DO.OrderItem()
             {
@@ -66,9 +59,9 @@ internal class Cart : ICart
         {
             product = dal.Product.Get(id);
         }
-        catch (Exception e)
+        catch (DalApi.DalItemNotFound ex)
         {
-            throw new Exception();
+            throw new BlItemNotFoundException("", ex);
         }
 
         foreach (var i in c.Items)
@@ -92,7 +85,7 @@ internal class Cart : ICart
         }
         else
         {
-            throw new Exception();
+            throw new BlAmountNotValidException();
         }
     }
 
