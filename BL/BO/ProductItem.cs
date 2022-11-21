@@ -32,5 +32,10 @@ public class ProductItem
     /// if the product in stock
     /// </summary>
     public bool InStock{ get; set; }
+
+    public override string ToString()
+    {
+        return $"{nameof(ID)}: {ID}, {nameof(Name)}: {Name}, {nameof(Price)}: {Price}, {nameof(Category)}: {Category}, {nameof(Amount)}: {Amount}, {nameof(InStock)}: {InStock}";
+    }
 }
 

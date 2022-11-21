@@ -19,5 +19,9 @@ public class OrderTracking
     /// </summary>
     public Tuple<DateTime, string> OrderTimeLine { get; set; }
 
+    public override string ToString()
+    {
+        return $"{nameof(ID)}: {ID}, {nameof(Status)}: {Status}, {nameof(OrderTimeLine)}: {OrderTimeLine}";
+    }
 }
 

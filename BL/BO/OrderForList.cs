@@ -27,5 +27,10 @@ public class OrderForList
     /// Total price
     /// </summary>
     public double TotalPrice { get; set; }
+
+    public override string ToString()
+    {
+        return $"{nameof(ID)}: {ID}, {nameof(CustomerName)}: {CustomerName}, {nameof(Status)}: {Status}, {nameof(AmountOfItems)}: {AmountOfItems}, {nameof(TotalPrice)}: {TotalPrice}";
+    }
 }
 

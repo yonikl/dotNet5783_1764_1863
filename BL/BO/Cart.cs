@@ -28,5 +28,9 @@ public class Cart
     /// </summary>
     public double TotalPrice { get; set; }
 
+    public override string ToString()
+    {
+        return $"{nameof(CustomerName)}: {CustomerName}, {nameof(CustomerEmail)}: {CustomerEmail}, {nameof(CustomerAddress)}: {CustomerAddress}, {nameof(Items)}: {Items}, {nameof(TotalPrice)}: {TotalPrice}";
+    }
 }
 
