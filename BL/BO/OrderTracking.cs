@@ -17,6 +17,12 @@ public class OrderTracking
     /// <summary>
     /// Tuple of pairs of date and string that represent the order events in timeline
     /// </summary>
+    public Tuple<DateTime, string> OrderTimeLine { get; set; }
+
+    public override string ToString()
+    {
+        return $"{nameof(ID)}: {ID}, {nameof(Status)}: {Status}, {nameof(OrderTimeLine)}: {OrderTimeLine}";
+    }
     public List<Tuple<DateTime, string>> OrderTimeLine { get; set; }
 }
 
