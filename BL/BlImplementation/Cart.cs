@@ -12,7 +12,8 @@ internal class Cart : ICart
     {
         if (name == "" || address == "" || email == "")
             throw new Exception() { };
-        //need to check email
+        if(IsValidEmail(email))
+            throw new Exception();
 
         int id = dal.Order.Add(new DO.Order() { 
             CustomerAddress = address,
@@ -120,6 +121,24 @@ internal class Cart : ICart
         return new BO.OrderItem() {Amount = 1, Name = p.Name,Price = p.Price,ProductID = p.ID,TotalPrice = p.Price};
     }
 
+    bool IsValidEmail(string email)
+    {
+        var trimmedEmail = email.Trim();
+
+        if (trimmedEmail.EndsWith("."))
+        {
+            return false; // suggested by @TK-421
+        }
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == trimmedEmail;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
 }
 
