@@ -12,13 +12,13 @@ internal static class DataSource
     internal static List<Product> s_products = new List<Product>();
     
     /// <summary>
-    /// adding orders to the array
+    /// adding orders to the list
     /// </summary>
     public static void AddNewOrders()
     {
         //date that from him the orders start
         DateTime startOfOrders = DateTime.Now - new TimeSpan(365, 0, 0, 0);
-        //adding 20 orders
+        //adding 20 order
         for (int i = 0; i < 20; i++)
         {
             Order order = new Order();
@@ -56,7 +56,7 @@ internal static class DataSource
     }
 
     /// <summary>
-    /// add orders items to the array
+    /// add orders items to the list
     /// </summary>
     public static void AddNewOrderItem()
     {
@@ -76,6 +76,7 @@ internal static class DataSource
                 orderItem.Price = product.Price;
                 orderItem.Amount = s_generator.Next(1, 10);
                 s_ordersItems.Add(orderItem);
+                
             }
         }
         
@@ -83,7 +84,7 @@ internal static class DataSource
     }
 
     /// <summary>
-    /// adding products to the array
+    /// adding products to the list
     /// </summary>
     public static void AddNewProducts()
     {
@@ -110,7 +111,7 @@ internal static class DataSource
         s_Initialize();
     }
     /// <summary>
-    /// calling the functions to fill the arrays
+    /// calling the functions to fill the list
     /// </summary>
     private static void s_Initialize()
     {
