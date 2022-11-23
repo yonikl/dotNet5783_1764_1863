@@ -1,8 +1,9 @@
-﻿
-using BO;
-
+﻿using BO;
 namespace BlApi;
 
+/// <summary>
+/// Interface for Product
+/// </summary>
 public interface IProduct
 {
     public IEnumerable<BO.ProductForList> GetAllProducts();

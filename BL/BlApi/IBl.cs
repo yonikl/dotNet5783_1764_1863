@@ -1,11 +1,11 @@
 ﻿
 namespace BlApi;
 
+/// <summary>
+/// Interface to manage the Bl
+/// </summary>
 public interface IBl
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public IOrder Order { get; }
 
     public IProduct Product { get; }

@@ -8,12 +8,33 @@ internal class Cart : ICart
 {
 
     private DalApi.IDal dal = new DalList();
+
+    /// <summary>
+    /// Function for commiting cart to actual order
+    /// </summary>
+    /// <param name="c"></param>
+    /// the cart
+    /// <param name="name"></param>
+    /// name of the customer
+    /// <param name="address"></param>
+    /// address of the customer
+    /// <param name="email"></param>
+    /// email of the customer
+    /// <exception cref="BO.BlPersonalDetailsException"></exception>
+    /// Exception when personal info isn't correct
+    /// <exception cref="BO.BlAmountNotValidException"></exception>
+    /// Exception when the amount <= 0
+    /// <exception cref="BO.BlNotEnoughInStockException"></exception>
+    /// Exception when we don't have enough in stock to make order
+    /// <exception cref="BO.BlItemNotFoundException"></exception>
+    /// Exception when we can't found a product
     public void MakeAnOrder(BO.Cart c, string name, string address, string email)
     {
-        if (name == "" || address == "" || email == "")
-            throw new Exception() { };
+        if (name == "" || address == "" || email == "")//checking integrity for personal information
+            throw new BO.BlPersonalDetailsException() { };
         //need to check email
 
+        //making new order in dal
         int id = dal.Order.Add(new DO.Order() { 
             CustomerAddress = address,
             CustomerEmail = email,
@@ -22,6 +43,7 @@ internal class Cart : ICart
             OrderDate = DateTime.Now,
             ShipDate = DateTime.MinValue });
 
+        //adding the products in the cart to the order
         foreach (var i in c.Items)
         {
             try
@@ -38,6 +60,7 @@ internal class Cart : ICart
             {
                 throw new BO.BlItemNotFoundException("",ex);
             }
+
             dal.OrderItem.Add(new DO.OrderItem()
             {
                 Amount = i.Amount,
@@ -49,6 +72,19 @@ internal class Cart : ICart
         }
     }
 
+    /// <summary>
+    /// function to add product to cart
+    /// </summary>
+    /// <param name="id"></param>
+    /// the id of the product
+    /// <param name="c"></param>
+    /// the cart
+    /// <returns></returns>
+    /// returns the updated cart
+    /// <exception cref="BO.BlItemNotFoundException"></exception>
+    /// if we didn't found the product in Dal
+    /// <exception cref="BO.BlAmountNotValidException"></exception>
+    /// when the stock is empty
     public BO.Cart Add(int id, BO.Cart c)
     {
         DO.Product product;
@@ -62,7 +98,7 @@ internal class Cart : ICart
             throw new BO.BlItemNotFoundException("", ex);
         }
 
-        foreach (var i in c.Items)
+        foreach (var i in c.Items)//searching for the product in the cart
         {
             if (i.ProductID == id)
             {
@@ -76,6 +112,7 @@ internal class Cart : ICart
             }
         }
 
+        //if the product isn't in the cart
         if (product.InStock > 0)
         {
             c.Items.Add(doProductToBoOrderItem(product));
@@ -89,11 +126,23 @@ internal class Cart : ICart
 
 
 
-
+    /// <summary>
+    /// update amount of product in cart
+    /// </summary>
+    /// <param name="id"></param>
+    /// id of the product
+    /// <param name="amount"></param>
+    /// the amount ro update
+    /// <param name="c"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.BlItemNotFoundInCartException"></exception>
+    /// if we don't find the product in the cart
+    /// <exception cref="BO.BlAmountNotValidException"></exception>
+    /// if the amount isn't correct
     public BO.Cart UpdateAmountOfOrder(int id, int amount, BO.Cart c)
     {
-
-        foreach (var i in c.Items)
+        if (amount <= 0) throw new BO.BlAmountNotValidException();
+        foreach (var i in c.Items)//searching for the product in the cart
         {
             if (i.ProductID == id)
             {
@@ -101,19 +150,26 @@ internal class Cart : ICart
                 {
                     return c;
                 }
-                else
-                {
-                    c.TotalPrice += (amount - i.Amount) * i.Price;
-                    i.TotalPrice = i.Price * amount;
-                    i.Amount = amount;
-                    return c;
-                }
+
+                c.TotalPrice += (amount - i.Amount) * i.Price; 
+                i.TotalPrice = i.Price * amount; 
+                i.Amount = amount; 
+                return c;
+                
             }
         }
 
-        throw new BO.BlItemNotFoundInCartException();
+        throw new BO.BlItemNotFoundInCartException();//if we didn't found the product in the cart
 
     }
+
+    /// <summary>
+    /// casting DO.Product to BO.OrderItem 
+    /// </summary>
+    /// <param name="p"></param>
+    /// the DO.product
+    /// <returns></returns>
+    /// returns the BO.OrderItem
 
     private BO.OrderItem doProductToBoOrderItem(DO.Product p)
     {

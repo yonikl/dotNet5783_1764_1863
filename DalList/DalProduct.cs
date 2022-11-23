@@ -10,6 +10,21 @@ internal class DalProduct : IProduct
     /// the product that we adding
     public int Add(Product product)
     {
+        if (product.ID != 0)//if it already have ID
+        {
+            try
+            {
+                Get(product.ID);
+            }
+            catch (DalItemNotFoundException)//if the id isn't already exists
+            {
+                DataSource.s_products.Add(product);
+                return product.ID;
+            }
+            //if the id already exists
+            throw new DalItemAlreadyExistException();
+
+        }
         int id = 0;
         bool isIdExist = true;
         while (isIdExist)

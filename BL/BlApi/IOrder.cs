@@ -1,6 +1,9 @@
 ﻿using BO;
 namespace BlApi;
 
+/// <summary>
+/// Interface for Order
+/// </summary>
 public interface IOrder
 {
     public IEnumerable<OrderForList> GetAllOrders();
