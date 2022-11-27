@@ -102,6 +102,7 @@ public class BlNameEmptyException : Exception
 {
 
 }
+
 /// <summary>
 /// Exception when price isn't valid
 /// </summary>
