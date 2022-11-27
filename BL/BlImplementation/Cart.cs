@@ -32,7 +32,7 @@ internal class Cart : ICart
     {
         if (name == "" || address == "" || email == "")//checking integrity for personal information
             throw new BO.BlPersonalDetailsException();
-        if (IsValidEmail(email))
+        if (!IsValidEmail(email))
             throw new BO.BlPersonalDetailsException();
 
         //making new order in dal
@@ -177,17 +177,25 @@ internal class Cart : ICart
         return new BO.OrderItem() {Amount = 1, Name = p.Name,Price = p.Price,ProductID = p.ID,TotalPrice = p.Price};
     }
 
-    bool IsValidEmail(string email)
+    /// <summary>
+    /// check validation of email
+    /// </summary>
+    /// <param name="email"></param>
+    /// the address we verified
+    /// <returns></returns>
+    /// if the address is valid
+    private bool IsValidEmail(string email)
     {
         var trimmedEmail = email.Trim();
 
         if (trimmedEmail.EndsWith("."))
         {
-            return false; // suggested by @TK-421
+            return false; 
         }
         try
         {
             var addr = new System.Net.Mail.MailAddress(email);
+            Console.WriteLine(addr.Address);
             return addr.Address == trimmedEmail;
         }
         catch
