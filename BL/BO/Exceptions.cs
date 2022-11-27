@@ -95,6 +95,7 @@ public class BlPersonalDetailsException : Exception
 {
 
 }
+
 /// <summary>
 ///  Exception when name is empty
 /// </summary>
