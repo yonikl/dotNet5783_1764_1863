@@ -14,7 +14,7 @@ public struct Order
     /// <summary>
     /// the customer name
     /// </summary>
-    public string CustomerName
+    public string? CustomerName
     {
         set;
         get;
@@ -23,7 +23,7 @@ public struct Order
     /// <summary>
     ///the customer email 
     /// </summary>
-    public string CustomerEmail
+    public string? CustomerEmail
     {
         set;
         get;
@@ -32,7 +32,7 @@ public struct Order
     /// <summary>
     /// the customer address
     /// </summary>
-    public string CustomerAddress
+    public string? CustomerAddress
     {
         set;
         get;
@@ -41,7 +41,7 @@ public struct Order
     /// <summary>
     /// the date that the order was done
     /// </summary>
-    public DateTime OrderDate
+    public DateTime? OrderDate
     {
         set;
         get;
@@ -50,7 +50,7 @@ public struct Order
     /// <summary>
     /// the date of shipping (DateTime.minValue if not shipped)
     /// </summary>
-    public DateTime ShipDate
+    public DateTime? ShipDate
     {
         set;
         get;
@@ -59,7 +59,7 @@ public struct Order
     /// <summary>
     /// the date of delivery (DateTime.minValue if not delivered)
     /// </summary>
-    public DateTime DeliveryDate
+    public DateTime? DeliveryDate
     {
         set;
         get;

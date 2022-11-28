@@ -15,7 +15,7 @@ public struct Product
     /// <summary>
     /// the name of the product
     /// </summary>
-    public string Name
+    public string? Name
     {   
         get;
         set; 
@@ -42,7 +42,7 @@ public struct Product
     /// <summary>
     /// the category of this product
     /// </summary>
-    public Enums.Category Category
+    public Enums.Category? Category
     {
         get;
         set;
