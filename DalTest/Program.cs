@@ -301,8 +301,9 @@ public class Program
                 orderId = int.Parse(Console.ReadLine());//read the id
                 int productId = int.Parse(Console.ReadLine());//read product id
                 try
-                {   
-                    o = s_dalList.OrderItem.GetOrderItemByProductIdAndOrderId(orderId,productId);//get the item
+                {
+                    o = s_dalList.OrderItem.GetByCondition(x => x.OrderID == orderId && x.ProductID == productId);
+                    //get the item
                     Console.WriteLine(o);//print the item
                 }
                 catch (DalItemNotFoundException)//if the item id not found
@@ -312,10 +313,10 @@ public class Program
                 break;
             case 'g'://delete item from the list
                 Console.WriteLine("Enter order id:");
-                productId = int.Parse(Console.ReadLine());//read order id
+                orderId = int.Parse(Console.ReadLine());//read order id
                 try
                 {
-                    IEnumerable<OrderItem> orders = s_dalList.OrderItem.GetOrderItemsInSpecificOrder(productId);//get the items
+                    IEnumerable<OrderItem> orders = s_dalList.OrderItem.GetAll(x => x.OrderID == orderId);//get the items
                     foreach (OrderItem i in orders)//print the items
                     {
                         Console.WriteLine(i);

@@ -29,7 +29,7 @@ internal class Order : IOrder
                 
             order.AmountOfItems = 0;
             order.TotalPrice = 0;
-            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(i.Id);
+            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll(x => x.OrderID == i.Id);
             if (!orderItems.Any()) throw new BO.BlEmptyOrderExistsException();
 
             foreach (var j in orderItems)//copy the amount and the total price
@@ -239,7 +239,7 @@ internal class Order : IOrder
     {
         order.TotalPrice = 0;
         order.Items = new List<BO.OrderItem>();
-        IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetOrderItemsInSpecificOrder(order.ID);//get the items using id
+        IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll(x => x.OrderID == order.ID);//get the items using id
         if (!orderItems.Any()) //if the list is empty
             throw new BO.BlEmptyOrderExistsException();
 

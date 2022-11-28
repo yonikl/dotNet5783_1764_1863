@@ -120,22 +120,6 @@ internal class DalOrderItem : IOrderItem
     }
 
     /// <summary>
-    /// looking for specific product in specific order
-    /// </summary>
-    /// <param name="productId"></param>
-    /// <param name="orderId"></param>
-    /// the parameters we looking by
-    /// <returns></returns>
-    /// return what we found
-    /// <exception cref="Exception"></exception>
-    /// if we didn't found
-    public OrderItem GetOrderItemByProductIdAndOrderId(int productId, int orderId)
-    {
-
-        throw new DalItemNotFoundException();
-    }
-
-    /// <summary>
     /// we looking for all the orders items in specific order
     /// </summary>
     /// <param name="orderId"></param>
