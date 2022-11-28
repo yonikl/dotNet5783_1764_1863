@@ -40,9 +40,9 @@ internal class Cart : ICart
             CustomerAddress = address,
             CustomerEmail = email,
             CustomerName = name,
-            DeliveryDate = DateTime.MinValue,
+            DeliveryDate = null,
             OrderDate = DateTime.Now,
-            ShipDate = DateTime.MinValue });
+            ShipDate = null });
 
         //adding the products in the cart to the order
         foreach (var i in c.Items)
