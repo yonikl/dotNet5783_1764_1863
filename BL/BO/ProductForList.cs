@@ -10,7 +10,7 @@ public class ProductForList
     /// <summary>
     /// Name of the product in the list
     /// </summary>
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     /// <summary>
     /// Price of the product
@@ -20,11 +20,11 @@ public class ProductForList
     /// <summary>
     /// Name of the product's
     /// </summary>
-    public Enums.Category? Category{ get; set; }
+    public Enums.Category Category{ get; set; }
 
     public override string ToString()
     {
-        return $"{nameof(ID)}: {ID}, {nameof(Name)}: {Name}, {nameof(Price)}: {Price}, {nameof(Category)}: {Category}";
+        return $" * {nameof(ID)}: {ID}\n * {nameof(Name)}: {Name}\n * {nameof(Price)}: {Price}\n * {nameof(Category)}: {Category}\n";
     }
 }
 

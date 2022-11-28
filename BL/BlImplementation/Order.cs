@@ -208,11 +208,11 @@ internal class Order : IOrder
             ID = doOrder.Id,
             Status = getOrderStatus(doOrder)
         };
-        boTracking.OrderTimeLine = new List<Tuple<DateTime, string>>();//create list tuple from king of date time and string 
-        boTracking.OrderTimeLine.Add(new Tuple<DateTime, string>(doOrder.OrderDate,"Ordered"));
+        boTracking.OrderTimeLine = new List<Tuple<DateTime?, string?>?>();//create list tuple from king of date time and string 
+        boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.OrderDate,"Ordered"));
         //update the list
-        if (doOrder.ShipDate != DateTime.MinValue) boTracking.OrderTimeLine.Add(new Tuple<DateTime, string>(doOrder.ShipDate, "Order shipped"));
-        if (doOrder.DeliveryDate != DateTime.MinValue) boTracking.OrderTimeLine.Add(new Tuple<DateTime, string>(doOrder.DeliveryDate, "Order delivered"));
+        if (doOrder.ShipDate != DateTime.MinValue) boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.ShipDate, "Order shipped"));
+        if (doOrder.DeliveryDate != DateTime.MinValue) boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.DeliveryDate, "Order delivered"));
         return boTracking;
 
     }

@@ -6,7 +6,7 @@ namespace BlApi;
 /// </summary>
 public interface IOrder
 {
-    public IEnumerable<OrderForList?> GetAllOrders();
+    public IEnumerable<OrderForList> GetAllOrders();
     public Order GetOrder(int id);
     public Order UpdateShipping(int id);
     public Order UpdateDelivery(int id);

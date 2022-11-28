@@ -31,8 +31,8 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (ID == t?.Id)
-                return t.Value;
+            if (ID == t.Id)
+                return t;
         }
 
         throw new DalItemNotFoundException();
@@ -43,12 +43,12 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <returns></returns>
     /// array of all the orders items
-    public IEnumerable<OrderItem> GetAll(Func<OrderItem, bool>? func)
+    public IEnumerable<OrderItem> GetAll()
     {
         List<OrderItem> newOrderItems = new List<OrderItem>();
         foreach (var t in DataSource.s_ordersItems)
         {
-            newOrderItems.Add(t.Value);
+            newOrderItems.Add(t);
         }
 
         return newOrderItems;
@@ -65,7 +65,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (Id == t?.Id)
+            if (Id == t.Id)
             {
                 DataSource.s_ordersItems.Remove(t);
                 return;
@@ -86,7 +86,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (orderItem.OrderID == t?.Id)
+            if (orderItem.OrderID == t.Id)
             {
                 DataSource.s_ordersItems.Remove(t);
                 DataSource.s_ordersItems.Add(orderItem);
@@ -111,8 +111,8 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (orderId == t?.OrderID && productId == t?.ProductID)
-                return t.Value;
+            if (orderId == t.OrderID && productId == t.ProductID)
+                return t;
         }
 
         throw new DalItemNotFoundException();
@@ -132,8 +132,8 @@ internal class DalOrderItem : IOrderItem
         List<OrderItem> newOrderItems = new List<OrderItem>();
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (t?.OrderID == orderId)
-                newOrderItems.Add(t.Value);
+            if (t.OrderID == orderId)
+                newOrderItems.Add(t);
         }
         return newOrderItems;
     }

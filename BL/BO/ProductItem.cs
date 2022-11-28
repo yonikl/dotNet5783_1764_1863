@@ -11,7 +11,7 @@ public class ProductItem
     /// <summary>
     /// Name of the product
     /// </summary>
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     /// <summary>
     /// Price of the product
@@ -21,7 +21,7 @@ public class ProductItem
     /// <summary>
     ///  product's category
     /// </summary>
-    public Enums.Category? Category { get; set; }
+    public Enums.Category Category { get; set; }
 
     /// <summary>
     /// Amount of the product in the shopper cart
@@ -35,7 +35,7 @@ public class ProductItem
 
     public override string ToString()
     {
-        return $"{nameof(ID)}: {ID}, {nameof(Name)}: {Name}, {nameof(Price)}: {Price}, {nameof(Category)}: {Category}, {nameof(Amount)}: {Amount}, {nameof(InStock)}: {InStock}";
+        return $" * {nameof(ID)}: {ID}\n * {nameof(Name)}: {Name}\n * {nameof(Price)}: {Price}\n * {nameof(Category)}: {Category}\n * {nameof(Amount)}: {Amount}\n * {nameof(InStock)}: {InStock}";
     }
 }
 

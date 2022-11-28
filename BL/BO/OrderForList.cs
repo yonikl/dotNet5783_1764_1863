@@ -11,12 +11,12 @@ public class OrderForList
     /// <summary>
     /// Name of the customer
     /// </summary>
-    public string? CustomerName { get; set; }
+    public string CustomerName { get; set; }
 
     /// <summary>
     /// Status of the order
     /// </summary>
-    public Enums.OrderStatus? Status { get; set; }
+    public Enums.OrderStatus Status { get; set; }
 
     /// <summary>
     /// Amount of item's
@@ -30,7 +30,7 @@ public class OrderForList
 
     public override string ToString()
     {
-        return $"{nameof(ID)}: {ID}, {nameof(CustomerName)}: {CustomerName}, {nameof(Status)}: {Status}, {nameof(AmountOfItems)}: {AmountOfItems}, {nameof(TotalPrice)}: {TotalPrice}";
+        return $" * {nameof(ID)}: {ID}\n * {nameof(CustomerName)}: {CustomerName}\n * {nameof(Status)}: {Status}\n * {nameof(AmountOfItems)}: {AmountOfItems}\n * {nameof(TotalPrice)}: {TotalPrice}\n";
     }
 }
 

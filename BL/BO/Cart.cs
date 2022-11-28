@@ -6,22 +6,22 @@ public class Cart
     /// <summary>
     /// Customer name
     /// </summary>
-    public string? CustomerName { get; set; }
+    public string CustomerName { get; set; }
 
     /// <summary>
     /// Customer email
     /// </summary>
-    public string? CustomerEmail { get; set; }
+    public string CustomerEmail { get; set; }
 
     /// <summary>
     /// Customer address
     /// </summary>
-    public string? CustomerAddress { get; set; }
+    public string CustomerAddress { get; set; }
 
     /// <summary>
     /// items that the customer choose
     /// </summary>
-    public List<OrderItem?>? Items { get; set; }
+    public List<OrderItem> Items { get; set; }
 
     /// <summary>
     /// The total price
@@ -30,7 +30,15 @@ public class Cart
 
     public override string ToString()
     {
-        return $"{nameof(CustomerName)}: {CustomerName}, {nameof(CustomerEmail)}: {CustomerEmail}, {nameof(CustomerAddress)}: {CustomerAddress}, {nameof(Items)}: {Items}, {nameof(TotalPrice)}: {TotalPrice}";
-    }
+        Console.WriteLine(
+            $" * {nameof(CustomerName)}: {CustomerName}\n * {nameof(CustomerEmail)}: {CustomerEmail}\n * {nameof(CustomerAddress)}: {CustomerAddress}");
+        int j = 1;
+        foreach (var i in Items)
+        {
+            Console.WriteLine($"{j})" + i);
+        }
+        
+        return $" * {nameof(TotalPrice)}: { TotalPrice}";
+        }
 }
 

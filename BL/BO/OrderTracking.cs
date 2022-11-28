@@ -1,7 +1,4 @@
-﻿
-using System.Xml.Xsl;
-
-namespace BO;
+﻿namespace BO;
 
 public class OrderTracking 
 {
@@ -13,7 +10,7 @@ public class OrderTracking
     /// <summary>
     /// Status of the order tracking
     /// </summary>
-    public Enums.OrderStatus? Status { get; set; }
+    public Enums.OrderStatus Status { get; set; }
     /// <summary>
     /// List of tuples of pairs of date and string that represent the order events in timeline
     /// </summary>
@@ -21,7 +18,13 @@ public class OrderTracking
 
     public override string ToString()
     {
-        return $"{nameof(ID)}: {ID}, {nameof(Status)}: {Status}, {nameof(OrderTimeLine)}: {OrderTimeLine}";
+        Console.WriteLine($" * {nameof(ID)}: {ID}\n * {nameof(Status)}: {Status}");
+        foreach (var i in OrderTimeLine)
+        {
+            Console.WriteLine($" * item {i.Item2}: {i.Item1}");
+        }
+
+        return "";
     }
     
 }

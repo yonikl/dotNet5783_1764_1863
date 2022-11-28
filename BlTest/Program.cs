@@ -2,7 +2,6 @@
 using BlImplementation;
 using BO;
 
-
 namespace BlTest
 {
     internal class Program
@@ -17,24 +16,33 @@ namespace BlTest
 
             while (choice != 0)// if choice not equal to zero
             {
-                switch (choice)
+                try
                 {
-                    case 1://for order
-                        PrintOrderMenu();
-                        break;
 
-                    case 2://for product
-                        PrintProductMenu();
-                        break;
+                    switch (choice)
+                    {
+                        case 1: //for order
+                            PrintOrderMenu();
+                            break;
 
-                    case 3://for cart
-                        PrintCartMenu();
-                        break;
+                        case 2: //for product
+                            PrintProductMenu();
+                            break;
 
-                    default:
-                        Console.WriteLine("ERROR");
-                        break;
+                        case 3: //for cart
+                            PrintCartMenu();
+                            break;
+
+                        default:
+                            Console.WriteLine("ERROR");
+                            break;
+                    }
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
                 PrintMenu();
                 choice = int.Parse(Console.ReadLine());
 

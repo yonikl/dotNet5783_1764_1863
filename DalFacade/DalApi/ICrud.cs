@@ -10,8 +10,5 @@ public interface ICrud<T>
     public void Delete(int ID);
     public void Update(T o);
     public T Get(int ID);
-    public IEnumerable<T?> GetAll(Func<T?, bool>? func = null);
-    public T GetObject(Func<T> func);
-
-
+    public IEnumerable<T> GetAll();
 }

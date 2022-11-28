@@ -1,4 +1,6 @@
 ﻿
+using System.Threading.Channels;
+
 namespace BO;
 
 public class Order
@@ -11,42 +13,42 @@ public class Order
     /// <summary>
     /// Customer name
     /// </summary>
-    public string? CustomerName { get; set; }
+    public string CustomerName { get; set; }
 
     /// <summary>
     /// Customer email
     /// </summary>
-    public string? CustomerEmail { get; set; }
+    public string CustomerEmail { get; set; }
 
     /// <summary>
     /// Customer address
     /// </summary>
-    public string? CustomerAddress { get; set; }
+    public string CustomerAddress { get; set; }
 
     /// <summary>
     /// Thw time the order made
     /// </summary>
-    public DateTime? OrderDate { get; set; }
+    public DateTime OrderDate { get; set; }
 
     /// <summary>
     /// The status of the ship
     /// </summary>
-    public Enums.OrderStatus? Status { get; set; }
+    public Enums.OrderStatus Status { get; set; }
 
     /// <summary>
     /// Ship date
     /// </summary>
-    public DateTime? ShipDate { get; set; }
+    public DateTime ShipDate { get; set; }
 
     /// <summary>
     /// Delivery date
     /// </summary>
-    public DateTime? DeliveryDate { get; set; }
+    public DateTime DeliveryDate { get; set; }
 
     /// <summary>
     /// items that the customer choose
     /// </summary>
-    public List<OrderItem?>? Items { get; set; }
+    public List<OrderItem?> Items { get; set; }
 
     /// <summary>
     /// The total price
@@ -55,7 +57,16 @@ public class Order
 
     public override string ToString()
     {
-        return $"{nameof(ID)}: {ID}, {nameof(CustomerName)}: {CustomerName}, {nameof(CustomerEmail)}: {CustomerEmail}, {nameof(CustomerAddress)}: {CustomerAddress}, {nameof(OrderDate)}: {OrderDate}, {nameof(Status)}: {Status}, {nameof(ShipDate)}: {ShipDate}, {nameof(DeliveryDate)}: {DeliveryDate}, {nameof(Items)}: {Items}, {nameof(TotalPrice)}: {TotalPrice}";
+        Console.WriteLine(
+            $" * {nameof(ID)}: {ID}\n * {nameof(CustomerName)}: {CustomerName}\n * {nameof(CustomerEmail)}: {CustomerEmail}\n * {nameof(CustomerAddress)}: {CustomerAddress}\n * {nameof(OrderDate)}: {OrderDate}\n * {nameof(Status)}: {Status}\n * {nameof(ShipDate)}: {ShipDate}\n * {nameof(DeliveryDate)}: {DeliveryDate}\n * Product's:");
+        int j = 1;
+        foreach (var i in Items)
+        {
+            Console.WriteLine($"   {j}) {nameof(i.Name)} : {i.Name}");
+            j++;
+        }
+
+        return ($" * {nameof(TotalPrice)} : {TotalPrice}");
     }
 }
 
