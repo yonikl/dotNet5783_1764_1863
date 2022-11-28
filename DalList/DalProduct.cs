@@ -60,7 +60,7 @@ internal class DalProduct : IProduct
     {
         foreach (var t in DataSource.s_products)
         {
-            if (t.GetValueOrDefault().ID == ID) return t.Value;
+            if (t?.ID == ID) return t.Value;
         }
 
         throw new DalItemNotFoundException();
@@ -95,7 +95,7 @@ internal class DalProduct : IProduct
     {
         foreach (var t in DataSource.s_products)
         {
-            if (t.GetValueOrDefault().ID == ID) DataSource.s_products.Remove(t);
+            if (t?.ID == ID) DataSource.s_products.Remove(t);
             return;
         }
 
@@ -113,7 +113,7 @@ internal class DalProduct : IProduct
     {
         foreach (var t in DataSource.s_products)
         {
-            if (t.GetValueOrDefault().ID == product.ID)
+            if (t?.ID == product.ID)
             {
                 DataSource.s_products.Remove(t);
                 DataSource.s_products.Add(product);

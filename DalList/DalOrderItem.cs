@@ -31,7 +31,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (ID == t.GetValueOrDefault().Id)
+            if (ID == t?.Id)
                 return t.Value;
         }
 
@@ -65,7 +65,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (Id == t.GetValueOrDefault().Id)
+            if (Id == t?.Id)
             {
                 DataSource.s_ordersItems.Remove(t);
                 return;
@@ -86,7 +86,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (orderItem.OrderID == t.GetValueOrDefault().Id)
+            if (orderItem.OrderID == t?.Id)
             {
                 DataSource.s_ordersItems.Remove(t);
                 DataSource.s_ordersItems.Add(orderItem);
@@ -111,7 +111,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (orderId == t.GetValueOrDefault().OrderID && productId == t.GetValueOrDefault().ProductID)
+            if (orderId == t?.OrderID && productId == t?.ProductID)
                 return t.Value;
         }
 
@@ -132,7 +132,7 @@ internal class DalOrderItem : IOrderItem
         List<OrderItem> newOrderItems = new List<OrderItem>();
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (t.GetValueOrDefault().OrderID == orderId)
+            if (t?.OrderID == orderId)
                 newOrderItems.Add(t.Value);
         }
         return newOrderItems;

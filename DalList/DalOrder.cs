@@ -69,7 +69,7 @@ internal class DalOrder : IOrder
     {
         foreach (var t in DataSource.s_orders)
         {
-            if (Id == t.GetValueOrDefault().Id)
+            if (Id == t?.Id)
             {
                 DataSource.s_orders.Remove(t);
                 return;
@@ -90,7 +90,7 @@ internal class DalOrder : IOrder
     {
         foreach (var t in DataSource.s_orders)
         {
-            if (orderItem.Id == t.GetValueOrDefault().Id)
+            if (orderItem.Id == t?.Id)
             {
                 DataSource.s_orders.Remove(t);
                 DataSource.s_orders.Add(orderItem);
@@ -100,5 +100,15 @@ internal class DalOrder : IOrder
         throw new DalItemNotFoundException();
     }
 
-   
+    public Order GetObject(Func<Order> func)
+    {
+        List<Order> orderList = (List<Order>)GetAll();
+
+        foreach (var order in orderList)
+        {
+            
+        }
+
+        throw new DalOrderIsEmptyException();
+    }
 }
