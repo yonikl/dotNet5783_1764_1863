@@ -102,7 +102,7 @@ internal class Order : IOrder
             throw new BO.BlItemNotFoundException("", ex);
         }
 
-        if (doOrder.ShipDate != DateTime.MinValue)//throw exception if the ship date is already update
+        if (doOrder.ShipDate != null)//throw exception if the ship date is already update
         {
             throw new BO.BlOrderAlreadyShippedException();
         }
@@ -150,11 +150,11 @@ internal class Order : IOrder
         {
             throw new BO.BlItemNotFoundException("", ex);
         }
-        if (doOrder.ShipDate == DateTime.MinValue)
+        if (doOrder.ShipDate == null)
         {
             throw new BO.BlOrderDoesNotShippedException();
         }
-        if (doOrder.DeliveryDate != DateTime.MinValue)
+        if (doOrder.DeliveryDate != null)
         {
             throw new BO.BlOrderAlreadyDeliveredException();
         }
@@ -211,8 +211,8 @@ internal class Order : IOrder
         boTracking.OrderTimeLine = new List<Tuple<DateTime?, string?>?>();//create list tuple from king of date time and string 
         boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.OrderDate,"Ordered"));
         //update the list
-        if (doOrder.ShipDate != DateTime.MinValue) boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.ShipDate, "Order shipped"));
-        if (doOrder.DeliveryDate != DateTime.MinValue) boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.DeliveryDate, "Order delivered"));
+        if (doOrder.ShipDate != null) boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.ShipDate, "Order shipped"));
+        if (doOrder.DeliveryDate != null) boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.DeliveryDate, "Order delivered"));
         return boTracking;
 
     }
@@ -223,9 +223,9 @@ internal class Order : IOrder
     /// <returns></returns>
     private BO.Enums.OrderStatus getOrderStatus(DO.Order order)
     {
-        if (order.DeliveryDate != DateTime.MinValue)
+        if (order.DeliveryDate != null)
             return BO.Enums.OrderStatus.Delivered;
-        if (order.ShipDate != DateTime.MinValue)
+        if (order.ShipDate != null)
             return BO.Enums.OrderStatus.shipped;
         return BO.Enums.OrderStatus.InProcess;
     }
