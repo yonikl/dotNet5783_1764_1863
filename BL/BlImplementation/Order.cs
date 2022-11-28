@@ -74,7 +74,7 @@ internal class Order : IOrder
             ID = order.Id,
             CustomerEmail = order.CustomerEmail,
             CustomerName = order.CustomerName,
-            DeliveryrDate = order.DeliveryDate,
+            DeliveryDate = order.DeliveryDate,
             OrderDate = order.OrderDate,
             ShipDate = order.ShipDate,
         };
@@ -121,7 +121,7 @@ internal class Order : IOrder
             CustomerEmail = doOrder.CustomerEmail,
             CustomerAddress = doOrder.CustomerAddress, 
             CustomerName = doOrder.CustomerName,
-            DeliveryrDate = doOrder.DeliveryDate,
+            DeliveryDate = doOrder.DeliveryDate,
             ID = doOrder.Id,
             OrderDate = doOrder.OrderDate,
             ShipDate = doOrder.ShipDate
@@ -175,7 +175,7 @@ internal class Order : IOrder
             CustomerEmail = doOrder.CustomerEmail,
             CustomerAddress = doOrder.CustomerAddress,
             CustomerName = doOrder.CustomerName,
-            DeliveryrDate = doOrder.DeliveryDate,
+            DeliveryDate = doOrder.DeliveryDate,
             ID = doOrder.Id,
             OrderDate = doOrder.OrderDate,
             ShipDate = doOrder.ShipDate

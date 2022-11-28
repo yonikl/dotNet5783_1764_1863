@@ -11,42 +11,42 @@ public class Order
     /// <summary>
     /// Customer name
     /// </summary>
-    public string CustomerName { get; set; }
+    public string? CustomerName { get; set; }
 
     /// <summary>
     /// Customer email
     /// </summary>
-    public string CustomerEmail { get; set; }
+    public string? CustomerEmail { get; set; }
 
     /// <summary>
     /// Customer address
     /// </summary>
-    public string CustomerAddress { get; set; }
+    public string? CustomerAddress { get; set; }
 
     /// <summary>
     /// Thw time the order made
     /// </summary>
-    public DateTime OrderDate { get; set; }
+    public DateTime? OrderDate { get; set; }
 
     /// <summary>
     /// The status of the ship
     /// </summary>
-    public Enums.OrderStatus Status { get; set; }
+    public Enums.OrderStatus? Status { get; set; }
 
     /// <summary>
     /// Ship date
     /// </summary>
-    public DateTime ShipDate { get; set; }
+    public DateTime? ShipDate { get; set; }
 
     /// <summary>
     /// Delivery date
     /// </summary>
-    public DateTime DeliveryrDate { get; set; }
+    public DateTime? DeliveryDate { get; set; }
 
     /// <summary>
     /// items that the customer choose
     /// </summary>
-    public List<OrderItem> Items { get; set; }
+    public List<OrderItem?>? Items { get; set; }
 
     /// <summary>
     /// The total price
@@ -55,7 +55,7 @@ public class Order
 
     public override string ToString()
     {
-        return $"{nameof(ID)}: {ID}, {nameof(CustomerName)}: {CustomerName}, {nameof(CustomerEmail)}: {CustomerEmail}, {nameof(CustomerAddress)}: {CustomerAddress}, {nameof(OrderDate)}: {OrderDate}, {nameof(Status)}: {Status}, {nameof(ShipDate)}: {ShipDate}, {nameof(DeliveryrDate)}: {DeliveryrDate}, {nameof(Items)}: {Items}, {nameof(TotalPrice)}: {TotalPrice}";
+        return $"{nameof(ID)}: {ID}, {nameof(CustomerName)}: {CustomerName}, {nameof(CustomerEmail)}: {CustomerEmail}, {nameof(CustomerAddress)}: {CustomerAddress}, {nameof(OrderDate)}: {OrderDate}, {nameof(Status)}: {Status}, {nameof(ShipDate)}: {ShipDate}, {nameof(DeliveryDate)}: {DeliveryDate}, {nameof(Items)}: {Items}, {nameof(TotalPrice)}: {TotalPrice}";
     }
 }
 
