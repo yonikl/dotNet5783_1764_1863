@@ -36,7 +36,7 @@ internal class DalOrder : IOrder
         {
             if(ID == t.GetValueOrDefault().Id)
             {
-                return t;
+                return t.Value;
             }
         }
 
@@ -48,12 +48,12 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <returns></returns>
     /// array of all the orders
-    public IEnumerable<Order?> GetAll(Func<Order?, bool>? func = null)
+    public IEnumerable<Order> GetAll(Func<Order, bool>? func = null)
     {
-        List<Order?> orders = new List<Order?>();
+        List<Order> orders = new List<Order>();
         foreach (var t in DataSource.s_orders)
         {
-            orders.Add(t);
+            orders.Add(t.Value);
         }
         return orders;
     }
@@ -69,7 +69,7 @@ internal class DalOrder : IOrder
     {
         foreach (var t in DataSource.s_orders)
         {
-            if (Id == t.Id)
+            if (Id == t.GetValueOrDefault().Id)
             {
                 DataSource.s_orders.Remove(t);
                 return;
@@ -90,7 +90,7 @@ internal class DalOrder : IOrder
     {
         foreach (var t in DataSource.s_orders)
         {
-            if (orderItem.Id == t.Id)
+            if (orderItem.Id == t.GetValueOrDefault().Id)
             {
                 DataSource.s_orders.Remove(t);
                 DataSource.s_orders.Add(orderItem);
@@ -99,4 +99,6 @@ internal class DalOrder : IOrder
         }
         throw new DalItemNotFoundException();
     }
+
+   
 }
