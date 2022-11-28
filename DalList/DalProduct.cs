@@ -60,7 +60,7 @@ internal class DalProduct : IProduct
     {
         foreach (var t in DataSource.s_products)
         {
-            if (t.ID == ID) return t;
+            if (t?.ID == ID) return t.Value;
         }
 
         throw new DalItemNotFoundException();
@@ -71,17 +71,38 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <returns></returns>
     /// return array of all products
-    public IEnumerable<Product> GetAll()
+    public IEnumerable<Product> GetAll(Func<Product,bool>? func)
     {
         List<Product> products = new List<Product>();
-
-        //coping the list
-        foreach (var t in DataSource.s_products)
+        if (func == null)
         {
-            products.Add(t);
+            //coping the list
+            foreach (var t in DataSource.s_products)
+            {
+                products.Add(t.Value);
+            }
+        }
+        else
+        {
+            //coping the list by the given func
+            foreach (var t in DataSource.s_products)
+            {
+                if(func(t.Value))
+                    products.Add(t.Value);
+            }
         }
 
         return products;
+    }
+
+    public Product GetByCondition(Func<Product, bool> func)
+    {
+        foreach (var product in DataSource.s_products)
+        {
+            if (func(product.Value))
+                return product.Value;
+        }
+        throw new DalItemNotFoundException();
     }
 
     /// <summary>
@@ -95,7 +116,7 @@ internal class DalProduct : IProduct
     {
         foreach (var t in DataSource.s_products)
         {
-            if (t.ID == ID) DataSource.s_products.Remove(t);
+            if (t?.ID == ID) DataSource.s_products.Remove(t);
             return;
         }
 
@@ -113,7 +134,7 @@ internal class DalProduct : IProduct
     {
         foreach (var t in DataSource.s_products)
         {
-            if (t.ID == product.ID)
+            if (t?.ID == product.ID)
             {
                 DataSource.s_products.Remove(t);
                 DataSource.s_products.Add(product);

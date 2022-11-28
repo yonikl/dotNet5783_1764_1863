@@ -7,9 +7,9 @@ internal static class DataSource
     internal static readonly Random s_generator = new Random();
 
     //lists to store the entities
-    internal static List<Order> s_orders = new List<Order>();
-    internal static List<OrderItem> s_ordersItems = new List<OrderItem>();
-    internal static List<Product> s_products = new List<Product>();
+    internal static List<Order?> s_orders = new List<Order?>();
+    internal static List<OrderItem?> s_ordersItems = new List<OrderItem?>();
+    internal static List<Product?> s_products = new List<Product?>();
     /// <summary>
     /// adding orders to the list
     /// </summary>
@@ -67,7 +67,7 @@ internal static class DataSource
             for (int j = 0; j < s_generator.Next(2, 4); j++)
             {
                 orderItem.Id = Config.GetIdForOrdersItems;
-                orderItem.OrderID = (s_orders[i].Id);
+                orderItem.OrderID = (int)s_orders[i]?.Id;
 
                 //random product
                 Product product = (Product)s_products[s_generator.Next(0, s_products.Count)];

@@ -11,12 +11,12 @@ public class OrderForList
     /// <summary>
     /// Name of the customer
     /// </summary>
-    public string CustomerName { get; set; }
+    public string? CustomerName { get; set; }
 
     /// <summary>
     /// Status of the order
     /// </summary>
-    public Enums.OrderStatus Status { get; set; }
+    public Enums.OrderStatus? Status { get; set; }
 
     /// <summary>
     /// Amount of item's

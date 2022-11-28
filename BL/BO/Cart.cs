@@ -6,12 +6,12 @@ public class Cart
     /// <summary>
     /// Customer name
     /// </summary>
-    public string CustomerName { get; set; }
+    public string? CustomerName { get; set; }
 
     /// <summary>
     /// Customer email
     /// </summary>
-    public string CustomerEmail { get; set; }
+    public string? CustomerEmail { get; set; }
 
     /// <summary>
     /// Customer address
@@ -21,7 +21,7 @@ public class Cart
     /// <summary>
     /// items that the customer choose
     /// </summary>
-    public List<OrderItem> Items { get; set; }
+    public List<OrderItem?> Items { get; set; }
 
     /// <summary>
     /// The total price

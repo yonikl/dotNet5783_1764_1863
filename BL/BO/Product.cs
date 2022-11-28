@@ -11,7 +11,7 @@ public class Product
     /// <summary>
     /// Name of the customer
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Price of the product
@@ -21,7 +21,7 @@ public class Product
     /// <summary>
     /// Category for the shop
     /// </summary>
-    public Enums.Category Category{ get; set; }
+    public Enums.Category? Category{ get; set; }
 
 
     /// <summary>

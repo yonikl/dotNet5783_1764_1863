@@ -10,7 +10,7 @@ public class OrderTracking
     /// <summary>
     /// Status of the order tracking
     /// </summary>
-    public Enums.OrderStatus Status { get; set; }
+    public Enums.OrderStatus? Status { get; set; }
     /// <summary>
     /// List of tuples of pairs of date and string that represent the order events in timeline
     /// </summary>

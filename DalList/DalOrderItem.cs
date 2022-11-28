@@ -31,8 +31,8 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (ID == t.Id)
-                return t;
+            if (ID == t?.Id)
+                return t.Value;
         }
 
         throw new DalItemNotFoundException();
@@ -43,15 +43,37 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <returns></returns>
     /// array of all the orders items
-    public IEnumerable<OrderItem> GetAll()
+    public IEnumerable<OrderItem> GetAll(Func<OrderItem,bool>? func)
     {
         List<OrderItem> newOrderItems = new List<OrderItem>();
-        foreach (var t in DataSource.s_ordersItems)
+        if (func == null)
         {
-            newOrderItems.Add(t);
+            foreach (var t in DataSource.s_ordersItems)
+            {
+                newOrderItems.Add(t.Value);
+            }
+        }
+        else
+        {
+            foreach (var t in DataSource.s_ordersItems)
+            {
+                if(func(t.Value))
+                    newOrderItems.Add(t.Value);
+            }
         }
 
         return newOrderItems;
+    }
+
+    public OrderItem GetByCondition(Func<OrderItem, bool> func)
+    {
+        foreach (var orderItem in DataSource.s_ordersItems)
+        {
+            if (func(orderItem.Value))
+                return orderItem.Value;
+        }
+
+        throw new DalItemNotFoundException();
     }
 
     /// <summary>
@@ -65,7 +87,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (Id == t.Id)
+            if (Id == t?.Id)
             {
                 DataSource.s_ordersItems.Remove(t);
                 return;
@@ -86,7 +108,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (orderItem.OrderID == t.Id)
+            if (orderItem.OrderID == t?.Id)
             {
                 DataSource.s_ordersItems.Remove(t);
                 DataSource.s_ordersItems.Add(orderItem);
@@ -109,11 +131,6 @@ internal class DalOrderItem : IOrderItem
     /// if we didn't found
     public OrderItem GetOrderItemByProductIdAndOrderId(int productId, int orderId)
     {
-        foreach (var t in DataSource.s_ordersItems)
-        {
-            if (orderId == t.OrderID && productId == t.ProductID)
-                return t;
-        }
 
         throw new DalItemNotFoundException();
     }
@@ -132,8 +149,8 @@ internal class DalOrderItem : IOrderItem
         List<OrderItem> newOrderItems = new List<OrderItem>();
         foreach (var t in DataSource.s_ordersItems)
         {
-            if (t.OrderID == orderId)
-                newOrderItems.Add(t);
+            if (t?.OrderID == orderId)
+                newOrderItems.Add(t.Value);
         }
         return newOrderItems;
     }

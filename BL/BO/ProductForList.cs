@@ -10,7 +10,7 @@ public class ProductForList
     /// <summary>
     /// Name of the product in the list
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Price of the product
@@ -20,7 +20,7 @@ public class ProductForList
     /// <summary>
     /// Name of the product's
     /// </summary>
-    public Enums.Category Category{ get; set; }
+    public Enums.Category? Category{ get; set; }
 
     public override string ToString()
     {
