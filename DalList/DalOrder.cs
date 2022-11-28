@@ -34,7 +34,7 @@ internal class DalOrder : IOrder
     {
         foreach (var t in DataSource.s_orders)
         {
-            if(ID == t.Id)
+            if(ID == t.GetValueOrDefault().Id)
             {
                 return t;
             }
@@ -48,14 +48,13 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <returns></returns>
     /// array of all the orders
-    public IEnumerable<Order> GetAll()
+    public IEnumerable<Order?> GetAll(Func<Order?, bool>? func = null)
     {
-        List<Order> orders = new List<Order>();
+        List<Order?> orders = new List<Order?>();
         foreach (var t in DataSource.s_orders)
         {
             orders.Add(t);
         }
-
         return orders;
     }
 
