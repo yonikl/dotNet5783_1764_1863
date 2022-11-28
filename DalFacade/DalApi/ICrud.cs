@@ -4,7 +4,7 @@
 /// Interface for CRUD functions
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface ICrud<T>
+public interface ICrud<T> 
 {
     public int Add(T entity);
     public void Delete(int ID);
