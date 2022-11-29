@@ -39,5 +39,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button 
+            Content ="Add product"
+            Grid.Row = "2" 
+            Click="Button_Click" 
+            Margin="700,3,4,2"
+        />
     </Grid>
 </Window>
