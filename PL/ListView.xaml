@@ -23,7 +23,7 @@
                 Name="CategorySelector"
                 Grid.Column="1" 
                 HorizontalAlignment= "Stretch"
-                VerticalAlignment="Stretch"
+                VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged"
             />
             <Label
                 Name="CategoryLabel"

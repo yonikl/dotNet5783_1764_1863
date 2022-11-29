@@ -14,16 +14,29 @@ internal class Product : IProduct
     /// returns list of the products in BO.ProductForList format
     /// <exception cref="BO.BlNoProductsException"></exception>
     /// if we not have any products
-    public IEnumerable<BO.ProductForList> GetAllProducts()
+    public IEnumerable<BO.ProductForList?> GetAllProducts(Func<DO.Product?, bool>? func = null)
     {
         List<BO.ProductForList> forList = new List<BO.ProductForList>();
-        IEnumerable<DO.Product> products = dal.Product.GetAll();
-        //check if products exists
-        if (!products.Any()) throw new BO.BlNoProductsException();
-        //casting to BO.ProductForList
-        foreach (var i in products)
+        if (func == null)
         {
-            forList.Add(doProductToBoProductForList(i));
+            IEnumerable<DO.Product> products = dal.Product.GetAll();
+            //check if products exists
+            if (!products.Any()) throw new BO.BlNoProductsException();
+            //casting to BO.ProductForList
+            foreach (var i in products)
+            {
+                forList.Add(doProductToBoProductForList(i));
+            }
+        }
+        else
+        {
+            foreach (var product in dal.Product.GetAll())
+            {
+                if (func(product))
+                {
+                    forList.Add(doProductToBoProductForList(product));
+                }
+            }
         }
 
         return forList;
@@ -258,5 +271,6 @@ internal class Product : IProduct
             
         };
     }
+
 }
 

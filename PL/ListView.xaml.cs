@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlApi;
+using BlImplementation;
 
 namespace PL
 {
@@ -20,9 +21,19 @@ namespace PL
     /// </summary>
     public partial class ListView : Window
     {
+        private IBl bl;
         public ListView(IBl bl)
         {
+            this.bl = bl;
             InitializeComponent();
+            ProductListView.ItemsSource = bl.Product.GetAllProducts();
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+        }
+
+        private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CategorySelector.ItemsSource =
+                bl.Product.GetAllProducts(x => x?.Category == (DO.Enums.Category)Enum.Parse(typeof(DO.Enums.Category),CategorySelector.SelectedItem.ToString()));
         }
     }
 }
