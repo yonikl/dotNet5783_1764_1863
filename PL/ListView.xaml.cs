@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BlApi;
 
 namespace PL
 {
@@ -19,7 +20,7 @@ namespace PL
     /// </summary>
     public partial class ListView : Window
     {
-        public ListView()
+        public ListView(IBl bl)
         {
             InitializeComponent();
         }
