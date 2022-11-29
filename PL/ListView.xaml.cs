@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlApi;
 using BlImplementation;
+using BO;
 
 namespace PL
 {
@@ -27,13 +28,25 @@ namespace PL
             this.bl = bl;
             InitializeComponent();
             ProductListView.ItemsSource = bl.Product.GetAllProducts();
-            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+            CategorySelector.Items.Add("All");
+            foreach (var category in Enum.GetValues(typeof(BO.Enums.Category)))
+            {
+                CategorySelector.Items.Add(category.ToString());
+            }
+
+            CategorySelector.Text = "All";
+
         }
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CategorySelector.ItemsSource =
-                bl.Product.GetAllProducts(x => x?.Category == (DO.Enums.Category)Enum.Parse(typeof(DO.Enums.Category),CategorySelector.SelectedItem.ToString()));
+            if (CategorySelector.SelectedItem.ToString() == "All")
+                ProductListView.ItemsSource = bl.Product.GetAllProducts();
+            else
+            {
+                ProductListView.ItemsSource = bl.Product.GetAllProducts(x => x?.Category.ToString() == CategorySelector.SelectedItem.ToString());
+            }
+
         }
     }
 }
