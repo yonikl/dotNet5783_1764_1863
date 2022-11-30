@@ -53,12 +53,14 @@ namespace PL
 
         private void addProduct(object sender, RoutedEventArgs e)
         {
-
+            bl.Product.AddProduct(createProductFromData());
+            this.Close();
         }
 
         private void updateProduct(object sender, RoutedEventArgs e)
         {
             bl.Product.UpdateProduct(createProductFromData());
+            this.Close();
         }
 
         private Product createProductFromData()
