@@ -50,5 +50,8 @@ namespace PL
         }
 
         private void AddProductButton_Click(object sender, RoutedEventArgs e) => new AddAndUpdate(bl).Show();
+
+        private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) =>
+            new AddAndUpdate(bl, sender).Show();
     }
 }

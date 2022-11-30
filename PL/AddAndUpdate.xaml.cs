@@ -26,5 +26,11 @@ namespace PL
             this.bl = bl;
             InitializeComponent();
         }
+
+        public AddAndUpdate(IBl bl, object sender)
+        {
+            this.bl = bl;
+            InitializeComponent();
+        }
     }
 }

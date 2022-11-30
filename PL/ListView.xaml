@@ -32,7 +32,7 @@
         </Grid>
         <ListView 
             Name="ProductListView" Foreground="CornflowerBlue" 
-            Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+            Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ProductListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

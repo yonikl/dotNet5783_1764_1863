@@ -5,9 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="AddAndUpdate" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Grid.ColumnSpan="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="35*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"></ColumnDefinition>
+            <ColumnDefinition Width="60*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="IdLabel" Content="Id:" HorizontalAlignment="Left" Margin="291,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox x:Name="IdTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="46,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" IsReadOnly="True"/>
+        <Label x:Name="CategoryLabel" Content="Category:" Margin="183,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="18" HorizontalContentAlignment="Right"/>
 
 
     </Grid>
