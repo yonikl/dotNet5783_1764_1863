@@ -29,6 +29,11 @@ namespace PL
             InitializeComponent();
         }
 
-        private void ShowProductListViewButton_Click(object sender, RoutedEventArgs e) => new ListView(bl).Show();
+        private void ShowProductListViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            new ListView(bl).Show();
+            this.Close();
+        }
     }
 }
