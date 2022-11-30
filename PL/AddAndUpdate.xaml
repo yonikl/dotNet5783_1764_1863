@@ -22,10 +22,16 @@
             <ColumnDefinition Width="40*"></ColumnDefinition>
             <ColumnDefinition Width="60*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label x:Name="IdLabel" Content="Id:" HorizontalAlignment="Left" Margin="160,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="18" Width="160" HorizontalContentAlignment="Right"/>
+        <Label x:Name="IdLabel" Content="Id:" Margin="183,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="18" Width="137" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+        <Label x:Name="CategoryLabel" Content="Category:"  Margin="183,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="18" VerticalContentAlignment="Center"/>
+        <Label x:Name="NameLabel" Content="Name:" HorizontalAlignment="Left" Margin="183,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="136" FontSize="18" VerticalContentAlignment="Center"/>
+        <Label x:Name="PriceLabel" Content="Price:" HorizontalAlignment="Left" Margin="183,0,0,0" Grid.Row="4" VerticalAlignment="Center" FontSize="18" Width="137" VerticalContentAlignment="Center"/>
+        <Label x:Name="InStockLabel" Content="In Stock:" HorizontalAlignment="Left" Margin="183,0,0,0" Grid.Row="5" VerticalAlignment="Center" FontSize="18" Width="137" VerticalContentAlignment="Center"/>
         <TextBox x:Name="IdTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" IsReadOnly="True"/>
-        <Label x:Name="CategoryLabel" Content="Category:" Margin="160,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="18" HorizontalContentAlignment="Right"/>
-
+        <ComboBox x:Name="CategorySelector" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120"/>
+        <TextBox x:Name="NameTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+        <TextBox x:Name="PriceTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+        <TextBox x:Name="InStockTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
 
     </Grid>
 </Window>
