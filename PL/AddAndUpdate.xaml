@@ -22,9 +22,9 @@
             <ColumnDefinition Width="40*"></ColumnDefinition>
             <ColumnDefinition Width="60*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label x:Name="IdLabel" Content="Id:" HorizontalAlignment="Left" Margin="291,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="18"/>
-        <TextBox x:Name="IdTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="46,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" IsReadOnly="True"/>
-        <Label x:Name="CategoryLabel" Content="Category:" Margin="183,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="18" HorizontalContentAlignment="Right"/>
+        <Label x:Name="IdLabel" Content="Id:" HorizontalAlignment="Left" Margin="160,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="18" Width="160" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="IdTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" IsReadOnly="True"/>
+        <Label x:Name="CategoryLabel" Content="Category:" Margin="160,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="18" HorizontalContentAlignment="Right"/>
 
 
     </Grid>
