@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlApi;
+using BO;
 
 namespace PL
 {
@@ -31,6 +32,7 @@ namespace PL
             CategorySelector.Text = "None";
             PriceTextBox.Text = "0";
             InStockTextBox.Text = "0";
+            ProceedButton.Click += addProduct;
         }
 
         public AddAndUpdate(IBl bl, int id)
@@ -45,7 +47,30 @@ namespace PL
             NameTextBox.Text = a.Name;
             PriceTextBox.Text = a.Price.ToString();
             InStockTextBox.Text = a.InStock.ToString();
+            ProceedButton.Click += updateProduct;
+
         }
 
+        private void addProduct(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void updateProduct(object sender, RoutedEventArgs e)
+        {
+            bl.Product.UpdateProduct(createProductFromData());
+        }
+
+        private Product createProductFromData()
+        {
+            return new Product()
+            {
+                ID = Convert.ToInt32(IdTextBox.Text),
+                Category = (BO.Enums.Category)Enum.Parse(typeof(BO.Enums.Category), CategorySelector.Text),
+                InStock = Convert.ToInt32(InStockTextBox.Text),
+                Name = NameTextBox.Text,
+                Price = Convert.ToDouble(PriceTextBox.Text)
+            };
+        }
     }
 }
