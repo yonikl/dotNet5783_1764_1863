@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Name="ShowProductListViewButton" Click="ShowProductListViewButton_Click"/>
+        <Label>
+            <StackPanel>
+                <Image  Source= "https://cdn.pixabay.com/photo/2016/11/22/19/08/hangers-1850082__340.jpg" />
+            </StackPanel>
+        </Label>
+        <Button Content = "Welcome" FontStyle="Italic"  Background="Lavender" Width="100" 
+                HorizontalAlignment ="Center"  VerticalAlignment ="Bottom"  
+                Name="ShowProductListViewButton" Click="ShowProductListViewButton_Click" 
+                Margin="0,238,0,0"
+                ToolTip="To the store display"
+                FontWeight="Bold"/>
     </Grid>
 </Window>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="640
+        Title="MainWindow"  Height="640
         " Width="800">
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox 
-                Name="CategorySelector"
+                Name="CategorySelector" Foreground="DarkGreen"
                 Grid.Column="1" 
                 HorizontalAlignment= "Stretch"
                 VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged"
@@ -31,7 +31,7 @@
             />
         </Grid>
         <ListView 
-            Name="ProductListView"
+            Name="ProductListView" Foreground="CornflowerBlue" 
             Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView>
@@ -40,9 +40,10 @@
             </ListView.View>
         </ListView>
         <Button 
-            Content ="Add product"
+            Name="AddProductButton"
+            Content = "Add product" Foreground ="Purple"
             Grid.Row = "2" 
-            Click="Button_Click" 
+            Click="AddProductButton_Click" 
             Margin="700,3,4,2"
         />
     </Grid>

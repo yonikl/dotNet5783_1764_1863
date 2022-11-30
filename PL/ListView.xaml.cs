@@ -49,9 +49,6 @@ namespace PL
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void AddProductButton_Click(object sender, RoutedEventArgs e) => new AddAndUpdate(bl).Show();
     }
 }

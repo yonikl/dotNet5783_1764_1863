@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BlApi;
 
 namespace PL
 {
@@ -19,8 +20,10 @@ namespace PL
     /// </summary>
     public partial class AddAndUpdate : Window
     {
-        public AddAndUpdate()
+        private IBl bl;
+        public AddAndUpdate(IBl bl)
         {
+            this.bl = bl;
             InitializeComponent();
         }
     }
