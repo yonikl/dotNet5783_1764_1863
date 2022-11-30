@@ -178,6 +178,7 @@ internal class Product : IProduct
         {
             dal.Product.Update((new DO.Product()//trying to update in Dal
             {
+                ID = item.ID,
                 Category = (DO.Enums.Category)System.Enum.Parse(typeof(DO.Enums.Category), item.Category.ToString()),
                 Name = item.Name,
                 InStock = item.InStock,
