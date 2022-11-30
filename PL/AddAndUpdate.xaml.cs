@@ -26,13 +26,25 @@ namespace PL
             this.bl = bl;
             InitializeComponent();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+            ProceedButton.Content = "Add";
+            IdTextBox.Text = "";
+            CategorySelector.Text = "None";
+            PriceTextBox.Text = "0";
+            InStockTextBox.Text = "0";
         }
 
-        public AddAndUpdate(IBl bl, object sender)
+        public AddAndUpdate(IBl bl, int id)
         {
             this.bl = bl;
             InitializeComponent();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+            var a = bl.Product.GetProductForAdmin(id);
+            ProceedButton.Content = "Update";
+            IdTextBox.Text = a.ID.ToString();
+            CategorySelector.Text = a.Category.ToString();
+            NameTextBox.Text = a.Name;
+            PriceTextBox.Text = a.Price.ToString();
+            InStockTextBox.Text = a.InStock.ToString();
         }
 
     }

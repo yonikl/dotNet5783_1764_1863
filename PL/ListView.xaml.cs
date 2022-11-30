@@ -28,30 +28,25 @@ namespace PL
             this.bl = bl;
             InitializeComponent();
             ProductListView.ItemsSource = bl.Product.GetAllProducts();
-            CategorySelector.Items.Add("All");
-            foreach (var category in Enum.GetValues(typeof(BO.Enums.Category)))
-            {
-                CategorySelector.Items.Add(category.ToString());
-            }
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+            CategorySelector.Text = "None";
 
-            CategorySelector.Text = "All";
 
         }
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategorySelector.SelectedItem.ToString() == "All")
-                ProductListView.ItemsSource = bl.Product.GetAllProducts();
-            else
-            {
-                ProductListView.ItemsSource = bl.Product.GetAllProducts(x => x?.Category.ToString() == CategorySelector.SelectedItem.ToString());
-            }
-
+            ProductListView.ItemsSource = CategorySelector.SelectedItem.ToString() == "None" ? bl.Product.GetAllProducts() : bl.Product.GetAllProducts(x => x?.Category.ToString() == CategorySelector.SelectedItem.ToString());
         }
 
         private void AddProductButton_Click(object sender, RoutedEventArgs e) => new AddAndUpdate(bl).Show();
 
-        private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) =>
-            new AddAndUpdate(bl, sender).Show();
+        private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var a = (BO.ProductForList)((System.Windows.Controls.ListView)sender).Items[
+                ((System.Windows.Controls.ListView)sender).SelectedIndex];
+            new AddAndUpdate(bl, a.ID).Show();
+        }
+           
     }
 }

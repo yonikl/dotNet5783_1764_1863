@@ -122,20 +122,20 @@ namespace BlTest
                         Console.WriteLine(Product);
                     break;
                 case 'b'://get product for admin
-                    Console.WriteLine("Enter order id");
+                    Console.WriteLine("Enter product id");
                     id = int.Parse(Console.ReadLine());//read choice.
                     var p = bl.Product.GetProductForAdmin(id);//get the product
                     Console.WriteLine(p);//print the product
                     break;
                 case 'c'://get product for user
-                    Console.WriteLine("Enter order id");
+                    Console.WriteLine("Enter product id");
                     id = int.Parse(Console.ReadLine());//read choice.
                     var product = bl.Product.GetProductForUser(id,c);
                     Console.WriteLine(product);//print the product
                     break;
                 case 'd'://add profuct
                     Product itemProduct = new Product();
-                    Console.WriteLine("Enter order id,name,price,in stock and category");
+                    Console.WriteLine("Enter product id,name,price,in stock and category");
                     //read id name price in stock and category
                     itemProduct.ID = int.Parse(Console.ReadLine());
                     itemProduct.Name = Console.ReadLine();
@@ -147,7 +147,7 @@ namespace BlTest
                     break;
                 case 'e'://update product
                     Product updateProduct = new Product();
-                    Console.WriteLine("Enter order id,name,price,in stock and category");
+                    Console.WriteLine("Enter product id,name,price,in stock and category");
                     updateProduct.ID = int.Parse(Console.ReadLine());
                     updateProduct.Name = Console.ReadLine();
                     updateProduct.Price = int.Parse(Console.ReadLine());
@@ -157,7 +157,7 @@ namespace BlTest
                     bl.Product.UpdateProduct(updateProduct);//update
                     break;
                 case 'f'://remove product
-                    Console.WriteLine("Enter order id:");
+                    Console.WriteLine("Enter product id:");
                     id = int.Parse(Console.ReadLine());//read the order id
                     bl.Product.RemoveProduct(id);
                     break;
@@ -185,13 +185,13 @@ namespace BlTest
                     bl.Cart.MakeAnOrder(c,name,address,email);//make the order
                     break;
                 case 'b'://add to the cart
-                    Console.WriteLine("Enter order id");
+                    Console.WriteLine("Enter product id");
                     orderId = int.Parse(Console.ReadLine());//read choice.
                     c = bl.Cart.Add(orderId, c);//get the new cart
                     Console.WriteLine(c);//print the cart
                     break;
                 case 'c'://update cart
-                    Console.WriteLine("Enter order id and amount\n");
+                    Console.WriteLine("Enter product id and amount\n");
                     orderId = int.Parse(Console.ReadLine());//read choice.
                     var amount = int.Parse(Console.ReadLine());//read amount for update
                     c = bl.Cart.UpdateAmountOfOrder(orderId, amount, c);//get the update cart
