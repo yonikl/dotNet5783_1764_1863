@@ -25,12 +25,15 @@ namespace PL
         {
             this.bl = bl;
             InitializeComponent();
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
 
         public AddAndUpdate(IBl bl, object sender)
         {
             this.bl = bl;
             InitializeComponent();
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
+
     }
 }
