@@ -12,5 +12,6 @@ public interface IProduct
     public void AddProduct(BO.Product item);
     public void UpdateProduct(BO.Product item);
     public void RemoveProduct(int id);
+    public int GetIdForProduct();
 }
 

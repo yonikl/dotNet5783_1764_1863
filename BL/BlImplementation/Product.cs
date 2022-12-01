@@ -139,6 +139,7 @@ internal class Product : IProduct
             //sending the product to Dal
             dal.Product.Add(new DO.Product()
             {
+                ID = item.ID,
                 Category = (Enums.Category)Enum.Parse(typeof(Enums.Category), item.Category.ToString()),
                 Name = item.Name,
                 InStock = item.InStock,
@@ -272,6 +273,25 @@ internal class Product : IProduct
             
         };
     }
-
+    /// <summary>
+    /// generate id for product
+    /// </summary>
+    /// <returns></returns>
+    /// returns the id
+    public int GetIdForProduct()
+    {
+        Random r = new Random();
+        while (true) // looping until the id doesn't already exists
+        {
+            var id = r.Next(100000, 999999);
+            try
+            {
+                dal.Product.Get(id);
+            }
+            catch (DalItemNotFoundException)
+            {
+                return id;
+            }
+        }
+    }
 }
-

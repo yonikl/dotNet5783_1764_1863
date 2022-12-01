@@ -39,13 +39,18 @@ namespace PL
             ProductListView.ItemsSource = CategorySelector.SelectedItem.ToString() == "None" ? bl.Product.GetAllProducts() : bl.Product.GetAllProducts(x => x?.Category.ToString() == CategorySelector.SelectedItem.ToString());
         }
 
-        private void AddProductButton_Click(object sender, RoutedEventArgs e) => new AddAndUpdate(bl).Show();
+        private void AddProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AddAndUpdate(bl).Show();
+            Close();
+        }
 
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var a = (BO.ProductForList)((System.Windows.Controls.ListView)sender).Items[
                 ((System.Windows.Controls.ListView)sender).SelectedIndex];
             new AddAndUpdate(bl, a.ID).Show();
+            Close();
         }
            
     }

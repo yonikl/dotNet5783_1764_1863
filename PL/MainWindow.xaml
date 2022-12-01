@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" >
     <Grid>
         <Label>
             <StackPanel>
@@ -17,6 +17,8 @@
                 Name="ShowProductListViewButton" Click="ShowProductListViewButton_Click" 
                 Margin="0,238,0,0"
                 ToolTip="To the store display"
-                FontWeight="Bold"/>
+                FontWeight="Bold"
+                />
+
     </Grid>
 </Window>

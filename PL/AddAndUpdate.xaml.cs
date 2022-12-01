@@ -26,12 +26,13 @@ namespace PL
         {
             this.bl = bl;
             InitializeComponent();
+
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
             ProceedButton.Content = "Add";
-            IdTextBox.Text = "";
             CategorySelector.Text = "None";
             PriceTextBox.Text = "0";
             InStockTextBox.Text = "0";
+            IdTextBox.Text = bl.Product.GetIdForProduct().ToString();
             ProceedButton.Click += addProduct;
         }
 
@@ -54,12 +55,14 @@ namespace PL
         private void addProduct(object sender, RoutedEventArgs e)
         {
             bl.Product.AddProduct(createProductFromData());
+            new ListView(bl).Show();
             this.Close();
         }
 
         private void updateProduct(object sender, RoutedEventArgs e)
         {
             bl.Product.UpdateProduct(createProductFromData());
+            new ListView(bl).Show();
             this.Close();
         }
 
