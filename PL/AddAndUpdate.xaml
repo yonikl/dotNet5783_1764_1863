@@ -32,7 +32,8 @@
         <TextBox x:Name="NameTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
         <TextBox x:Name="PriceTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
         <TextBox x:Name="InStockTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
-        <Button Name="ProceedButton" Content="" HorizontalAlignment="Left" Margin="252,0,0,0" Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="-0.186,-0.455"/>
+        <Button Name="ProceedButton" Content="" HorizontalAlignment="Left" Margin="116,0,0,0" Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="-0.186,-0.455" Grid.Column="1"/>
+        <Button Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="25,0,0,0" Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="-0.186,-0.455" Grid.Column="1" Click="BackButton_Click"/>
 
     </Grid>
 </Window>

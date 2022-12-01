@@ -77,5 +77,11 @@ namespace PL
                 Price = Convert.ToDouble(PriceTextBox.Text)
             };
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            new ListView(bl).Show();
+            Close();
+        }
     }
 }

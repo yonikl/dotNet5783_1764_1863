@@ -5,18 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" >
+        Title="Main Window" Height="450" Width="800" 
+        Icon="Images/MainWindowIcon256x256.jpg">
     <Grid>
         <Label>
             <StackPanel>
-                <Image  Source= "https://cdn.pixabay.com/photo/2016/11/22/19/08/hangers-1850082__340.jpg" />
+                <Image Name="MainWindowBackground" Source= "Images/MainWindowBackground.jpg" Stretch="Fill"/>
             </StackPanel>
         </Label>
         <Button Content = "Welcome" FontStyle="Italic"  Background="Lavender" Width="100" 
                 HorizontalAlignment ="Center"  VerticalAlignment ="Bottom"  
                 Name="ShowProductListViewButton" Click="ShowProductListViewButton_Click" 
                 Margin="0,238,0,0"
-                ToolTip="To the store display"
+                ToolTip="To the products display"
                 FontWeight="Bold"
                 />
 
