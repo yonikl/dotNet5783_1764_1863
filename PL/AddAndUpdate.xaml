@@ -7,7 +7,14 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Add And Update" Height="450" Width="800">
-    <Grid Grid.ColumnSpan="1">
+
+    <Grid>
+        <ListView>
+            <ListView.Background>
+                <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103__480.jpg" Opacity="0.5" Stretch="Fill"/>
+            </ListView.Background>
+        </ListView>
+        <Grid Grid.ColumnSpan="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
@@ -35,5 +42,6 @@
         <Button Name="ProceedButton" Content="" HorizontalAlignment="Left" Margin="90,0,0,0" Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="-0.186,-0.455" Grid.Column="1"/>
         <Button Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="-0.186,-0.455" Grid.Column="1" Click="BackButton_Click"/>
 
+    </Grid>
     </Grid>
 </Window>
