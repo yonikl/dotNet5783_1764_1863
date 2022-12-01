@@ -19,6 +19,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
+            
             <ComboBox 
                 Name="CategorySelector" Foreground="DarkCyan"
                 ToolTip= "Select a category"
@@ -35,13 +36,16 @@
             />
         </Grid>
         <ListView 
-            Name="ProductListView" Foreground="CornflowerBlue" 
-            Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ProductListView_MouseDoubleClick" >
+            Name="ProductListView" Foreground="Aqua" FontSize="20" FontStyle="Italic" FontFamily="KaiTi" FontWeight="ExtraBold" 
+            Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ProductListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
+            <ListView.Background>
+                <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/07/11/16/16/jeans-5394561_960_720.jpg" Opacity="0.5"/>
+            </ListView.Background>
         </ListView>
         <Button 
             Name="AddProductButton"

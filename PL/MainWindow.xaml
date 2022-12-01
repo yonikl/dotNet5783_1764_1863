@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Main Window" Height="450" Width="800" 
-        Icon="Images/MainWindowIcon256x256.jpg">
+        Title="Main Window" Height="450" Width="800" Icon="https://cdn-icons-png.flaticon.com/512/2681/2681760.png" >
     <Grid>
         <Label>
             <StackPanel>
-                <Image Name="MainWindowBackground" Source= "Images/MainWindowBackground.jpg" Stretch="Fill"/>
+                <Image Name="MainWindowBackground" Source= "https://cdn.pixabay.com/photo/2016/11/22/19/08/hangers-1850082__340.jpg" Stretch="Fill"/>
             </StackPanel>
         </Label>
         <Button Content = "Welcome" FontStyle="Italic"  Background="Lavender" Width="100" 
