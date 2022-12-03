@@ -18,7 +18,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{74C1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{2A2B4CE1-1A60-4A0F-9E24-9455BE469969}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{79938F3B-D586-4250-92CC-A4FBC9BCE8DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{79938F3B-D586-4250-92CC-A4FBC9BCE8DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D6969AB-34C0-4763-82DA-C6E7FA42B873}"
+	ProjectSection(SolutionItems) = preProject
+		Images\AddAndUpdateImage.png = Images\AddAndUpdateImage.png
+		Images\MainWindowImage.png = Images\MainWindowImage.png
+		Images\MainWindowIcon.jpg = Images\MainWindowIcon.jpg
+		Images\ViewListPhoto.png = Images\ViewListPhoto.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
