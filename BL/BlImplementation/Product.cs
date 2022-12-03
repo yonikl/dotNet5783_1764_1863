@@ -1,12 +1,11 @@
-﻿using Dal;
-using BlApi;
+﻿using BlApi;
 using DO;
 
 namespace BlImplementation;
 
 internal class Product : IProduct
 {
-    private DalApi.IDal dal = new DalList();
+    private DalApi.IDal dal = DalApi.Factory.Get();
     /// <summary>
     /// get all the product for displaying
     /// </summary>

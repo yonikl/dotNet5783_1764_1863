@@ -1,13 +1,11 @@
-﻿
-using BlApi;
-using Dal;
+﻿using BlApi;
 
 
 namespace BlImplementation;
 internal class Cart : ICart
 {
 
-    private DalApi.IDal dal = new DalList();
+    private DalApi.IDal dal = DalApi.Factory.Get();
 
     /// <summary>
     /// Function for commiting cart to actual order
