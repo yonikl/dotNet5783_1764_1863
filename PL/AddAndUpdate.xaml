@@ -11,7 +11,7 @@
     <Grid>
         <ListView>
             <ListView.Background>
-                <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103__480.jpg" Opacity="0.5" Stretch="Fill"/>
+                <ImageBrush ImageSource="Images/AddAndUpdatePhoto.png" Opacity="0.5" Stretch="Fill"/>
             </ListView.Background>
         </ListView>
         <Grid Grid.ColumnSpan="1">

@@ -44,7 +44,7 @@
                 </GridView>
             </ListView.View>
             <ListView.Background>
-                <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/07/11/16/16/jeans-5394561_960_720.jpg" Opacity="0.5"/>
+                <ImageBrush ImageSource="Images/ViewListPhoto.png" Opacity="0.5"/>
             </ListView.Background>
         </ListView>
         <Button 

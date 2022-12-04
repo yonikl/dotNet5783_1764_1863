@@ -14,6 +14,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\AddAndUpdatePhoto.png" />
+    <None Remove="Images\MainWindowIconPhoto.png" />
+    <None Remove="Images\MainWindowImage.png" />
+    <None Remove="Images\ViewListPhoto.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\ViewListPhoto.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\MainWindowIconPhoto.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\AddAndUpdatePhoto.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\MainWindowImage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 
