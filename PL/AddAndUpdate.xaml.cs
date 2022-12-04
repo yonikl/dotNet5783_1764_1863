@@ -11,6 +11,11 @@ namespace PL;
 public partial class AddAndUpdate : Window
 {
     private IBl bl;
+
+    /// <summary>
+    /// constructor for add and update window puts in the blank default values
+    /// </summary>
+    /// <param name="bl"></param>
     public AddAndUpdate(IBl bl)
     {
         this.bl = bl;
@@ -22,9 +27,13 @@ public partial class AddAndUpdate : Window
         PriceTextBox.Text = "0";
         InStockTextBox.Text = "0";
         IdTextBox.Text = bl.Product.GetIdForProduct().ToString();
-        ProceedButton.Click += addProduct;
+        ProceedButton.Click += addProduct;//call add product function
     }
-
+    /// <summary>
+    /// constructor for update fill the blank in the product values
+    /// </summary>
+    /// <param name="bl"></param>
+    /// <param name="id"></param>
     public AddAndUpdate(IBl bl, int id)
     {
         this.bl = bl;
@@ -41,6 +50,11 @@ public partial class AddAndUpdate : Window
 
     }
 
+    /// <summary>
+    /// add product and close the window
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void addProduct(object sender, RoutedEventArgs e)
     {
         bl.Product.AddProduct(createProductFromData());
@@ -48,6 +62,11 @@ public partial class AddAndUpdate : Window
         this.Close();
     }
 
+    /// <summary>
+    /// update the product and close the window
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void updateProduct(object sender, RoutedEventArgs e)
     {
         bl.Product.UpdateProduct(createProductFromData());
@@ -55,6 +74,10 @@ public partial class AddAndUpdate : Window
         this.Close();
     }
 
+    /// <summary>
+    /// create new product 
+    /// </summary>
+    /// <returns></returns>
     private Product createProductFromData()
     {
         return new Product()
