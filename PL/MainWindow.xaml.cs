@@ -3,7 +3,7 @@
 namespace PL;
 
 /// <summary>
-/// Interaction logic for MainWindow.xaml
+/// The main window for the application MainWindow.xaml
 /// </summary>
 public partial class MainWindow : Window
 {
@@ -13,7 +13,9 @@ public partial class MainWindow : Window
         
         InitializeComponent();
     }
-
+    /// <summary>
+    /// Handling click on the "Welcome" Button
+    /// </summary>
     private void ShowProductListViewButton_Click(object sender, RoutedEventArgs e)
     {
         new ListView(bl).Show();

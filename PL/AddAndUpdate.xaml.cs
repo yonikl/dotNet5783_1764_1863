@@ -44,12 +44,14 @@ public partial class AddAndUpdate : Window
     private void addProduct(object sender, RoutedEventArgs e)
     {
         bl.Product.AddProduct(createProductFromData());
+        
         new ListView(bl).Show();
         this.Close();
     }
 
     private void updateProduct(object sender, RoutedEventArgs e)
     {
+        //MessageBoxResult mbr = MessageBox.Show("Are u sure?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes);
         bl.Product.UpdateProduct(createProductFromData());
         new ListView(bl).Show();
         this.Close();
