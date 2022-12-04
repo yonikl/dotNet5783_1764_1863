@@ -48,6 +48,6 @@ public partial class ListView : Window
         new AddAndUpdate(bl, a.ID).Show();
         Close();
     }
-       
+
 }
 
