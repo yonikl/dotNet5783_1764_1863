@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿
+using System.Windows;
 
 namespace PL;
 
@@ -13,6 +14,7 @@ public partial class MainWindow : Window
         
         InitializeComponent();
     }
+
     /// <summary>
     /// Handling click on the "Welcome" Button
     /// </summary>

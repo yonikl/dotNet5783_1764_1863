@@ -32,7 +32,7 @@ internal class DalOrderItem : IOrderItem
         foreach (var t in DataSource.s_ordersItems)
         {
             if (ID == t?.Id)
-                return t.Value;
+                return t ?? throw new NullReferenceException();
         }
 
         throw new DalItemNotFoundException();
@@ -50,7 +50,7 @@ internal class DalOrderItem : IOrderItem
         {
             foreach (var t in DataSource.s_ordersItems)
             {
-                newOrderItems.Add(t.Value);
+                newOrderItems.Add(t ?? throw new NullReferenceException());
             }
         }
         else
@@ -58,7 +58,7 @@ internal class DalOrderItem : IOrderItem
             foreach (var t in DataSource.s_ordersItems)
             {
                 if(func(t.Value))
-                    newOrderItems.Add(t.Value);
+                    newOrderItems.Add(t ?? throw new NullReferenceException());
             }
         }
 
@@ -69,8 +69,8 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (var orderItem in DataSource.s_ordersItems)
         {
-            if (func(orderItem.Value))
-                return orderItem.Value;
+            if (func(orderItem ?? throw new NullReferenceException()))
+                return orderItem ?? throw new NullReferenceException();
         }
 
         throw new DalItemNotFoundException();
@@ -134,7 +134,7 @@ internal class DalOrderItem : IOrderItem
         foreach (var t in DataSource.s_ordersItems)
         {
             if (t?.OrderID == orderId)
-                newOrderItems.Add(t.Value);
+                newOrderItems.Add(t ?? throw new NullReferenceException());
         }
         return newOrderItems;
     }

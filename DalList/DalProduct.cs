@@ -60,7 +60,7 @@ internal class DalProduct : IProduct
     {
         foreach (var t in DataSource.s_products)
         {
-            if (t?.ID == ID) return t.Value;
+            if (t?.ID == ID) return t ?? throw new NullReferenceException();
         }
 
         throw new DalItemNotFoundException();
@@ -79,7 +79,7 @@ internal class DalProduct : IProduct
             //coping the list
             foreach (var t in DataSource.s_products)
             {
-                products.Add(t.Value);
+                products.Add(t ?? throw new NullReferenceException());
             }
         }
         else
@@ -87,8 +87,8 @@ internal class DalProduct : IProduct
             //coping the list by the given func
             foreach (var t in DataSource.s_products)
             {
-                if(func(t.Value))
-                    products.Add(t.Value);
+                if(func(t ?? throw new NullReferenceException()))
+                    products.Add(t ?? throw new NullReferenceException());
             }
         }
 
@@ -99,8 +99,8 @@ internal class DalProduct : IProduct
     {
         foreach (var product in DataSource.s_products)
         {
-            if (func(product.Value))
-                return product.Value;
+            if (func(product ?? throw new NullReferenceException()))
+                return product ?? throw new NullReferenceException();
         }
         throw new DalItemNotFoundException();
     }

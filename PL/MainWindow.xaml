@@ -19,6 +19,5 @@
                 ToolTip="To the products display"
                 FontWeight="Bold"
                 />
-
     </Grid>
 </Window>

@@ -104,9 +104,9 @@ internal class Product : IProduct
         //searching for the product in the cart
         BO.OrderItem orderItem = c.Items.Find(x => x.ID == id);
         if (orderItem == null)
-        { 
+        {
             throw new BO.BlProductNotInCartsException();
-           
+
         }
         return doProductToBoProductItem(product, orderItem.Amount);
     }
@@ -131,7 +131,7 @@ internal class Product : IProduct
         if (item.ID <= 0) throw new BO.BlIDNotValidException();
         if (item.Name == "") throw new BO.BlNameEmptyException();
         if (item.InStock < 0) throw new BO.BlAmountNotValidException();
-        if(item.Price <= 0) throw new BO.BlPriceNotValidException();
+        if (item.Price <= 0) throw new BO.BlPriceNotValidException();
 
         try
         {
@@ -150,7 +150,7 @@ internal class Product : IProduct
         {
             throw new BO.BlItemAlreadyExistException("", ex);
         }
-        
+
     }
     /// <summary>
     /// updating product in Dal
@@ -212,7 +212,7 @@ internal class Product : IProduct
 
         List<DO.OrderItem> orderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
         if (orderItems.Find(x => x.ProductID == id).ProductID == id) throw new BO.BlProductExistsInOrdersException();
-            
+
         dal.Product.Delete(id);
     }
     /// <summary>
@@ -269,7 +269,7 @@ internal class Product : IProduct
             Name = p.Name,
             Price = p.Price,
             Amount = amount
-            
+
         };
     }
     /// <summary>

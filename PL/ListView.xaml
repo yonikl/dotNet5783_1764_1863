@@ -36,10 +36,15 @@
             />
         </Grid>
         <ListView 
-            Name="ProductListView" Foreground="Black" FontSize="15" FontStyle="Italic" FontFamily="KaiTi" FontWeight="ExtraBold" 
-            Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ProductListView_MouseDoubleClick">
+            Name="ProductListView" Foreground="Black" FontSize="20" FontStyle="Italic" FontFamily="KaiTi" FontWeight="ExtraBold" 
+            Grid.Row="1"  d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ProductListView_MouseDoubleClick" HorizontalContentAlignment="Right">
             <ListView.View>
                 <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="IsHitTestVisible" Value="False" />
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
                     <GridViewColumn Header ="ID" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header ="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header ="Category" DisplayMemberBinding="{Binding Category}"/>
