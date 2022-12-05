@@ -6,19 +6,5 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="Main Window" Height="450" Width="800" Icon="Images/MainWindowIconPhoto.png" >
-    <Grid>
-        <Label>
-            <StackPanel>
-                <Image Name="MainWindowBackground" Source= "Images/MainWindowImage.png" Stretch="Fill"/>
-            </StackPanel>
-        </Label>
-        <Button Content = "Welcome" FontStyle="Italic"  Background="Lavender" Width="100" 
-                HorizontalAlignment ="Center"  VerticalAlignment ="Bottom"  
-                Name="ShowProductListViewButton" Click="ShowProductListViewButton_Click" 
-                Margin="0,238,0,0"
-                ToolTip="To the products display"
-                FontWeight="Bold"
-                />
-
-    </Grid>
+    <Frame Name="Frame"></Frame>
 </Window>

@@ -4,15 +4,26 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using BlApi;
+using BlImplementation;
 
 namespace PL;
 
 /// <summary>
 /// Window to show the products and edit them or add others
 /// </summary>
-public partial class ListView : Window
+public partial class ListView : Page
 {
-    private IBl bl;
+    public ListView()
+    {
+        this.bl = bl;
+        InitializeComponent();
+        ProductListView.ItemsSource = bl.Product.GetAllProducts();
+        CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+        CategorySelector.Text = "None";
+
+
+    }
+    private IBl bl = new Bl();
     public ListView(IBl bl)
     {
         this.bl = bl;
@@ -36,7 +47,7 @@ public partial class ListView : Window
     private void AddProductButton_Click(object sender, RoutedEventArgs e)
     {
         new AddAndUpdate(bl).Show();
-        Close();
+        //Close();
     }
     /// <summary>
     /// Handle double click on product in the list by opening the AddAndUpdate window in update mode
@@ -46,7 +57,7 @@ public partial class ListView : Window
         var a = (BO.ProductForList)((System.Windows.Controls.ListView)sender).Items[
             ((System.Windows.Controls.ListView)sender).SelectedIndex];
         new AddAndUpdate(bl, a.ID).Show();
-        Close();
+        //Close();
     }
 
 }
