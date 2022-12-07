@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using BlApi;
+
 using BO;
 
 namespace PL;
@@ -10,15 +10,15 @@ namespace PL;
 /// </summary>
 public partial class AddAndUpdate : Window
 {
-    private IBl bl;
+    private BlApi.IBl bl = BlApi.Factory.Get();
 
     /// <summary>
     /// constructor for add and update window puts in the blank default values
     /// </summary>
     /// <param name="bl"></param>
-    public AddAndUpdate(IBl bl)
+    public AddAndUpdate()
     {
-        this.bl = bl;
+      
         InitializeComponent();
 
         CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
@@ -34,9 +34,8 @@ public partial class AddAndUpdate : Window
     /// </summary>
     /// <param name="bl"></param>
     /// <param name="id"></param>
-    public AddAndUpdate(IBl bl, int id)
+    public AddAndUpdate(int id)
     {
-        this.bl = bl;
         InitializeComponent();
         CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         var a = bl.Product.GetProductForAdmin(id);
@@ -59,7 +58,7 @@ public partial class AddAndUpdate : Window
     {
         bl.Product.AddProduct(createProductFromData());
         
-        new ListView(bl).Show();
+        new ListView().Show();
         this.Close();
     }
 
@@ -72,7 +71,7 @@ public partial class AddAndUpdate : Window
     {
         //MessageBoxResult mbr = MessageBox.Show("Are u sure?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes);
         bl.Product.UpdateProduct(createProductFromData());
-        new ListView(bl).Show();
+        new ListView().Show();
         this.Close();
     }
 
@@ -94,7 +93,7 @@ public partial class AddAndUpdate : Window
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
-        new ListView(bl).Show();
+        new ListView().Show();
         Close();
     }
 }

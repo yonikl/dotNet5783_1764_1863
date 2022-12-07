@@ -20,7 +20,7 @@ public partial class MainWindow : Window
     /// </summary>
     private void ShowProductListViewButton_Click(object sender, RoutedEventArgs e)
     {
-        new ListView(bl).Show();
+        new ListView().Show();
         Close();
     }
 }

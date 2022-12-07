@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-using BlApi;
 
 namespace PL;
 
@@ -12,10 +11,9 @@ namespace PL;
 /// </summary>
 public partial class ListView : Window
 {
-    private IBl bl;
-    public ListView(IBl bl)
+    private BlApi.IBl bl = BlApi.Factory.Get();
+    public ListView()
     {
-        this.bl = bl;
         InitializeComponent();
         ProductListView.ItemsSource = bl.Product.GetAllProducts();
         CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
@@ -35,7 +33,7 @@ public partial class ListView : Window
     /// </summary>
     private void AddProductButton_Click(object sender, RoutedEventArgs e)
     {
-        new AddAndUpdate(bl).Show();
+        new AddAndUpdate().Show();
         Close();
     }
     /// <summary>
@@ -45,7 +43,7 @@ public partial class ListView : Window
     {
         var a = (BO.ProductForList)((System.Windows.Controls.ListView)sender).Items[
             ((System.Windows.Controls.ListView)sender).SelectedIndex];
-        new AddAndUpdate(bl, a.ID).Show();
+        new AddAndUpdate(a.ID).Show();
         Close();
     }
 
