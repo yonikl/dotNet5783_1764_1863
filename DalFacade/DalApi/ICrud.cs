@@ -6,10 +6,10 @@
 /// <typeparam name="T"></typeparam>
 public interface ICrud<T> 
 {
-    public int Add(T entity);
+    public int Add(T? entity);
     public void Delete(int ID);
-    public void Update(T o);
-    public T Get(int ID);
+    public void Update(T? o);
+    public T? Get(int ID);
     public IEnumerable<T?> GetAll(Func<T?,bool>? func = null);
-    public T GetByCondition(Func<T?,bool> func);
+    public T? GetByCondition(Func<T?,bool> func);
 }

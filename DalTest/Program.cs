@@ -8,7 +8,7 @@ public class Program
     /// <summary>
     /// define del order, del order item, del product
     /// </summary>
-    private static IDal s_dalList = new DalList();
+    private static IDal s_dalList = DalApi.Factory.Get();
     
     public static int Main(string[] args)
     {

@@ -6,7 +6,7 @@ namespace BlTest
 {
     internal class Program
     {
-        static IBl bl = new Bl();
+        static IBl bl = BlApi.Factory.Get();
         static Cart c = new Cart();
         static void Main(string[] args)
         {

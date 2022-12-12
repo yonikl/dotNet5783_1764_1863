@@ -5,7 +5,7 @@ namespace BlImplementation;
 internal class Cart : ICart
 {
 
-    private DalApi.IDal dal = DalApi.Factory.Get();
+    private DalApi.IDal? dal = DalApi.Factory.Get();
 
     /// <summary>
     /// Function for commiting cart to actual order
@@ -34,20 +34,20 @@ internal class Cart : ICart
             throw new BO.BlPersonalDetailsException();
 
         //making new order in dal
-        int id = dal.Order.Add(new DO.Order() { 
+        int id = dal?.Order.Add(new DO.Order() { 
             CustomerAddress = address,
             CustomerEmail = email,
             CustomerName = name,
             DeliveryDate = null,
             OrderDate = DateTime.Now,
-            ShipDate = null });
+            ShipDate = null }) ?? throw new NullReferenceException();
 
         //adding the products in the cart to the order
         foreach (var i in c.Items)
         {
             try
             {
-                DO.Product product = dal.Product.Get(i.ProductID);
+                DO.Product product = dal?.Product.Get(i?.ProductID ?? throw new NullReferenceException()) ?? throw new NullReferenceException();
                 if (i.Amount <= 0)
                     throw new BO.BlAmountNotValidException() { };
                 if (i.Amount > dal.OrderItem.Get(i.ID).Amount)
@@ -90,7 +90,7 @@ internal class Cart : ICart
 
         try
         {
-            product = dal.Product.Get(id);
+            product = dal?.Product.Get(id) ?? throw new NullReferenceException();
         }
         catch (DO.DalItemNotFoundException ex)
         {
@@ -99,7 +99,7 @@ internal class Cart : ICart
 
         foreach (var i in c.Items)//searching for the product in the cart
         {
-            if (i.ProductID == id)
+            if (i?.ProductID == id )
             {
                 if (product.InStock > 0)
                 {
@@ -143,7 +143,7 @@ internal class Cart : ICart
         if (amount <= 0) throw new BO.BlAmountNotValidException();
         foreach (var i in c.Items)//searching for the product in the cart
         {
-            if (i.ProductID == id)
+            if (i?.ProductID == id)
             {
                 if (i.Amount == amount)
                 {

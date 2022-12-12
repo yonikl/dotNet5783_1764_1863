@@ -4,7 +4,7 @@
 namespace BlImplementation;
 internal class Order : IOrder
 {
-    private DalApi.IDal dal = DalApi.Factory.Get();
+    private DalApi.IDal? dal = DalApi.Factory.Get();
 
     /// <summary>
     /// get all orders from dalorder
@@ -13,24 +13,23 @@ internal class Order : IOrder
     /// <exception cref="BO.BlEmptyOrderExistsException">if the list is empty throw exception</exception>
     public IEnumerable<BO.OrderForList> GetAllOrders()
     {
-        IEnumerable<DO.Order> orders = dal.Order.GetAll();//get all order
+        IEnumerable<DO.Order> orders = dal?.Order.GetAll() ?? throw new NullReferenceException();//get all order
         List<BO.OrderForList> list = new List<BO.OrderForList>();//create new list
         foreach (var i in orders)//copy and convert from DO orders to BO orders
         {
-            BO.OrderForList order = new BO.OrderForList()
+            BO.OrderForList order = new BO.OrderForList
             {
                 CustomerName = i.CustomerName,
                 ID = i.Id,
-            };
-            
-            order.Status = getOrderStatus(i);
-                
-            order.AmountOfItems = 0;
-            order.TotalPrice = 0;
-            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll(x => x.OrderID == i.Id);
-            if (!orderItems.Any()) throw new BO.BlEmptyOrderExistsException();
+                Status = getOrderStatus(i),
 
-            foreach (var j in orderItems)//copy the amount and the total price
+                AmountOfItems = 0,
+                TotalPrice = 0
+            };
+            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll(x => x.OrderID == i.Id);
+            if (!orderItems?.Any() ?? throw new NullReferenceException()) throw new BO.BlEmptyOrderExistsException();
+
+            foreach (var j in orderItems ?? throw new NullReferenceException())//copy the amount and the total price
             {
                 order.AmountOfItems += j.Amount;
                 order.TotalPrice += j.Amount * j.Price;
@@ -58,7 +57,7 @@ internal class Order : IOrder
         DO.Order order;//create new order
         try//get the id from dal throw exception if the id not found 
         {
-            order = dal.Order.Get(id);
+            order = dal?.Order.Get(id) ?? throw new NullReferenceException();
         }
         catch (DO.DalItemNotFoundException ex)
         {
@@ -66,7 +65,7 @@ internal class Order : IOrder
             throw new BO.BlItemNotFoundException("", ex);
         }
 
-        BO.Order orderBo = new BO.Order()//convert from DO to BO
+        BO.Order orderBo = new BO.Order//convert from DO to BO
         {
             CustomerAddress = order.CustomerAddress,
             ID = order.Id,
@@ -75,8 +74,8 @@ internal class Order : IOrder
             DeliveryDate = order.DeliveryDate,
             OrderDate = order.OrderDate,
             ShipDate = order.ShipDate,
+            Status = getOrderStatus(order)
         };
-        orderBo.Status = getOrderStatus(order);
         orderBo = setOrderItemsAndTotalPrice(orderBo);
 
         return orderBo;//return the order
@@ -93,7 +92,7 @@ internal class Order : IOrder
         DO.Order doOrder;//create new order
         try//get the order by id throw exception if the order id not found
         {
-            doOrder = dal.Order.Get(id);
+            doOrder = dal?.Order.Get(id) ?? throw new NullReferenceException();
         }
         catch (DO.DalItemNotFoundException ex)
         {
@@ -114,17 +113,17 @@ internal class Order : IOrder
             throw new BO.BlItemNotFoundException("", ex);
         }
 
-        BO.Order boOrder = new BO.Order()//convert from DO to BO 
+        BO.Order boOrder = new BO.Order//convert from DO to BO 
         {
             CustomerEmail = doOrder.CustomerEmail,
-            CustomerAddress = doOrder.CustomerAddress, 
+            CustomerAddress = doOrder.CustomerAddress,
             CustomerName = doOrder.CustomerName,
             DeliveryDate = doOrder.DeliveryDate,
             ID = doOrder.Id,
             OrderDate = doOrder.OrderDate,
-            ShipDate = doOrder.ShipDate
+            ShipDate = doOrder.ShipDate,
+            Status = getOrderStatus(doOrder)//get the status order
         };
-        boOrder.Status = getOrderStatus(doOrder);//get the status order
         boOrder = setOrderItemsAndTotalPrice(boOrder);//get order items and total price
 
         return boOrder;//return the order from kind BO
@@ -142,7 +141,7 @@ internal class Order : IOrder
         DO.Order doOrder;
         try
         {
-            doOrder = dal.Order.Get(id);
+            doOrder = dal?.Order.Get(id) ?? throw new NullReferenceException();
         }
         catch (DO.DalItemNotFoundException ex)
         {
@@ -167,8 +166,8 @@ internal class Order : IOrder
         {
             throw new BO.BlItemNotFoundException("", ex);
         }
-        
-        BO.Order boOrder = new BO.Order()//convert from DO to BO
+
+        BO.Order boOrder = new BO.Order//convert from DO to BO
         {
             CustomerEmail = doOrder.CustomerEmail,
             CustomerAddress = doOrder.CustomerAddress,
@@ -176,9 +175,9 @@ internal class Order : IOrder
             DeliveryDate = doOrder.DeliveryDate,
             ID = doOrder.Id,
             OrderDate = doOrder.OrderDate,
-            ShipDate = doOrder.ShipDate
+            ShipDate = doOrder.ShipDate,
+            Status = getOrderStatus(doOrder)//get order status
         };
-        boOrder.Status = getOrderStatus(doOrder);//get order status
         boOrder = setOrderItemsAndTotalPrice(boOrder);//set the order items and total price
 
         return boOrder;
@@ -195,18 +194,18 @@ internal class Order : IOrder
         DO.Order doOrder;
         try//try to get the order
         {
-            doOrder = dal.Order.Get(id);
+            doOrder = dal?.Order.Get(id) ?? throw new NullReferenceException();
         }
         catch (DO.DalItemNotFoundException ex)
         {
             throw new BO.BlItemNotFoundException("", ex);
         }
-        BO.OrderTracking boTracking = new BO.OrderTracking()//create new order tracking
+        BO.OrderTracking boTracking = new BO.OrderTracking//create new order tracking
         {
             ID = doOrder.Id,
-            Status = getOrderStatus(doOrder)
+            Status = getOrderStatus(doOrder),
+            OrderTimeLine = new List<Tuple<DateTime?, string?>?>()//create list tuple from king of date time and string 
         };
-        boTracking.OrderTimeLine = new List<Tuple<DateTime?, string?>?>();//create list tuple from king of date time and string 
         boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.OrderDate,"Ordered"));
         //update the list
         if (doOrder.ShipDate != null) boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.ShipDate, "Order shipped"));
@@ -238,7 +237,7 @@ internal class Order : IOrder
         order.TotalPrice = 0;
         order.Items = new List<BO.OrderItem>();
         IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll(x => x.OrderID == order.ID);//get the items using id
-        if (!orderItems.Any()) //if the list is empty
+        if (!orderItems?.Any() ?? throw new NullReferenceException()) //if the list is empty
             throw new BO.BlEmptyOrderExistsException();
 
         order.TotalPrice = 0;

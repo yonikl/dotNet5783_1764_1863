@@ -5,7 +5,7 @@ namespace BlImplementation;
 /// <summary>
 /// Class to manage Bl
 /// </summary>
-public sealed class Bl : IBl
+internal sealed class Bl : IBl
 {
     public IOrder Order => new Order();
     public IProduct Product => new Product();

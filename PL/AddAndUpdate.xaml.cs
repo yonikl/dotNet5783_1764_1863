@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 
 using BO;
@@ -51,28 +52,76 @@ public partial class AddAndUpdate : Window
 
     /// <summary>
     /// add product and close the window
+    /// catch an exception if the input is incorrect 
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void addProduct(object sender, RoutedEventArgs e)
     {
-        bl.Product.AddProduct(createProductFromData());
-        
-        new ListView().Show();
-        this.Close();
+        try
+        {
+            bl.Product.AddProduct(createProductFromData());
+            new ListView().Show();
+            this.Close();
+        }
+        catch (BlIDNotValidException)
+        {
+            MessageBox.Show("Id not valid", "ERROR",MessageBoxButton.YesNo,MessageBoxImage.Error);
+        }
+        catch (BlNameEmptyException)
+        {
+            MessageBox.Show("Name is empty", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        }
+        catch (BlAmountNotValidException)
+        {
+            MessageBox.Show("Amount not valid", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+           
+        }
+        catch (BlPriceNotValidException)
+        {
+            MessageBox.Show("Price not valid", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show("Unknown error", "ERROR", MessageBoxButton.YesNo,MessageBoxImage.Error);
+        }
     }
 
     /// <summary>
     /// update the product and close the window
+    /// catch an exception if the input is incorrect 
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void updateProduct(object sender, RoutedEventArgs e)
     {
-        //MessageBoxResult mbr = MessageBox.Show("Are u sure?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes);
-        bl.Product.UpdateProduct(createProductFromData());
-        new ListView().Show();
-        this.Close();
+        try
+        {
+            bl.Product.UpdateProduct(createProductFromData());
+            new ListView().Show();
+            this.Close();
+        }
+        catch (BlIDNotValidException)
+        {
+            MessageBox.Show("Id not valid", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BlNameEmptyException)
+        {
+            MessageBox.Show("Name is empty", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BlAmountNotValidException)
+        {
+            MessageBox.Show("Amount not valid", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        }
+        catch (BlPriceNotValidException)
+        {
+            MessageBox.Show("Price not valid", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show("Unknown error", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     /// <summary>
@@ -84,7 +133,7 @@ public partial class AddAndUpdate : Window
         return new Product()
         {
             ID = Convert.ToInt32(IdTextBox.Text),
-            Category = (BO.Enums.Category)Enum.Parse(typeof(BO.Enums.Category), CategorySelector.Text),
+            Category = (Enums.Category)Enum.Parse(typeof(Enums.Category), CategorySelector.Text),
             InStock = Convert.ToInt32(InStockTextBox.Text),
             Name = NameTextBox.Text,
             Price = Convert.ToDouble(PriceTextBox.Text)

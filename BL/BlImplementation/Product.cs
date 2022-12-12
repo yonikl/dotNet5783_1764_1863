@@ -5,7 +5,7 @@ namespace BlImplementation;
 
 internal class Product : IProduct
 {
-    private DalApi.IDal dal = DalApi.Factory.Get();
+    private DalApi.IDal? dal = DalApi.Factory.Get();
     /// <summary>
     /// get all the product for displaying
     /// </summary>
@@ -29,7 +29,7 @@ internal class Product : IProduct
         }
         else
         {
-            foreach (var product in dal.Product.GetAll())
+            foreach (var product in dal?.Product.GetAll() ?? throw new NullReferenceException())
             {
                 if (func(product))
                 {
@@ -61,7 +61,7 @@ internal class Product : IProduct
         DO.Product product;
         try
         {
-            product = dal.Product.Get(id);
+            product = dal?.Product.Get(id) ?? throw new NullReferenceException();
         }
         catch (DO.DalItemNotFoundException ex)
         {
@@ -102,7 +102,7 @@ internal class Product : IProduct
             throw new BO.BlItemNotFoundException("", ex);
         }
         //searching for the product in the cart
-        BO.OrderItem orderItem = c.Items.Find(x => x.ID == id);
+        BO.OrderItem orderItem = c.Items.Find(x => x?.ID == id) ?? throw new NullReferenceException();
         if (orderItem == null)
         {
             throw new BO.BlProductNotInCartsException();
@@ -131,12 +131,12 @@ internal class Product : IProduct
         if (item.ID <= 0) throw new BO.BlIDNotValidException();
         if (item.Name == "") throw new BO.BlNameEmptyException();
         if (item.InStock < 0) throw new BO.BlAmountNotValidException();
-        if (item.Price <= 0) throw new BO.BlPriceNotValidException();
+        if (item.Price < 0) throw new BO.BlPriceNotValidException();
 
         try
         {
             //sending the product to Dal
-            dal.Product.Add(new DO.Product()
+            dal?.Product.Add(new DO.Product()
             {
                 ID = item.ID,
                 Category = (Enums.Category)Enum.Parse(typeof(Enums.Category), item.Category.ToString()),
@@ -176,7 +176,7 @@ internal class Product : IProduct
 
         try
         {
-            dal.Product.Update((new DO.Product()//trying to update in Dal
+            dal?.Product.Update((new DO.Product()//trying to update in Dal
             {
                 ID = item.ID,
                 Category = (DO.Enums.Category)System.Enum.Parse(typeof(DO.Enums.Category), item.Category.ToString()),
@@ -243,7 +243,7 @@ internal class Product : IProduct
     {
         return new BO.Product()
         {
-            Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString()),
+            Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString() ?? throw new NullReferenceException()),
             ID = p.ID,
             InStock = p.InStock,
             Name = p.Name,
@@ -263,7 +263,7 @@ internal class Product : IProduct
     {
         return new BO.ProductItem()
         {
-            Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString()),
+            Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString() ?? throw new NullReferenceException()),
             ID = p.ID,
             InStock = p.InStock > 0,
             Name = p.Name,
@@ -285,7 +285,7 @@ internal class Product : IProduct
             var id = r.Next(100000, 999999);
             try
             {
-                dal.Product.Get(id);
+                dal?.Product.Get(id);
             }
             catch (DalItemNotFoundException)
             {
