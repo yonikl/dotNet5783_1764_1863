@@ -1,4 +1,5 @@
 ﻿
+using PL.Stores;
 using System.Windows;
 
 namespace PL;
@@ -9,19 +10,11 @@ namespace PL;
 public partial class MainWindow : Window
 {
     private BlApi.IBl bl = BlApi.Factory.Get();
-    public MainWindow()
+    private NavigationStore navigationStore;
+    public MainWindow(NavigationStore navigationStore)
     {
-        
+        this.navigationStore = navigationStore;
         InitializeComponent();
-    }
-
-    /// <summary>
-    /// Handling click on the "Welcome" Button
-    /// </summary>
-    private void ShowProductListViewButton_Click(object sender, RoutedEventArgs e)
-    {
-        new ListView().Show();
-        Close();
     }
 }
 

@@ -1,23 +1,37 @@
-﻿<Window x:Class="PL.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
-        Title="Main Window" Height="450" Width="800" Icon="Images/MainWindowIconPhoto.png" >
+﻿<Window
+    x:Class="PL.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:PL"
+    xmlns:views="clr-namespace:PL.Views"
+    xmlns:vms="clr-namespace:PL.ViewModels"
+    mc:Ignorable="d"
+    Title="Main Window"
+    Height="450"
+    Width="800"
+    Icon="Images/MainWindowIconPhoto.png">
     <Grid>
-        <Label>
-            <StackPanel>
-                <Image Name="MainWindowBackground" Source= "Images/MainWindowImage.png" Stretch="Fill"/>
-            </StackPanel>
-        </Label>
-        <Button Content = "Welcome" FontStyle="Italic"  Background="Lavender" Width="100" 
-                HorizontalAlignment ="Center"  VerticalAlignment ="Bottom"  
-                Name="ShowProductListViewButton" Click="ShowProductListViewButton_Click" 
-                Margin="0,238,0,0"
-                ToolTip="To the products display"
-                FontWeight="Bold"
-                />
+        <Grid.Resources>
+            <DataTemplate
+                DataType="{x:Type vms:MainWindowViewModel}">
+                <views:MainWindowView />
+            </DataTemplate>
+            <DataTemplate
+                DataType="{x:Type vms:AddOrUpdateProductViewModel}">
+                <views:AddOrUpdateProductView />
+            </DataTemplate>
+            <DataTemplate
+                DataType="{x:Type vms:ProductForListViewModel}">
+                <views:ProductForListView />
+            </DataTemplate>
+            <DataTemplate
+                DataType="{x:Type vms:AdminViewModel}">
+                <views:AdminView />
+            </DataTemplate>
+        </Grid.Resources>
+        <ContentControl
+            Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

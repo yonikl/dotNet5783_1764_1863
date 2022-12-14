@@ -1,21 +1,19 @@
-﻿<Window
-    x:Class="PL.AddAndUpdate"
+﻿<UserControl
+    x:Class="PL.Views.AddOrUpdateProductView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:PL"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PL.Views"
+    xmlns:viewmodels="clr-namespace:PL.ViewModels"
     mc:Ignorable="d"
-    ResizeMode="NoResize"
-    Title="Add And Update"
-    Height="450"
-    Width="800">
-
+    d:DesignHeight="450"
+    d:DesignWidth="800">
     <Grid>
         <ListView>
             <ListView.Background>
                 <ImageBrush
-                    ImageSource="Images/AddAndUpdatePhoto.png"
+                    ImageSource="../Images/AddAndUpdatePhoto.png"
                     Opacity="0.5"
                     Stretch="Fill" />
             </ListView.Background>
@@ -103,7 +101,8 @@
                 TextWrapping="Wrap"
                 VerticalAlignment="Center"
                 Width="120"
-                IsReadOnly="True" />
+                IsReadOnly="True"
+                Text="{Binding ProductId, UpdateSourceTrigger=PropertyChanged}" />
             <ComboBox
                 x:Name="CategorySelector"
                 Grid.Column="1"
@@ -111,7 +110,8 @@
                 Margin="10,0,0,0"
                 Grid.Row="2"
                 VerticalAlignment="Center"
-                Width="120" />
+                Width="120"
+                SelectedValue="{Binding ProductCategory, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox
                 x:Name="NameTextBox"
                 Grid.Column="1"
@@ -120,7 +120,8 @@
                 Grid.Row="3"
                 TextWrapping="Wrap"
                 VerticalAlignment="Center"
-                Width="120" />
+                Width="120"
+                Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox
                 x:Name="PriceTextBox"
                 Grid.Column="1"
@@ -129,7 +130,8 @@
                 Grid.Row="4"
                 TextWrapping="Wrap"
                 VerticalAlignment="Center"
-                Width="120" />
+                Width="120"
+                Text="{Binding ProductPrice, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox
                 x:Name="InStockTextBox"
                 Grid.Column="1"
@@ -138,10 +140,11 @@
                 Grid.Row="5"
                 TextWrapping="Wrap"
                 VerticalAlignment="Center"
-                Width="120" />
+                Width="120"
+                Text="{Binding ProductInStock, UpdateSourceTrigger=PropertyChanged}" />
             <Button
                 Name="ProceedButton"
-                Content=""
+                Content="{Binding submitButtonText}"
                 HorizontalAlignment="Left"
                 Margin="90,0,0,0"
                 Grid.Row="6"
@@ -157,7 +160,7 @@
                 VerticalAlignment="Center"
                 RenderTransformOrigin="-0.186,-0.455"
                 Grid.Column="1"
-                Click="BackButton_Click" />
+                Command="{Binding GoBack}"/>
         </Grid>
     </Grid>
-</Window>
+</UserControl>

@@ -18,6 +18,7 @@
     <None Remove="Images\MainWindowIconPhoto.png" />
     <None Remove="Images\MainWindowImage.png" />
     <None Remove="Images\ViewListPhoto.png" />
+    <None Remove="Views\OrdersIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,10 +35,15 @@
 
   <ItemGroup>
     <Resource Include="Images\MainWindowImage.png" />
+    <Resource Include="Views\OrdersIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

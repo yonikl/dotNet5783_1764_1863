@@ -1,0 +1,74 @@
+﻿<UserControl
+    x:Class="PL.Views.MainWindowView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PL.Views"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    MaxWidth="800"
+    MaxHeight="500"
+    VerticalAlignment="Top">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0"
+            Content="Welcome"
+            HorizontalAlignment="Center"
+            FontSize="30"></Label>
+        <Button
+            Grid.Row="1"
+            Content="Admin view"
+            Command="{Binding GoToAdminView}" />
+        <Button
+            Grid.Row="2"
+            Content="Create new order"
+            Command="{Binding GoToCreateNewOrder}" />
+        <Button
+            Grid.Row="3"
+            Content="Track orders"
+            Command="{Binding GoToTrackOrders}"/>
+        <Grid.Resources>
+            <Style
+                TargetType="Button">
+                <Setter
+                    Property="MaxHeight"
+                    Value="100"></Setter>
+                <Setter
+                    Property="MaxWidth"
+                    Value="200"></Setter>
+                <Setter
+                    Property="MinHeight"
+                    Value="50"></Setter>
+                <Setter
+                    Property="MinWidth"
+                    Value="200"></Setter>
+                <Style.Resources>
+                    <Style
+                        TargetType="Border">
+                        <Setter
+                            Property="CornerRadius"
+                            Value="8" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+            <Style
+                TargetType="Grid">
+                <Setter
+                    Property="MaxHeight"
+                    Value="800"></Setter>
+                <Setter
+                    Property="MaxWidth"
+                    Value="800"></Setter>
+            </Style>
+        </Grid.Resources>
+    </Grid>
+</UserControl>
