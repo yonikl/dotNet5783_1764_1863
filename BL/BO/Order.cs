@@ -60,12 +60,7 @@ public class Order
         Console.WriteLine(
             $" * {nameof(ID)}: {ID}\n * {nameof(CustomerName)}: {CustomerName}\n * {nameof(CustomerEmail)}: {CustomerEmail}\n * {nameof(CustomerAddress)}: {CustomerAddress}\n * {nameof(OrderDate)}: {OrderDate}\n * {nameof(Status)}: {Status}\n * {nameof(ShipDate)}: {ShipDate}\n * {nameof(DeliveryDate)}: {DeliveryDate}\n * Product's:");
         int j = 1;
-        foreach (var i in Items)
-        {
-            Console.WriteLine($"   {j}) {nameof(i.Name)} : {i.Name}");
-            j++;
-        }
-
+        Items.ForEach(x => Console.WriteLine($"   {j++}) {nameof(x.Name)} : {x.Name}"));
         return ($" * {nameof(TotalPrice)} : {TotalPrice}");
     }
 }

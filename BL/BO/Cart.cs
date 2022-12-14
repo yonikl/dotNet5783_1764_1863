@@ -33,12 +33,8 @@ public class Cart
         Console.WriteLine(
             $" * {nameof(CustomerName)}: {CustomerName}\n * {nameof(CustomerEmail)}: {CustomerEmail}\n * {nameof(CustomerAddress)}: {CustomerAddress}");
         int j = 1;
-        foreach (var i in Items)
-        {
-            Console.WriteLine($"{j})" + i);
-        }
-        
+        Items.ForEach(x => Console.WriteLine($"{j++})" + x));
         return $" * {nameof(TotalPrice)}: { TotalPrice}";
-        }
+    }
 }
 

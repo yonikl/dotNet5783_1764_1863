@@ -13,8 +13,9 @@ internal class Order : IOrder
     /// <exception cref="BO.BlEmptyOrderExistsException">if the list is empty throw exception</exception>
     public IEnumerable<BO.OrderForList> GetAllOrders()
     {
+        
         IEnumerable<DO.Order> orders = dal?.Order.GetAll() ?? throw new NullReferenceException();//get all order
-        List<BO.OrderForList> list = new List<BO.OrderForList>();//create new list
+        List <BO.OrderForList> list = new List<BO.OrderForList>();//create new list
         foreach (var i in orders)//copy and convert from DO orders to BO orders
         {
             BO.OrderForList order = new BO.OrderForList
@@ -234,16 +235,13 @@ internal class Order : IOrder
     /// <exception cref="BO.BlEmptyOrderExistsException">if the list is empty</exception>
     private BO.Order setOrderItemsAndTotalPrice(BO.Order order)
     {
-        order.TotalPrice = 0;
-        order.Items = new List<BO.OrderItem>();
         IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll(x => x.OrderID == order.ID);//get the items using id
         if (!orderItems?.Any() ?? throw new NullReferenceException()) //if the list is empty
             throw new BO.BlEmptyOrderExistsException();
 
-        order.TotalPrice = 0;
-        foreach (var i in orderItems)//copy and convert from the DO list to the BO list of items
-        {
-            order.Items.Add(new BO.OrderItem()//convert from DO to BO
+        order.TotalPrice += orderItems.Sum(x =>  x.Price * x.Amount);
+        order.Items = (List<BO.OrderItem?>)(from i in orderItems
+            select new BO.OrderItem()
             {
                 Amount = i.Amount,
                 ID = i.Id,
@@ -252,8 +250,6 @@ internal class Order : IOrder
                 ProductID = i.ProductID,
                 TotalPrice = i.Price * i.Amount
             });
-            order.TotalPrice += i.Price * i.Amount;//calculate the total order
-        }
         return order;
     }
 }

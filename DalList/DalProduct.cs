@@ -58,10 +58,9 @@ internal class DalProduct : IProduct
     /// if we didn't found
     public Product Get(int ID)
     {
-        foreach (var t in DataSource.s_products)
-        {
-            if (t?.ID == ID) return t ?? throw new NullReferenceException();
-        }
+        var orderId = from product in DataSource.s_products where product?.ID == ID select product;
+        if (orderId.Any())
+            return orderId.First() ?? throw new NullReferenceException();
 
         throw new DalItemNotFoundException();
     }
@@ -73,35 +72,23 @@ internal class DalProduct : IProduct
     /// return array of all products
     public IEnumerable<Product> GetAll(Func<Product,bool>? func)
     {
-        List<Product> products = new List<Product>();
+        
         if (func == null)
         {
             //coping the list
-            foreach (var t in DataSource.s_products)
-            {
-                products.Add(t ?? throw new NullReferenceException());
-            }
-        }
-        else
-        {
-            //coping the list by the given func
-            foreach (var t in DataSource.s_products)
-            {
-                if(func(t ?? throw new NullReferenceException()))
-                    products.Add(t ?? throw new NullReferenceException());
-            }
+           return from pro in DataSource.s_products select pro ?? throw new NullReferenceException();
         }
 
-        return products;
+        //coping the list by the given func
+        return (IEnumerable<Product>)DataSource.s_products.Where(pro => func(pro ?? throw new NullReferenceException()));
+
     }
 
     public Product GetByCondition(Func<Product, bool> func)
     {
-        foreach (var product in DataSource.s_products)
-        {
-            if (func(product ?? throw new NullReferenceException()))
-                return product ?? throw new NullReferenceException();
-        }
+        var product =   DataSource.s_products.Where(x => func(x ?? throw new NullReferenceException()));
+        if (product.Any())
+            return product.First() ?? throw new NullReferenceException();
         throw new DalItemNotFoundException();
     }
 
@@ -114,12 +101,12 @@ internal class DalProduct : IProduct
     /// if we didn't found this id
     public void Delete(int ID)
     {
-        foreach (var t in DataSource.s_products)
+        var productToDelete = from product in DataSource.s_products where product?.ID == ID select product ?? throw new NullReferenceException();
+        if (productToDelete.Any())
         {
-            if (t?.ID == ID) DataSource.s_products.Remove(t);
+            DataSource.s_products.Remove(productToDelete.First());
             return;
         }
-
         throw new DalItemNotFoundException();
     }
 
@@ -132,17 +119,8 @@ internal class DalProduct : IProduct
     /// if we didn't found what to update
     public void Update(Product product)
     {
-        foreach (var t in DataSource.s_products)
-        {
-            if (t?.ID == product.ID)
-            {
-                DataSource.s_products.Remove(t);
-                DataSource.s_products.Add(product);
-                return;
-            }
-        }
-        //if we don't found the product
-        throw new DalItemNotFoundException();
+       Delete(product.ID);
+       DataSource.s_products.Add(product);
     }
 }
 

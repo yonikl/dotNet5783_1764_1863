@@ -6,6 +6,7 @@ namespace BlImplementation;
 internal class Product : IProduct
 {
     private DalApi.IDal? dal = DalApi.Factory.Get();
+
     /// <summary>
     /// get all the product for displaying
     /// </summary>
@@ -15,31 +16,19 @@ internal class Product : IProduct
     /// if we not have any products
     public IEnumerable<BO.ProductForList?> GetAllProducts(Func<DO.Product?, bool>? func = null)
     {
-        List<BO.ProductForList> forList = new List<BO.ProductForList>();
         if (func == null)
         {
             IEnumerable<DO.Product> products = dal.Product.GetAll();
             //check if products exists
             if (!products.Any()) throw new BO.BlNoProductsException();
             //casting to BO.ProductForList
-            foreach (var i in products)
-            {
-                forList.Add(doProductToBoProductForList(i));
-            }
-        }
-        else
-        {
-            foreach (var product in dal?.Product.GetAll() ?? throw new NullReferenceException())
-            {
-                if (func(product))
-                {
-                    forList.Add(doProductToBoProductForList(product));
-                }
-            }
+            return from pro in products select doProductToBoProductForList(pro);
+            
         }
 
-        return forList;
+        return  from pro in dal?.Product.GetAll() where func(pro) select doProductToBoProductForList(pro);
     }
+
     /// <summary>
     /// getting product details for admin
     /// </summary>
