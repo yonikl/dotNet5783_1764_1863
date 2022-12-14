@@ -97,30 +97,25 @@ internal class Cart : ICart
             throw new BO.BlItemNotFoundException("", ex);
         }
 
-        foreach (var i in c.Items)//searching for the product in the cart
+        var productCart = from i in c.Items where i.ProductID == id select i;//searching for the product in the cart
+        if (productCart.Any() && product.InStock > 0)
         {
-            if (i?.ProductID == id )
-            {
-                if (product.InStock > 0)
-                {
-                    i.TotalPrice += i.Price;
-                    c.TotalPrice += i.Price;
-                    i.Amount++;
-                    return c;
-                }
-            }
+            var i = productCart.First();
+            c.Items.Remove(i);
+            i.TotalPrice += i.Price;
+            c.TotalPrice += i.Price;
+            i.Amount++;
+            c.Items.Add(i);
+            return c;
         }
-
         //if the product isn't in the cart
         if (product.InStock > 0)
         {
             c.Items.Add(doProductToBoOrderItem(product));
             return c;
         }
-        else
-        {
-            throw new BO.BlAmountNotValidException();
-        }
+
+        throw new BO.BlAmountNotValidException();
     }
 
 
@@ -141,21 +136,19 @@ internal class Cart : ICart
     public BO.Cart UpdateAmountOfOrder(int id, int amount, BO.Cart c)
     {
         if (amount <= 0) throw new BO.BlAmountNotValidException();
-        foreach (var i in c.Items)//searching for the product in the cart
+       
+        var productCart = from i in c.Items where i.ProductID == id select i;//searching for the product in the cart
+        if (productCart.Any())
         {
-            if (i?.ProductID == id)
-            {
-                if (i.Amount == amount)
-                {
-                    return c;
-                }
-
-                c.TotalPrice += (amount - i.Amount) * i.Price; 
-                i.TotalPrice = i.Price * amount; 
-                i.Amount = amount; 
+            var orderItem = productCart.First();
+            if (orderItem.Amount == amount)
                 return c;
-                
-            }
+            c.Items.Remove(orderItem);
+            c.TotalPrice += (amount - orderItem.Amount) * orderItem.Price;
+            orderItem.TotalPrice = orderItem.Price * amount;
+            orderItem.Amount = amount;
+            c.Items.Add(orderItem);
+            return c;
         }
 
         throw new BO.BlItemNotFoundInCartException();//if we didn't found the product in the cart

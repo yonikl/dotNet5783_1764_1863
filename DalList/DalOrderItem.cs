@@ -29,11 +29,9 @@ internal class DalOrderItem : IOrderItem
     /// if we didn't found
     public OrderItem Get(int ID)
     {
-        foreach (var t in DataSource.s_ordersItems)
-        {
-            if (ID == t?.Id)
-                return t ?? throw new NullReferenceException();
-        }
+        var order_item = DataSource.s_ordersItems.Where(x => x?.Id == ID);
+        if (order_item.Any())
+            return order_item.First() ?? throw new NullReferenceException();
 
         throw new DalItemNotFoundException();
     }
@@ -45,35 +43,22 @@ internal class DalOrderItem : IOrderItem
     /// array of all the orders items
     public IEnumerable<OrderItem> GetAll(Func<OrderItem,bool>? func)
     {
-        List<OrderItem> newOrderItems = new List<OrderItem>();
         if (func == null)
         {
-            foreach (var t in DataSource.s_ordersItems)
-            {
-                newOrderItems.Add(t ?? throw new NullReferenceException());
-            }
+            //coping the list
+            return from ord in DataSource.s_ordersItems select ord ?? throw new NullReferenceException();
         }
-        else
-        {
-            foreach (var t in DataSource.s_ordersItems)
-            {
-                if(func(t.Value))
-                    newOrderItems.Add(t ?? throw new NullReferenceException());
-            }
-        }
-
-        return newOrderItems;
+        //coping the list by the given func
+        return (IEnumerable<OrderItem>)DataSource.s_ordersItems.Where(ord => func(ord ?? throw new NullReferenceException()));
     }
 
     public OrderItem GetByCondition(Func<OrderItem, bool> func)
     {
-        foreach (var orderItem in DataSource.s_ordersItems)
-        {
-            if (func(orderItem ?? throw new NullReferenceException()))
-                return orderItem ?? throw new NullReferenceException();
-        }
-
+        var orderItem = DataSource.s_ordersItems.Where(x => func(x ?? throw new NullReferenceException()));
+        if (orderItem.Any())
+            return orderItem.First() ?? throw new NullReferenceException();
         throw new DalItemNotFoundException();
+     
     }
 
     /// <summary>
@@ -85,15 +70,12 @@ internal class DalOrderItem : IOrderItem
     /// if we didn't found this id
     public void Delete(int Id)
     {
-        foreach (var t in DataSource.s_ordersItems)
+        var order_item = from ord in DataSource.s_ordersItems where ord?.Id == Id select ord;
+        if (order_item.Any())
         {
-            if (Id == t?.Id)
-            {
-                DataSource.s_ordersItems.Remove(t);
-                return;
-            }
+            DataSource.s_ordersItems.Remove(order_item.First());
+            return;
         }
-
         throw new DalItemNotFoundException();
     }
 
@@ -106,17 +88,8 @@ internal class DalOrderItem : IOrderItem
     /// if we didn't found what to update
     public void Update(OrderItem orderItem)
     {
-        foreach (var t in DataSource.s_ordersItems)
-        {
-            if (orderItem.OrderID == t?.Id)
-            {
-                DataSource.s_ordersItems.Remove(t);
-                DataSource.s_ordersItems.Add(orderItem);
-                return;
-            }
-        }
-
-        throw new DalItemNotFoundException();
+        Delete(orderItem.Id);
+        DataSource.s_ordersItems.Add(orderItem);
     }
 
     /// <summary>
@@ -130,13 +103,7 @@ internal class DalOrderItem : IOrderItem
     /// if we didn't found at all
     public IEnumerable<OrderItem> GetOrderItemsInSpecificOrder(int orderId)
     {
-        List<OrderItem> newOrderItems = new List<OrderItem>();
-        foreach (var t in DataSource.s_ordersItems)
-        {
-            if (t?.OrderID == orderId)
-                newOrderItems.Add(t ?? throw new NullReferenceException());
-        }
-        return newOrderItems;
+        return from ordItem in DataSource.s_ordersItems where ordItem?.OrderID == orderId select ordItem ?? throw new NullReferenceException();
     }
 
     
