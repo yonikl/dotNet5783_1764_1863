@@ -8,9 +8,13 @@
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    MaxWidth="800"
-    MaxHeight="500"
-    VerticalAlignment="Top">
+    VerticalContentAlignment="Stretch"
+    VerticalAlignment="Stretch">
+    <UserControl.Background>
+        <ImageBrush
+            ImageSource="../Images/MainWindowImage.png"
+            Stretch="Fill" />
+    </UserControl.Background>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -35,7 +39,7 @@
         <Button
             Grid.Row="3"
             Content="Track orders"
-            Command="{Binding GoToTrackOrders}"/>
+            Command="{Binding GoToTrackOrders}" />
         <Grid.Resources>
             <Style
                 TargetType="Button">
@@ -51,6 +55,9 @@
                 <Setter
                     Property="MinWidth"
                     Value="200"></Setter>
+                <Setter
+                    Property="Margin"
+                    Value="5,5,5,5" />
                 <Style.Resources>
                     <Style
                         TargetType="Border">
@@ -59,15 +66,18 @@
                             Value="8" />
                     </Style>
                 </Style.Resources>
-            </Style>
+            </Style >
             <Style
                 TargetType="Grid">
                 <Setter
                     Property="MaxHeight"
-                    Value="800"></Setter>
+                    Value="500"></Setter>
                 <Setter
                     Property="MaxWidth"
-                    Value="800"></Setter>
+                    Value="500"></Setter>
+                <Setter
+                    Property="VerticalAlignment"
+                    Value="Top" />
             </Style>
         </Grid.Resources>
     </Grid>

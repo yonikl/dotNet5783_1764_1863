@@ -17,11 +17,14 @@
     <None Remove="Images\AddAndUpdatePhoto.png" />
     <None Remove="Images\MainWindowIconPhoto.png" />
     <None Remove="Images\MainWindowImage.png" />
+    <None Remove="Images\OrdersIcon.png" />
+    <None Remove="Images\ProductsIcon.png" />
     <None Remove="Images\ViewListPhoto.png" />
-    <None Remove="Views\OrdersIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\OrdersIcon.png" />
+    <Resource Include="Images\ProductsIcon.png" />
     <Resource Include="Images\ViewListPhoto.png" />
   </ItemGroup>
 
@@ -35,7 +38,6 @@
 
   <ItemGroup>
     <Resource Include="Images\MainWindowImage.png" />
-    <Resource Include="Views\OrdersIcon.png" />
   </ItemGroup>
 
   <ItemGroup>

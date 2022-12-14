@@ -9,26 +9,58 @@
     d:DesignHeight="450"
     d:DesignWidth="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition
-                Width="300"
-                MaxWidth="300" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <ListView
-            Grid.Column="0">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel
-                        MaxHeight="100"
-                        Height="100"
-                        Orientation="Horizontal">
-                        <Image Source="../"/>
-                        <Label />
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <Image
+                            Source="../Images/OrdersIcon.png" />
+                        <TextBlock
+                            Text="Orders" />
                     </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListViewItem Name=""
-        </ListView>
+                </TabItem.Header>
+                <ListView>
+                    <ListView.View>
+                        <GridView>
+                            
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <Image
+                            Source="../Images/ProductsIcon.png" />
+                        <TextBlock
+                            Text="Products" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+            <TabControl.Resources>
+                <Style
+                    TargetType="StackPanel">
+                    <Setter
+                        Property="Height"
+                        Value="50" />
+                    <Setter
+                        Property="Width"
+                        Value="150" />
+                    <Setter
+                        Property="Orientation"
+                        Value="Horizontal" />
+                </Style>
+                <Style
+                    TargetType="TextBlock">
+                    <Setter
+                        Property="FontSize"
+                        Value="25"></Setter>
+                    <Setter
+                        Property="VerticalAlignment"
+                        Value="Center"></Setter>
+                </Style>
+            </TabControl.Resources>
+        </TabControl>
+
     </Grid>
 </UserControl>

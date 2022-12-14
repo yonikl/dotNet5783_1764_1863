@@ -22,12 +22,12 @@ internal class AddOrUpdateProductViewModel : ViewModelBase
     
     public ICommand GoBack { get; }
     public ICommand AddOrUpdate { get; }
-    public AddOrUpdateProductViewModel(NavigationStore navigationStore, string str, int id=0)
+    public AddOrUpdateProductViewModel(NavigationStore navigationStore, int id=0)
     {
-        submitButtonText = str;
         this.navigationStore = navigationStore;
         GoBack = new NavigationCommand(new NavigationService( this.navigationStore, GoBackToMainWindowViewModel));
-
+        submitButtonText = id == 0 ? "Add product" : "Update product";
+        AddOrUpdate = id == 0 ? new AddProductCommand(this) : new UpdateProductCommand(this);
     }
     public string submitButtonText { get; }
     public int ProductId
