@@ -66,24 +66,24 @@ public partial class AddAndUpdate : Window
         }
         catch (BlIDNotValidException)
         {
-            MessageBox.Show("Id not valid", "ERROR",MessageBoxButton.YesNo,MessageBoxImage.Error);
+            MessageBox.Show("Id not valid", "ERROR",MessageBoxButton.OK,MessageBoxImage.Error);
         }
         catch (BlNameEmptyException)
         {
-            MessageBox.Show("Name is empty", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            MessageBox.Show("Name is empty", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (BlAmountNotValidException)
         {
-            MessageBox.Show("Amount not valid", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            MessageBox.Show("Amount not valid", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
            
         }
         catch (BlPriceNotValidException)
         {
-            MessageBox.Show("Price not valid", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            MessageBox.Show("Price not valid", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (Exception exception)
         {
-            MessageBox.Show("Unknown error", "ERROR", MessageBoxButton.YesNo,MessageBoxImage.Error);
+            MessageBox.Show("Unknown error", "ERROR", MessageBoxButton.OK,MessageBoxImage.Error);
         }
     }
 
