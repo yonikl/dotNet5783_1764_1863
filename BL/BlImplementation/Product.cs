@@ -1,12 +1,35 @@
 ﻿using BlApi;
+using BO;
 using DO;
+using Enums = DO.Enums;
 
 namespace BlImplementation;
 
 internal class Product : IProduct
 {
     private DalApi.IDal? dal = DalApi.Factory.Get();
+    /// <summary>
+    /// returns list of all products as ProductItems to display in catalog
+    /// </summary>
+    /// <param name="c"></param>
+    /// the cart that we check if the customer put the product into
+    /// <returns></returns>
+    /// list of all products as ProductItems
+    public IEnumerable<ProductItem?> GetCatalog(BO.Cart c)
+    {
+        var products = dal.Product.GetAll();
+        return from p in products select new ProductItem()
+        {
+            ID = p.ID,
+            Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString()),
+            InStock = p.InStock > 0,
+            Name = p.Name,
+            Price = p.Price,
+            Amount = (from i in c.Items where i.ID == p.ID select i).Any() ? (from i in c.Items where i.ID == p.ID select i.Amount).First() : 0
 
+        };
+        
+    }
     /// <summary>
     /// get all the product for displaying
     /// </summary>

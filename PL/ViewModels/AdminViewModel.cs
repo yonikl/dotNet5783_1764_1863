@@ -7,14 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using BO;
 using BlApi;
+using PL.Models;
 
 namespace PL.ViewModels;
 
 internal class AdminViewModel : ViewModelBase
 {
-    private IBl bl = Factory.Get();
-	public AdminViewModel(NavigationStore navigationStore)
+    private Shop shop;
+    public IEnumerable<OrderForList?> Orders => shop.Orders;
+    public IEnumerable<ProductForList?> Products => shop.Products;
+	public AdminViewModel(NavigationStore navigationStore, Shop shop)
     {
-
+        navigationStore.CurrentViewModel = this;
+        this.shop = shop;
     }
 }

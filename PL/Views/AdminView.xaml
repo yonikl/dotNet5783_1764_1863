@@ -22,7 +22,7 @@
                 <ListView>
                     <ListView.View>
                         <GridView>
-                            
+
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -36,6 +36,34 @@
                             Text="Products" />
                     </StackPanel>
                 </TabItem.Header>
+                <ListView ItemsSource="{Binding Products}">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="IsHitTestVisible" Value="False" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Header ="ID" DisplayMemberBinding="{Binding ID}"/>
+                            <GridViewColumn Header ="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header ="Category" DisplayMemberBinding="{Binding Category}"/>
+                            <GridViewColumn Header ="Price" DisplayMemberBinding="{Binding Price}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding ID}"/>
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Category}"/>
+                                <TextBlock Text="{Binding Price}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Background>
+                        <ImageBrush ImageSource="../Images/ViewListPhoto.png" Opacity="0.5"/>
+                    </ListView.Background>
+                </ListView>
             </TabItem>
             <TabControl.Resources>
                 <Style

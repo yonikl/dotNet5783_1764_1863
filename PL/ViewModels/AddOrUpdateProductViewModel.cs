@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PL.Models;
 
 namespace PL.ViewModels;
 
 internal class AddOrUpdateProductViewModel : ViewModelBase
 {
-    private NavigationStore navigationStore;
+    private readonly NavigationStore navigationStore;
+    private readonly Shop shop;
     private int productId;
     private string? productName;
     private double productPrice;
@@ -22,9 +24,12 @@ internal class AddOrUpdateProductViewModel : ViewModelBase
     
     public ICommand GoBack { get; }
     public ICommand AddOrUpdate { get; }
-    public AddOrUpdateProductViewModel(NavigationStore navigationStore, int id=0)
+
+
+    public AddOrUpdateProductViewModel(NavigationStore navigationStore, Shop shop, int id=0)
     {
         this.navigationStore = navigationStore;
+        this.shop = shop;
         GoBack = new NavigationCommand(new NavigationService( this.navigationStore, GoBackToMainWindowViewModel));
         submitButtonText = id == 0 ? "Add product" : "Update product";
         AddOrUpdate = id == 0 ? new AddProductCommand(this) : new UpdateProductCommand(this);
@@ -94,6 +99,6 @@ internal class AddOrUpdateProductViewModel : ViewModelBase
 
     public ViewModelBase GoBackToMainWindowViewModel()
     {
-        return new MainWindowViewModel(navigationStore);
+        return new MainWindowViewModel(navigationStore, shop);
     }
 }
