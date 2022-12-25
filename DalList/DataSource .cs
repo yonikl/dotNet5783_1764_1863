@@ -36,7 +36,7 @@ internal static class DataSource
             }
             else
             {
-                order.ShipDate = DateTime.MinValue;
+                order.ShipDate = null;
             }
             //adding 10 orders with delivery dates
             if (i <= 10)
@@ -46,7 +46,7 @@ internal static class DataSource
             }
             else
             {
-                order.DeliveryDate = DateTime.MinValue;
+                order.DeliveryDate = null;
             }
             s_orders.Add(order);
 

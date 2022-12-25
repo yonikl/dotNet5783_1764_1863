@@ -41,7 +41,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <returns></returns>
     /// array of all the orders items
-    public IEnumerable<OrderItem> GetAll(Func<OrderItem,bool>? func)
+    public IEnumerable<OrderItem> GetAll(Func<OrderItem,bool>? func = null)
     {
         if (func == null)
         {
@@ -49,7 +49,8 @@ internal class DalOrderItem : IOrderItem
             return from ord in DataSource.s_ordersItems select ord ?? throw new NullReferenceException();
         }
         //coping the list by the given func
-        return (IEnumerable<OrderItem>)DataSource.s_ordersItems.Where(ord => func(ord ?? throw new NullReferenceException()));
+        return from i in DataSource.s_ordersItems where func(i ?? throw new NullReferenceException()) select i ?? throw new NullReferenceException();
+        
     }
 
     public OrderItem GetByCondition(Func<OrderItem, bool> func)

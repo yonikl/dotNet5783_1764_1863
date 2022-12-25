@@ -11,7 +11,14 @@
     Title="Main Window"
     Height="450"
     Width="800"
-    Icon="Images/MainWindowIconPhoto.png">
+    Icon="Images/MainWindowIconPhoto.png"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    Background="{DynamicResource MaterialDesignPaper}"
+    TextElement.FontWeight="Medium"
+    TextElement.FontSize="14"
+    FontFamily="{materialDesign:MaterialDesignFont}">
+
     <Grid>
         <Grid.Resources>
             <DataTemplate
@@ -30,8 +37,15 @@
                 DataType="{x:Type vms:AdminViewModel}">
                 <views:AdminView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CreateNewOrderViewModel}">
+                <views:CreateNewOrderView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:TrackOrdersViewModel}">
+                <views:TrackOrdersView />
+            </DataTemplate>
         </Grid.Resources>
         <ContentControl
             Content="{Binding CurrentViewModel}" />
+
     </Grid>
 </Window>

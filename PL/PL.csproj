@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="2.0.9" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\OrdersIcon.png" />
     <Resource Include="Images\ProductsIcon.png" />
     <Resource Include="Images\ViewListPhoto.png" />

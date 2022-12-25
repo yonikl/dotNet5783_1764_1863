@@ -18,5 +18,6 @@ internal class AddProductCommand : BaseCommand
     }
     public override void Execute(object? parameter)
     {
+        
     }
 }

@@ -9,60 +9,70 @@
     d:DesignHeight="450"
     d:DesignWidth="800">
     <Grid>
-        <TabControl>
-            <TabItem>
+        <TabControl >
+            <TabItem Height="61" Width="178" >
                 <TabItem.Header>
-                    <StackPanel>
-                        <Image
+                    <StackPanel >
+                        <Image 
                             Source="../Images/OrdersIcon.png" />
-                        <TextBlock
+                        <TextBlock 
                             Text="Orders" />
                     </StackPanel>
                 </TabItem.Header>
-                <ListView>
-                    <ListView.View>
-                        <GridView>
-
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <DataGrid ItemsSource="{Binding Orders}" GridLinesVisibility="None" Margin="0 20 0 0">
+                </DataGrid>
             </TabItem>
-            <TabItem>
+            <TabItem >
                 <TabItem.Header>
                     <StackPanel>
                         <Image
                             Source="../Images/ProductsIcon.png" />
                         <TextBlock
-                            Text="Products" />
+                            Text="Products"  FontSize="5"/>
                     </StackPanel>
                 </TabItem.Header>
                 <ListView ItemsSource="{Binding Products}">
-                    <ListView.View>
-                        <GridView>
-                            <GridView.ColumnHeaderContainerStyle>
-                                <Style TargetType="{x:Type GridViewColumnHeader}">
-                                    <Setter Property="IsHitTestVisible" Value="False" />
-                                </Style>
-                            </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Header ="ID" DisplayMemberBinding="{Binding ID}"/>
-                            <GridViewColumn Header ="Name" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Header ="Category" DisplayMemberBinding="{Binding Category}"/>
-                            <GridViewColumn Header ="Price" DisplayMemberBinding="{Binding Price}"/>
-                        </GridView>
-                    </ListView.View>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding ID}"/>
-                                <TextBlock Text="{Binding Name}"/>
-                                <TextBlock Text="{Binding Category}"/>
-                                <TextBlock Text="{Binding Price}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding ID}" ></TextBlock>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                                <TextBlock Text="{Binding Category}"></TextBlock>
+                                <TextBlock Text="{Binding Price}"></TextBlock>
+                                <StackPanel.Resources>
+                                    <Style
+                    TargetType="TextBlock">
+                                        <Setter
+                        Property="FontSize"
+                        Value="25"></Setter>
+                                        <Setter
+                        Property="VerticalAlignment"
+                        Value="Center"></Setter>
+                                        <Setter Property="Margin" Value="5 5" />
+                                    </Style>
+                                </StackPanel.Resources>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.Background>
                         <ImageBrush ImageSource="../Images/ViewListPhoto.png" Opacity="0.5"/>
                     </ListView.Background>
+                    <ListView.Resources>
+                        <Style
+                    TargetType="TextBlock">
+                            <Setter
+                        Property="FontSize"
+                        Value="25"></Setter>
+                            <Setter
+                        Property="VerticalAlignment"
+                        Value="Center"></Setter>
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                 </ListView>
             </TabItem>
             <TabControl.Resources>

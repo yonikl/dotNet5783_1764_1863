@@ -37,7 +37,17 @@
         <ListView 
             Name="ProductListView" Foreground="Black" FontSize="20" FontStyle="Italic" FontFamily="KaiTi" FontWeight="ExtraBold" 
             Grid.Row="1"  d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Right">
-            <ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding ID}"> </TextBox>
+                        <TextBox Text="{Binding Name}"></TextBox>
+                        <TextBox Text="{Binding Category}"></TextBox>
+                        <TextBox Text="{Binding Price}"></TextBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <!--<ListView.View>
                 <GridView>
                     <GridView.ColumnHeaderContainerStyle>
                         <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -49,7 +59,7 @@
                     <GridViewColumn Header ="Category" DisplayMemberBinding="{Binding Category}"/>
                     <GridViewColumn Header ="Price" DisplayMemberBinding="{Binding Price}"/>
                 </GridView>
-            </ListView.View>
+            </ListView.View>-->
             <ListView.Background>
                 <ImageBrush ImageSource="../Images/ViewListPhoto.png" Opacity="0.5"/>
             </ListView.Background>
