@@ -12,14 +12,7 @@
     Width="800">
 
     <Grid>
-        <ListView>
-            <ListView.Background>
-                <ImageBrush
-                    ImageSource="Images/AddAndUpdatePhoto.png"
-                    Opacity="0.5"
-                    Stretch="Fill" />
-            </ListView.Background>
-        </ListView>
+       
         <Grid
             Grid.ColumnSpan="1">
             <Grid.RowDefinitions>

@@ -21,11 +21,10 @@ public partial class App : Application
     public App()
     {
         navigationStore = new NavigationStore();
-        shop = new Shop();
     }
     protected override void OnStartup(StartupEventArgs e)
     {
-        navigationStore.CurrentViewModel = new MainWindowViewModel(navigationStore, shop);
+        navigationStore.CurrentViewModel = new MainWindowViewModel(navigationStore);
         MainWindow = new MainWindow(navigationStore) 
         { 
             DataContext = new MainViewModel(navigationStore) 

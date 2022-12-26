@@ -22,5 +22,6 @@ public partial class AddOrUpdateProductView : UserControl
     public AddOrUpdateProductView()
     {
         InitializeComponent();
+       
     }
 }

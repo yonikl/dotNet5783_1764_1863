@@ -10,14 +10,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800">
     <Grid>
-        <ListView>
-            <ListView.Background>
-                <ImageBrush
-                    ImageSource="../Images/AddAndUpdatePhoto.png"
-                    Opacity="0.5"
-                    Stretch="Fill" />
-            </ListView.Background>
-        </ListView>
+
         <Grid
             Grid.ColumnSpan="1">
             <Grid.RowDefinitions>
@@ -37,6 +30,8 @@
                     Height="9*"></RowDefinition>
                 <RowDefinition
                     Height="35*"></RowDefinition>
+                <RowDefinition
+                    Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
@@ -105,13 +100,16 @@
                 Text="{Binding ProductId, UpdateSourceTrigger=PropertyChanged}" />
             <ComboBox
                 x:Name="CategorySelector"
+                ItemsSource="{Binding Categories}"
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 Margin="10,0,0,0"
                 Grid.Row="2"
                 VerticalAlignment="Center"
                 Width="120"
-                SelectedValue="{Binding ProductCategory, UpdateSourceTrigger=PropertyChanged}" />
+                
+                SelectedValue="{Binding ProductCategory, UpdateSourceTrigger=PropertyChanged}" 
+                />
             <TextBox
                 x:Name="NameTextBox"
                 Grid.Column="1"
@@ -150,7 +148,8 @@
                 Grid.Row="6"
                 VerticalAlignment="Center"
                 RenderTransformOrigin="-0.186,-0.455"
-                Grid.Column="1" />
+                Grid.Column="1"
+                Command="{Binding AddOrUpdate}"/>
             <Button
                 Name="BackButton"
                 Content="Back"
@@ -161,6 +160,16 @@
                 RenderTransformOrigin="-0.186,-0.455"
                 Grid.Column="1"
                 Command="{Binding GoBack}"/>
+            <TextBlock
+                Grid.Row="7" 
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="Red"
+                FontSize="20"
+                Text="{Binding ErrorMessages}"/>
+
+
         </Grid>
     </Grid>
 </UserControl>

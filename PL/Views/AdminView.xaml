@@ -5,100 +5,170 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:PL.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800">
     <Grid>
-        <TabControl >
-            <TabItem Height="61" Width="178" >
-                <TabItem.Header>
-                    <StackPanel >
-                        <Image 
-                            Source="../Images/OrdersIcon.png" />
-                        <TextBlock 
-                            Text="Orders" />
-                    </StackPanel>
-                </TabItem.Header>
-                <DataGrid ItemsSource="{Binding Orders}" GridLinesVisibility="None" Margin="0 20 0 0">
-                </DataGrid>
-            </TabItem>
-            <TabItem >
-                <TabItem.Header>
-                    <StackPanel>
-                        <Image
-                            Source="../Images/ProductsIcon.png" />
-                        <TextBlock
-                            Text="Products"  FontSize="5"/>
-                    </StackPanel>
-                </TabItem.Header>
-                <ListView ItemsSource="{Binding Products}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding ID}" ></TextBlock>
-                                <TextBlock Text="{Binding Name}"></TextBlock>
-                                <TextBlock Text="{Binding Category}"></TextBlock>
-                                <TextBlock Text="{Binding Price}"></TextBlock>
-                                <StackPanel.Resources>
-                                    <Style
-                    TargetType="TextBlock">
-                                        <Setter
-                        Property="FontSize"
-                        Value="25"></Setter>
-                                        <Setter
-                        Property="VerticalAlignment"
-                        Value="Center"></Setter>
-                                        <Setter Property="Margin" Value="5 5" />
-                                    </Style>
-                                </StackPanel.Resources>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.Background>
-                        <ImageBrush ImageSource="../Images/ViewListPhoto.png" Opacity="0.5"/>
-                    </ListView.Background>
-                    <ListView.Resources>
-                        <Style
-                    TargetType="TextBlock">
-                            <Setter
-                        Property="FontSize"
-                        Value="25"></Setter>
-                            <Setter
-                        Property="VerticalAlignment"
-                        Value="Center"></Setter>
-                        </Style>
-                    </ListView.Resources>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </TabItem>
-            <TabControl.Resources>
-                <Style
-                    TargetType="StackPanel">
-                    <Setter
-                        Property="Height"
-                        Value="50" />
-                    <Setter
-                        Property="Width"
-                        Value="150" />
-                    <Setter
-                        Property="Orientation"
-                        Value="Horizontal" />
-                </Style>
-                <Style
-                    TargetType="TextBlock">
-                    <Setter
-                        Property="FontSize"
-                        Value="25"></Setter>
-                    <Setter
-                        Property="VerticalAlignment"
-                        Value="Center"></Setter>
-                </Style>
-            </TabControl.Resources>
-        </TabControl>
+        
+        <materialDesign:Card>
+            <TabControl
+                
+                HorizontalAlignment="Stretch"
+                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                Style="{StaticResource MaterialDesignFilledTabControl}">
+                <TabItem
+                    Header="Products">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid
+                            Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalAlignment="Left" 
+                                Margin="15"
+                                Content="Back"
+                                Width="70"
+                                Command="{Binding Back}"/>
+                            <ComboBox
+                                x:Name="category"
+                                CommandManager.Executed="category_Executed"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                Margin="50 0 0 0"
+                                ItemsSource="{Binding Categories}"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                SelectedValue="{Binding Category}"
+                                Width="256">
+                               
+                            </ComboBox>
+                            <Button
+                                Grid.Column="1"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                HorizontalAlignment="Right"
+                                Margin="0 0 30 0"
+                                Content="Add"
+                                Command="{Binding AddProduct}">
 
+                            </Button>
+                        </Grid>
+                        <ListView
+                            Name="ProductListView"
+                            Foreground="#42f5d4"
+                            FontSize="20"
+                            FontStyle="Italic"
+                            FontFamily="KaiTi"
+                            FontWeight="ExtraBold"
+                            Grid.Row="1"
+                            Margin="15 0 15 15"
+                            ItemsSource="{Binding Products}"
+                            MouseDoubleClick="ProductListView_MouseDoubleClick"
+                            SelectedValue="{Binding SelectedProduct}">
+                            <ListView.View>
+                                <GridView>
+
+                                    <GridViewColumn
+                                        Header="ID"
+                                        DisplayMemberBinding="{Binding ID}" />
+                                    <GridViewColumn
+                                        Header="Name"
+                                        DisplayMemberBinding="{Binding Name}" />
+                                    <GridViewColumn
+                                        Header="Category"
+                                        DisplayMemberBinding="{Binding Category}" />
+                                    <GridViewColumn
+                                        Header="Price"
+                                        DisplayMemberBinding="{Binding Price}" />
+                                </GridView>
+                            </ListView.View>
+                            <ListView.Resources>
+                                <Style
+                                    TargetType="ListViewItem">
+                                    <Setter
+                                        Property="HorizontalContentAlignment"
+                                        Value="Center" />
+                                    <Setter
+                                        Property="HorizontalAlignment"
+                                        Value="Center" />
+                                </Style>
+                            </ListView.Resources>
+                        </ListView>
+                    </Grid>
+
+                </TabItem>
+                <TabItem
+                    Header="Orders">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            Grid.Row="0"
+                            HorizontalAlignment="Left"
+                            Margin="15 15 0 0"
+                            Content="Back"
+                            Width="70"
+                            Command="{Binding Back}" />
+                        <ListView
+                            HorizontalContentAlignment="Right"
+                            Name="OrdersListView"
+                            Foreground="#42f5d4"
+                            FontSize="20"
+                            FontStyle="Italic"
+                            FontFamily="KaiTi"
+                            FontWeight="ExtraBold"
+                            Margin="15 0 15 15"
+                            Grid.Row="1"
+                            ItemsSource="{Binding Orders}">
+                            <ListView.View>
+                                <GridView>
+
+                                    <GridViewColumn
+                                        Header="ID"
+                                        DisplayMemberBinding="{Binding ID}" />
+                                    <GridViewColumn
+                                        Header="Customer name"
+                                        DisplayMemberBinding="{Binding CustomerName}" />
+                                    <GridViewColumn
+                                        Header="Status"
+                                        DisplayMemberBinding="{Binding Status}" />
+                                    <GridViewColumn
+                                        Header="Amount of items"
+                                        DisplayMemberBinding="{Binding AmountOfItems}" />
+                                    <GridViewColumn
+                                        Header="Total price"
+                                        DisplayMemberBinding="{Binding TotalPrice}" />
+                                </GridView>
+                            </ListView.View>
+                            <ListView.Resources>
+                                <Style
+                                    TargetType="ListViewItem">
+                                    <Setter
+                                        Property="HorizontalContentAlignment"
+                                        Value="Center" />
+                                    <Setter
+                                        Property="HorizontalAlignment"
+                                        Value="Center" />
+                                </Style>
+                            </ListView.Resources>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </materialDesign:Card>
     </Grid>
+    
 </UserControl>

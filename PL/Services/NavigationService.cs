@@ -12,10 +12,19 @@ internal class NavigationService
 {
     private NavigationStore navigationStore;
     private Func<ViewModelBase> createViewModel;
+    private MainWindowViewModel mainWindowViewModel;
+    private object value;
+
     public NavigationService(NavigationStore navigationStore, Func<ViewModelBase> createViewModel)
     {
         this.navigationStore = navigationStore;
         this.createViewModel = createViewModel;
+    }
+
+    public NavigationService(MainWindowViewModel mainWindowViewModel, object value)
+    {
+        this.mainWindowViewModel = mainWindowViewModel;
+        this.value = value;
     }
 
     public void Navigate()

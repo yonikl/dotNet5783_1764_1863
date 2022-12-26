@@ -35,7 +35,7 @@
             </DataTemplate>
             <DataTemplate
                 DataType="{x:Type vms:AdminViewModel}">
-                <views:AdminView />
+                <views:AdminView UpdateProduct="{Binding UpdateProduct}"/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:CreateNewOrderViewModel}">
                 <views:CreateNewOrderView />

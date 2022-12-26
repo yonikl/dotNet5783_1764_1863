@@ -8,31 +8,41 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PL.Models;
+using BlApi;
+using BO;
 
 namespace PL.ViewModels;
 
 internal class AddOrUpdateProductViewModel : ViewModelBase
 {
+    private readonly IBl bl = Factory.Get();
     private readonly NavigationStore navigationStore;
-    private readonly Shop shop;
     private int productId;
     private string? productName;
     private double productPrice;
     private int productInStock;
     private BO.Enums.Category productCategory;
+    private string errorMessages;
 
-    
     public ICommand GoBack { get; }
     public ICommand AddOrUpdate { get; }
 
-
-    public AddOrUpdateProductViewModel(NavigationStore navigationStore, Shop shop, int id=0)
+    public IEnumerable<BO.Enums.Category> Categories => (IEnumerable<Enums.Category>)Enum.GetValues(typeof(BO.Enums.Category));
+    public AddOrUpdateProductViewModel(NavigationStore navigationStore, int id=0)
     {
         this.navigationStore = navigationStore;
-        this.shop = shop;
-        GoBack = new NavigationCommand(new NavigationService( this.navigationStore, GoBackToMainWindowViewModel));
+        GoBack = new NavigationCommand(new NavigationService( this.navigationStore, () => new AdminViewModel(navigationStore)));
         submitButtonText = id == 0 ? "Add product" : "Update product";
-        AddOrUpdate = id == 0 ? new AddProductCommand(this) : new UpdateProductCommand(this);
+        AddOrUpdate = id == 0 ? new AddProductCommand(this, navigationStore) : new UpdateProductCommand(this, navigationStore);
+        ProductId = id == 0 ? bl.Product.GetIdForProduct() : id;
+        if(id != 0)
+        {
+            var item = bl.Product.GetProductForAdmin(id);
+            productCategory = item.Category ?? throw new NullReferenceException();
+            productInStock = item.InStock;
+            productPrice = item.Price;
+            productName = item.Name;
+        }
     }
     public string submitButtonText { get; }
     public int ProductId
@@ -97,8 +107,13 @@ internal class AddOrUpdateProductViewModel : ViewModelBase
         }
     }
 
-    public ViewModelBase GoBackToMainWindowViewModel()
+    public string ErrorMessages
     {
-        return new MainWindowViewModel(navigationStore, shop);
+        get => errorMessages;
+        set
+        {
+            errorMessages = value;
+            OnPropertyChanged(nameof(ErrorMessages));
+        }
     }
 }

@@ -1,5 +1,7 @@
-﻿using PL.Services;
+﻿using PL.Commands;
+using PL.Services;
 using PL.Stores;
+using PL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +23,34 @@ namespace PL.Views
     /// </summary>
     public partial class AdminView : UserControl
     {
+
+
+        public ICommand UpdateProduct
+        {
+            get { return (ICommand)GetValue(UpdateProductProperty); }
+            set { SetValue(UpdateProductProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for UpdateProduct.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UpdateProductProperty =
+            DependencyProperty.Register("UpdateProduct", typeof(ICommand), typeof(AdminView), new PropertyMetadata(null));
+
+
+        private BlApi.IBl bl = BlApi.Factory.Get();
         public AdminView()
         {
             InitializeComponent();
+           
+        }
+
+        private void category_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ProductListView.ItemsSource = category.SelectedItem.ToString() == "None" ? bl.Product.GetAllProducts() : bl.Product.GetAllProducts(x => x?.Category.ToString() == category.SelectedItem.ToString());
+        }
+
+        private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+           if(UpdateProduct != null) UpdateProduct.Execute(null);
         }
     }
 }

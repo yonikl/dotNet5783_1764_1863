@@ -121,3 +121,11 @@ public class BlItemAlreadyExistException : Exception
     {
     }
 }
+
+/// <summary>
+/// Exception when the category set to None
+/// </summary>
+public class BlCategoryDoesntSet : Exception
+{
+
+}
