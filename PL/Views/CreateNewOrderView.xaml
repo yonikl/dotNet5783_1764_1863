@@ -7,5 +7,99 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
- 
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="350"/>
+        </Grid.RowDefinitions>
+        <Button
+            Style="{StaticResource MaterialDesignRaisedButton}"
+            materialDesign:ButtonProgressAssist.Value="-1"
+            materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+            materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+            Grid.Row="0"
+            Foreground="Aqua"
+            Margin="0,0,20,0"
+            Width="70"
+            HorizontalAlignment="Right"
+            Command="{Binding CreateNewCart}">
+            <Button.Content>
+                <materialDesign:PackIcon
+                    Kind="Cart" />
+            </Button.Content>
+        </Button>
+        <Button
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Grid.Row="0"
+            HorizontalAlignment="Left"
+            Content="Back"
+            Width="70"
+            Command="{Binding Back}" />
+        <CheckBox
+            Content="Grouping by category"
+            Margin="240,0,0,0"
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            Command="{Binding OrderByCategory}" />
+        <ComboBox
+            x:Name="category"
+            Grid.Row="0"
+            Text="Order by category"
+            HorizontalAlignment="Left"
+            Margin="150,0,0,0"
+            ItemsSource="{Binding Categories}"
+            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+            SelectedValue="{Binding Category}"
+            Width="256">
+
+        </ComboBox>
+       
+        <ListView
+            VerticalContentAlignment="Center"
+            Name="ProductListView"
+            Foreground="#4275f5"
+            FontSize="20"
+            FontStyle="Italic"
+            FontFamily="KaiTi"
+            FontWeight="ExtraBold"
+            Grid.Row="1"
+            Margin="15 0 15 15"
+            ItemsSource="{Binding ProductItems}">
+            <ListView.View>
+                <GridView>
+
+                    <GridViewColumn
+                        Header="ID"
+                        DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn
+                        Header="Name"
+                        DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn
+                        Header="Price"
+                        DisplayMemberBinding="{Binding Price}" />
+                    <GridViewColumn
+                        Header="Category"
+                        DisplayMemberBinding="{Binding Category}" />
+                    <GridViewColumn
+                        Header="In cart"
+                        DisplayMemberBinding="{Binding Amount}" />
+                    <GridViewColumn
+                        Header="In Stock"
+                        DisplayMemberBinding="{Binding InStock}" />
+                </GridView>
+            </ListView.View>
+            <ListView.Resources>
+                <Style
+                    TargetType="ListViewItem">
+                    <Setter
+                        Property="HorizontalContentAlignment"
+                        Value="Center" />
+                    <Setter
+                        Property="HorizontalAlignment"
+                        Value="Center" />
+                </Style>
+            </ListView.Resources>
+        </ListView>
+    </Grid>
 </UserControl>

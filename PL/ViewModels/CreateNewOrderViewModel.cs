@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,4 +9,7 @@ namespace PL.ViewModels;
 
 internal class CreateNewOrderViewModel : ViewModelBase
 {
+    private IBl? bl = Factory.Get();
+
+   
 }

@@ -43,13 +43,10 @@ namespace PL.Views
            
         }
 
-        private void category_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            ProductListView.ItemsSource = category.SelectedItem.ToString() == "None" ? bl.Product.GetAllProducts() : bl.Product.GetAllProducts(x => x?.Category.ToString() == category.SelectedItem.ToString());
-        }
 
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            
            if(UpdateProduct != null) UpdateProduct.Execute(null);
         }
     }

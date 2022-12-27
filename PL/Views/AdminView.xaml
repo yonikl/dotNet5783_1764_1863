@@ -42,7 +42,6 @@
                                 Command="{Binding Back}"/>
                             <ComboBox
                                 x:Name="category"
-                                CommandManager.Executed="category_Executed"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
                                 Margin="50 0 0 0"
@@ -92,17 +91,6 @@
                                         DisplayMemberBinding="{Binding Price}" />
                                 </GridView>
                             </ListView.View>
-                            <ListView.Resources>
-                                <Style
-                                    TargetType="ListViewItem">
-                                    <Setter
-                                        Property="HorizontalContentAlignment"
-                                        Value="Center" />
-                                    <Setter
-                                        Property="HorizontalAlignment"
-                                        Value="Center" />
-                                </Style>
-                            </ListView.Resources>
                         </ListView>
                     </Grid>
 

@@ -17,7 +17,7 @@ internal class Product : IProduct
     /// list of all products as ProductItems
     public IEnumerable<ProductItem?> GetCatalog(BO.Cart c)
     {
-        var products = dal.Product.GetAll();
+        var products = dal!.Product.GetAll();
         return from p in products select new ProductItem()
         {
             ID = p.ID,
