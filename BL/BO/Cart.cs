@@ -16,7 +16,7 @@ public class Cart
     /// <summary>
     /// Customer address
     /// </summary>
-    public string CustomerAddress { get; set; }
+    public string? CustomerAddress { get; set; }
 
     /// <summary>
     /// items that the customer choose
