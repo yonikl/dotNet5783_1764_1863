@@ -144,10 +144,9 @@
                 Name="ProceedButton"
                 Content="{Binding submitButtonText}"
                 HorizontalAlignment="Left"
-                Margin="90,0,0,0"
+                Margin="10,0,0,0"
                 Grid.Row="6"
                 VerticalAlignment="Center"
-                RenderTransformOrigin="-0.186,-0.455"
                 Grid.Column="1"
                 Command="{Binding AddOrUpdate}"/>
             <Button
@@ -155,10 +154,9 @@
                 Content="Back"
                 HorizontalAlignment="Left"
                 Margin="10,0,0,0"
-                Grid.Row="6"
-                VerticalAlignment="Center"
-                RenderTransformOrigin="-0.186,-0.455"
-                Grid.Column="1"
+                Grid.Row="1"
+                VerticalAlignment="Top"
+                Grid.Column="0"
                 Command="{Binding GoBack}"/>
             <TextBlock
                 Grid.Row="7" 

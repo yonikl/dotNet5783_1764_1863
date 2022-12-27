@@ -66,6 +66,10 @@ internal class UpdateProductCommand : BaseCommand
         {
             model.ErrorMessages = "Category Doesnt Set";
         }
+        catch(BO.BlEmptyOrderExistsException)
+        {
+            model.ErrorMessages = "Empty order exists";
+        }
         catch (Exception exception)
         {
             model.ErrorMessages = "Unknown error";

@@ -18,9 +18,11 @@ public class OrderTracking
 
     public override string ToString()
     {
-        Console.WriteLine($" * {nameof(ID)}: {ID}\n * {nameof(Status)}: {Status}");
-        OrderTimeLine?.ForEach(item => Console.WriteLine($"* item {item.Item2} : {item.Item1}"));
-        return "";
+        string s;
+        s = ($"* {nameof(ID)}: {ID}\n* {nameof(Status)}: {Status}\n");
+      
+        OrderTimeLine?.ForEach(item => s += ($"* item {item.Item2} : {item.Item1}\n").ToString());
+        return s;
     }
     
 }

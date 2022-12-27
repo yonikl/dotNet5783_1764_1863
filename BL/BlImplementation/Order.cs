@@ -236,10 +236,10 @@ internal class Order : IOrder
     private BO.Order setOrderItemsAndTotalPrice(BO.Order order)
     {
         IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll(x => x.OrderID == order.ID);//get the items using id
-        if (!orderItems?.Any() ?? throw new NullReferenceException()) //if the list is empty
+        if (!orderItems.Any()) //if the list is empty
             throw new BO.BlEmptyOrderExistsException();
 
-        order.TotalPrice += orderItems.Sum(x =>  x.Price * x.Amount);
+        order.TotalPrice += orderItems!.Sum(x =>  x.Price * x.Amount);
         order.Items = (List<BO.OrderItem?>)(from i in orderItems
             select new BO.OrderItem()
             {

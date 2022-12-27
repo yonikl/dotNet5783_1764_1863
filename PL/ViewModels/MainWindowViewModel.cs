@@ -38,7 +38,7 @@ internal class MainWindowViewModel : ViewModelBase
     }
     public ViewModelBase CreateNewTrackOrdersViewModel()
     {
-        return new TrackOrdersViewModel();
+        return new TrackOrdersViewModel(navigationStore);
     }
 }
 

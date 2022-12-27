@@ -19,6 +19,7 @@ internal class AdminViewModel : ViewModelBase, INotifyCollectionChanged
 {
     private IBl? bl = Factory.Get();
 
+    private string message;
     public IEnumerable<OrderForList?> Orders => bl!.Order.GetAllOrders();
     public IEnumerable<ProductForList?> Products
     {
@@ -36,6 +37,9 @@ internal class AdminViewModel : ViewModelBase, INotifyCollectionChanged
     public ICommand UpdateProduct { get; }
     public ICommand CategorySelctor { get; }
 
+    public ICommand UpdateShipping { get; }
+    public ICommand UpdateDelivery { get; }
+
     public ICommand Back { get; }
     public AdminViewModel(NavigationStore navigationStore)
     {
@@ -44,6 +48,12 @@ internal class AdminViewModel : ViewModelBase, INotifyCollectionChanged
 
         Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
         UpdateProduct = new NavigationCommand(new NavigationService(navigationStore, () => new AddOrUpdateProductViewModel(navigationStore, selectedProduct!.ID)));
+
+        Message = "To update status for order right click on the context menu";
+
+        UpdateShipping = new UpdateShippingCommand(this);
+
+        UpdateDelivery = new UpdateDeliveryCommand(this);
 
     }
     private BO.Enums.Category category;
@@ -71,4 +81,28 @@ internal class AdminViewModel : ViewModelBase, INotifyCollectionChanged
             OnPropertyChanged(nameof(SelectedProduct));
         }
     }
+
+    private BO.OrderForList selctedOrderTracking;
+
+    public BO.OrderForList SelectedOrderTracking
+    { 
+        get => selctedOrderTracking;
+        set
+        {
+            selctedOrderTracking = value;
+            OnPropertyChanged(nameof(SelectedOrderTracking));
+        }
+    }
+
+    public string Message 
+    {
+        get => message;
+        set
+        {
+            message = value;
+            OnPropertyChanged(nameof(Message));
+        }
+    }
+
+
 }

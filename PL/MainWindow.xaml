@@ -30,10 +30,6 @@
                 <views:AddOrUpdateProductView />
             </DataTemplate>
             <DataTemplate
-                DataType="{x:Type vms:ProductForListViewModel}">
-                <views:ProductForListView />
-            </DataTemplate>
-            <DataTemplate
                 DataType="{x:Type vms:AdminViewModel}">
                 <views:AdminView UpdateProduct="{Binding UpdateProduct}"/>
             </DataTemplate>
