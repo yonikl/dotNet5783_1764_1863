@@ -20,7 +20,7 @@ internal class AdminViewModel : ViewModelBase, INotifyCollectionChanged
     private IBl? bl = Factory.Get();
 
     private string message;
-    public IEnumerable<OrderForList?> Orders => bl!.Order.GetAllOrders();
+    public IEnumerable<OrderForList?> Orders => bl!.Order.GetAllOrders().OrderBy(x => x!.Status);
     public IEnumerable<ProductForList?> Products
     {
         get
@@ -104,5 +104,10 @@ internal class AdminViewModel : ViewModelBase, INotifyCollectionChanged
         }
     }
 
+    public void Refresh()
+    {
+        OnPropertyChanged(nameof(Orders));
+        OnPropertyChanged(nameof(Products));
+    }
 
 }

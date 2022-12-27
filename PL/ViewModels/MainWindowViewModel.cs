@@ -23,22 +23,9 @@ internal class MainWindowViewModel : ViewModelBase
     {
         this.navigationStore = navigationStore;
 
-        GoToAdminView = new NavigationCommand(new NavigationService(navigationStore, CreateNewAdminViewModel));
-        GoToCreateNewOrder = new NavigationCommand(new NavigationService(navigationStore, CreateNewCreateNewOrderViewModel));
-        GoToTrackOrders = new NavigationCommand(new NavigationService(navigationStore, CreateNewTrackOrdersViewModel));
-    }
-
-    public ViewModelBase CreateNewAdminViewModel()
-    {
-        return new AdminViewModel(navigationStore);
-    }
-    public ViewModelBase CreateNewCreateNewOrderViewModel()
-    {
-        return new CreateNewOrderViewModel();
-    }
-    public ViewModelBase CreateNewTrackOrdersViewModel()
-    {
-        return new TrackOrdersViewModel(navigationStore);
+        GoToAdminView = new NavigationCommand(new NavigationService(navigationStore, () => new AdminViewModel(navigationStore)));
+        GoToCreateNewOrder = new NavigationCommand(new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore)));
+        GoToTrackOrders = new NavigationCommand(new NavigationService(navigationStore, () => new TrackOrdersViewModel(navigationStore)));
     }
 }
 

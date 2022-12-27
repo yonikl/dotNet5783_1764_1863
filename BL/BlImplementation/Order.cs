@@ -235,12 +235,12 @@ internal class Order : IOrder
     /// <exception cref="BO.BlEmptyOrderExistsException">if the list is empty</exception>
     private BO.Order setOrderItemsAndTotalPrice(BO.Order order)
     {
-        IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll(x => x.OrderID == order.ID);//get the items using id
+        IEnumerable<DO.OrderItem> orderItems = dal?.OrderItem.GetAll(x => x.OrderID == order.ID);//get the items using id
         if (!orderItems.Any()) //if the list is empty
             throw new BO.BlEmptyOrderExistsException();
 
         order.TotalPrice += orderItems!.Sum(x =>  x.Price * x.Amount);
-        order.Items = (List<BO.OrderItem?>)(from i in orderItems
+        order.Items = ((IEnumerable<BO.OrderItem?>)(from i in orderItems
             select new BO.OrderItem()
             {
                 Amount = i.Amount,
@@ -249,7 +249,7 @@ internal class Order : IOrder
                 Price = i.Price,
                 ProductID = i.ProductID,
                 TotalPrice = i.Price * i.Amount
-            });
+            })).ToList();
         return order;
     }
 }

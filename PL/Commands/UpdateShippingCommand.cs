@@ -25,6 +25,7 @@ internal class UpdateShippingCommand : BaseCommand
         {
             bl.Order.UpdateShipping(model.SelectedOrderTracking.ID);
             model.Message = "Update succesfuly";
+            model.Refresh();
         }
         catch (BO.BlItemNotFoundException)
         {

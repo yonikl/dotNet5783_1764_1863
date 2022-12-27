@@ -29,6 +29,7 @@ internal class UpdateDeliveryCommand: BaseCommand
         {
             bl.Order.UpdateDelivery(model.SelectedOrderTracking.ID);
             model.Message = "Update succesfuly";
+            model.Refresh();
         }
         catch (BlItemNotFoundException)
         {
@@ -44,8 +45,8 @@ internal class UpdateDeliveryCommand: BaseCommand
         }
         catch (Exception ex)
         {
-            MessageBox.Show(ex.ToString());
-           
+            throw;
+
         }
 
     }
