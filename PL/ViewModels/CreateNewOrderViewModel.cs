@@ -16,7 +16,7 @@ internal class CreateNewOrderViewModel : ViewModelBase
     private IBl bl = Factory.Get();
     private Cart cart;
     public IEnumerable<Enums.Category> Categories => (IEnumerable<Enums.Category>)Enum.GetValues(typeof(BO.Enums.Category));
-    public IEnumerable<ProductItem?> Products => groupByCategory ? (IEnumerable<ProductItem?>)bl!.Product.GetCatalog(cart, ).OrderBy(x => x!.Category) : bl!.Product.GetCatalog(cart);
+    public IEnumerable<ProductItem?> Products => groupByCategory ? (IEnumerable<ProductItem?>)bl!.Product.GetCatalog(cart, null).OrderBy(x => x!.Category) : bl!.Product.GetCatalog(cart,null);
     public ICommand Back { get; }
 
     public ICommand ToTheCart { get; }
