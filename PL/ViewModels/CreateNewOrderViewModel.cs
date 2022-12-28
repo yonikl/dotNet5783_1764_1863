@@ -16,7 +16,7 @@ internal class CreateNewOrderViewModel : ViewModelBase
     private IBl bl = Factory.Get();
     private Cart cart;
     public IEnumerable<Enums.Category> Categories => (IEnumerable<Enums.Category>)Enum.GetValues(typeof(BO.Enums.Category));
-    public IEnumerable<ProductItem?> Products => groupByCategory ? (IEnumerable<ProductItem?>)bl!.Product.GetCatalog(cart, ).OrderBy(x => x!.Category) : bl!.Product.GetCatalog(cart);
+    public IEnumerable<ProductItem?> Products => groupByCategory ? (IEnumerable<ProductItem?>)bl!.Product.GetCatalog(cart, selectedCategory.ToString() == "None" ? null : x => x?.Category.ToString() == selectedCategory.ToString()).OrderBy(x => x!.Category) : bl!.Product.GetCatalog(cart, selectedCategory.ToString() == "None" ? null : x => x?.Category.ToString() == selectedCategory.ToString());
     public ICommand Back { get; }
 
     public ICommand ToTheCart { get; }
@@ -35,7 +35,16 @@ internal class CreateNewOrderViewModel : ViewModelBase
     }
 
     private BO.Enums.Category selectedCategory;
-    public BO.Enums.Category SelectedCategory { get; set; }
+    public BO.Enums.Category SelectedCategory
+    {
+        get => selectedCategory;
+        set
+        {
+            selectedCategory = value;
+            OnPropertyChanged(nameof(selectedCategory));
+            OnPropertyChanged(nameof(Products));
+        }
+    }
 
     public CreateNewOrderViewModel(NavigationStore navigationStore)
     {
@@ -44,7 +53,7 @@ internal class CreateNewOrderViewModel : ViewModelBase
         GoToProduct = new NavigationCommand(new NavigationService(navigationStore, () => new ProducttViewModel(navigationStore, selectedProduct!)));
         this.navigationStore = navigationStore;
         GroupByCategory = false;
-
+        SelectedCategory = BO.Enums.Category.None;
         ToTheCart = new NavigationCommand(new NavigationService(navigationStore, () => new CartViewModel(navigationStore, cart)));
     }
 
