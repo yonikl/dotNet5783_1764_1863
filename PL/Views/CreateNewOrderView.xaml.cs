@@ -20,9 +20,28 @@ namespace PL.Views
     /// </summary>
     public partial class CreateNewOrderView : UserControl
     {
+
+
+        public ICommand ShowProduct
+        {
+            get { return (ICommand)GetValue(ShowProductProperty); }
+            set { SetValue(ShowProductProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowProduct.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowProductProperty =
+            DependencyProperty.Register("ShowProduct", typeof(ICommand), typeof(CreateNewOrderView), new PropertyMetadata(null));
+
+
         public CreateNewOrderView()
         {
             InitializeComponent();
+        }
+
+        private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(ShowProduct!=null)
+                ShowProduct.Execute(null);
         }
     }
 }

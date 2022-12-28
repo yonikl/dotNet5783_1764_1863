@@ -16,32 +16,36 @@ internal class CreateNewOrderViewModel : ViewModelBase
     private IBl bl = Factory.Get();
     private Cart cart;
     public IEnumerable<Enums.Category> Categories => (IEnumerable<Enums.Category>)Enum.GetValues(typeof(BO.Enums.Category));
-    public IEnumerable<ProductItem?> Products
+    public IEnumerable<ProductItem?> Products => groupByCategory ? (IEnumerable<ProductItem?>)bl!.Product.GetCatalog(cart, ).OrderBy(x => x!.Category) : bl!.Product.GetCatalog(cart);
+    public ICommand Back { get; }
+
+    public ICommand ToTheCart { get; }
+    public ICommand GoToProduct { get; }
+
+    private bool groupByCategory = false;
+    public bool GroupByCategory
     {
-        get => bl!.Product.GetCatalog(cart);
+        get => groupByCategory;
         set
         {
-            Products = value;
+            groupByCategory = value;
+            OnPropertyChanged(nameof(GroupByCategory));
             OnPropertyChanged(nameof(Products));
         }
     }
-    public ICommand Back { get; }
-    public ICommand GoToProduct { get; }
-    public bool GroupByCategory
-    {
-        get => GroupByCategory;
-        set
-        {
-            Products = GroupByCategory ? (IEnumerable<ProductItem?>)bl!.Product.GetCatalog(cart).GroupBy(x => x!.Category) : bl!.Product.GetCatalog(cart);
-        }
-    }
+
+    private BO.Enums.Category selectedCategory;
+    public BO.Enums.Category SelectedCategory { get; set; }
 
     public CreateNewOrderViewModel(NavigationStore navigationStore)
     {
         cart = new Cart() { Items = new List<OrderItem?>() };
         Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
-        GoToProduct = new NavigationCommand(new NavigationService(navigationStore, () => new ProductViewModel(navigationStore, selectedProduct!)));
+        GoToProduct = new NavigationCommand(new NavigationService(navigationStore, () => new ProducttViewModel(navigationStore, selectedProduct!)));
         this.navigationStore = navigationStore;
+        GroupByCategory = false;
+
+        ToTheCart = new NavigationCommand(new NavigationService(navigationStore, () => new CartViewModel(navigationStore, cart)));
     }
 
     private ProductItem? selectedProduct;

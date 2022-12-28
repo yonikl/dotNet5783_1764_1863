@@ -4,9 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+              mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="Black">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            Margin="20,0,0,0"
+            Content="Back"
+            Width="70"
+            Command="{Binding Back}" />
+        
     </Grid>
 </UserControl>

@@ -13,6 +13,6 @@ public interface IProduct
     public void UpdateProduct(BO.Product item);
     public void RemoveProduct(int id);
     public int GetIdForProduct();
-    public IEnumerable<ProductItem?> GetCatalog(BO.Cart c);
+    public IEnumerable<ProductItem?> GetCatalog(BO.Cart c, Func<DO.Product?, bool>? func);
 }
 

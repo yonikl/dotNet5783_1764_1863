@@ -6,12 +6,13 @@
              xmlns:local="clr-namespace:PL.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Background="Black"
+             d:DesignHeight="450" d:DesignWidth="850">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="350"/>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="450"/>
         </Grid.RowDefinitions>
         <Button
             Style="{StaticResource MaterialDesignRaisedButton}"
@@ -23,7 +24,7 @@
             Margin="0,0,20,0"
             Width="70"
             HorizontalAlignment="Right"
-            Command="{Binding CreateNewCart}">
+            Command="{Binding ToTheCart}">
             <Button.Content>
                 <materialDesign:PackIcon
                     Kind="Cart" />
@@ -33,21 +34,23 @@
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Grid.Row="0"
             HorizontalAlignment="Left"
+            Margin="30"
             Content="Back"
             Width="70"
+            
             Command="{Binding Back}" />
         <CheckBox
             Content="Grouping by category"
-            Margin="240,0,0,0"
+            Margin="210,0,0,0"
             Grid.Row="0"
             HorizontalAlignment="Center"
-            Command="{Binding OrderByCategory}" />
+            IsChecked="{Binding GroupByCategory}" />
         <ComboBox
             x:Name="category"
             Grid.Row="0"
             Text="Order by category"
             HorizontalAlignment="Left"
-            Margin="150,0,0,0"
+            Margin="170,0,0,0"
             ItemsSource="{Binding Categories}"
             Style="{StaticResource MaterialDesignOutlinedComboBox}"
             SelectedValue="{Binding Category}"
@@ -57,6 +60,7 @@
        
         <ListView
             VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
             Name="ProductListView"
             Foreground="#4275f5"
             FontSize="20"
@@ -65,7 +69,14 @@
             FontWeight="ExtraBold"
             Grid.Row="1"
             Margin="15 0 15 15"
-            ItemsSource="{Binding ProductItems}">
+            ItemsSource="{Binding Products}"
+            SelectedValue="{Binding SelectedProduct}"
+            MouseDoubleClick="ProductListView_MouseDoubleClick">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
 
@@ -74,19 +85,19 @@
                         DisplayMemberBinding="{Binding ID}" />
                     <GridViewColumn
                         Header="Name"
-                        DisplayMemberBinding="{Binding Name}" />
+                        DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn
                         Header="Price"
                         DisplayMemberBinding="{Binding Price}" />
                     <GridViewColumn
                         Header="Category"
-                        DisplayMemberBinding="{Binding Category}" />
+                        DisplayMemberBinding="{Binding Category}"/>
                     <GridViewColumn
                         Header="In cart"
                         DisplayMemberBinding="{Binding Amount}" />
                     <GridViewColumn
                         Header="In Stock"
-                        DisplayMemberBinding="{Binding InStock}" />
+                        DisplayMemberBinding="{Binding InStock}"/>
                 </GridView>
             </ListView.View>
             <ListView.Resources>

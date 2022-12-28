@@ -9,8 +9,8 @@
     xmlns:vms="clr-namespace:PL.ViewModels"
     mc:Ignorable="d"
     Title="Main Window"
-    Height="450"
-    Width="800"
+    Height="Auto"
+    Width="Auto"
     Icon="Images/MainWindowIconPhoto.png"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -34,31 +34,17 @@
                 <views:AdminView UpdateProduct="{Binding UpdateProduct}"/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:CreateNewOrderViewModel}">
-                <views:CreateNewOrderView />
+                <views:CreateNewOrderView ShowProduct="{Binding GoToProduct}"/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:TrackOrdersViewModel}">
                 <views:TrackOrdersView />
             </DataTemplate>
+            <DataTemplate
+                DataType="{x:Type vms:CartViewModel}">
+                <views:CartView />
+            </DataTemplate>
         </Grid.Resources>
         <ContentControl
             Content="{Binding CurrentViewModel}" />
-        <Grid.Background>
-            <LinearGradientBrush
-                StartPoint="0,0"
-                EndPoint="1,1">
-                <GradientStop
-                    Color="Yellow"
-                    Offset="0.0" />
-                <GradientStop
-                    Color="Red"
-                    Offset="0.25" />
-                <GradientStop
-                    Color="Blue"
-                    Offset="0.75" />
-                <GradientStop
-                    Color="LimeGreen"
-                    Offset="1.0" />
-            </LinearGradientBrush>
-        </Grid.Background>
     </Grid>
 </Window>
