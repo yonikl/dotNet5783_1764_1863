@@ -19,7 +19,7 @@ internal class ProducttViewModel : ViewModelBase
 		this.cart = cart;
 		this.navigationStore = navigationStore;
 		this.item = bl.Product.GetProductForUser(id, cart);
-		AddToCart = new AddProductToCartCommand(cart, id, navigationStore);
+		AddToCart = new AddProductToCartCommand(cart, id, navigationStore, this);
 		GoBack = new NavigationCommand(new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore, cart)));
 	}
 	public ProductItem Item
