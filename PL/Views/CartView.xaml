@@ -6,14 +6,13 @@
              xmlns:local="clr-namespace:PL.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
               mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450" d:DesignWidth="900"
              Background="Black">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="120"/>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="50" />
             <RowDefinition />
+            <RowDefinition  Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -29,6 +28,103 @@
             Content="Back"
             Width="70"
             Command="{Binding Back}" />
-        
+ 
+        <Button
+            Style="{StaticResource MaterialDesignRaisedButton}" 
+            Grid.Row="2"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Margin="0,0,0,0"
+            Content="Confirm order"
+            Command="{Binding Confirm}"/>
+        <TextBlock 
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Text="{Binding Message}"
+            />
+        <ListView
+            VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
+            Name="ProductListView"
+            Foreground="#4275f5"
+            FontSize="20"
+            FontStyle="Italic"
+            FontFamily="KaiTi"
+            FontWeight="ExtraBold"
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            ItemsSource="{Binding cart.items}"
+            SelectedValue="{Binding SelectedProduct}">
+            <ListView.ItemContainerStyle>
+                <Style
+                    TargetType="ListViewItem"
+                    BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                    <Setter
+                        Property="HorizontalContentAlignment"
+                        Value="Center" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+
+                    <GridViewColumn
+                        Header="ID"
+                        DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn
+                        Header="Name"
+                        DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn
+                        Header="Price"
+                        DisplayMemberBinding="{Binding Price}" />
+                    <GridViewColumn
+                        Header="Category"
+                        DisplayMemberBinding="{Binding Category}" />
+                    <GridViewColumn
+                        Header="In cart">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    materialDesign:HintAssist.Hint="(editable)"
+                                    MinWidth="72"
+                                    IsEditable="True"
+                                    ItemsSource="{Binding LongIntegerList}"
+                                    Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}">
+
+                                </ComboBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn
+                        Header="In Stock"
+                        DisplayMemberBinding="{Binding InStock}" />
+                </GridView>
+                
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Header="Update item"
+                        Command="{Binding UpdateItem}"
+                        Icon= "{materialDesign:PackIcon Kind=BookEdit}" />
+                    <MenuItem
+                        Header="Delete item"
+                        Command="{Binding DeleteItem}"
+                        Icon="{materialDesign:PackIcon Kind=Delete}" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.Resources>
+                <Style
+                    TargetType="ListViewItem">
+                    <Setter
+                        Property="HorizontalContentAlignment"
+                        Value="Center" />
+                    <Setter
+                        Property="HorizontalAlignment"
+                        Value="Center" />
+                </Style>
+            </ListView.Resources>
+        </ListView>
     </Grid>
 </UserControl>
