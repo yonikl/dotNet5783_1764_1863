@@ -28,26 +28,28 @@ internal class Cart : ICart
     /// Exception when we can't found a product
     public void MakeAnOrder(BO.Cart c, string name, string address, string email)
     {
+        if(!c.Items.Any())
+            throw new BO.NotItemsInCart();
         if (name == "" || address == "" || email == "")//checking integrity for personal information
             throw new BO.BlPersonalDetailsException();
         if (!IsValidEmail(email))
             throw new BO.BlPersonalDetailsException();
 
         //making new order in dal
-        int id = dal?.Order.Add(new DO.Order() { 
+        int id = dal!.Order.Add(new DO.Order() { 
             CustomerAddress = address,
             CustomerEmail = email,
             CustomerName = name,
             DeliveryDate = null,
             OrderDate = DateTime.Now,
-            ShipDate = null }) ?? throw new NullReferenceException();
+            ShipDate = null });
 
         //adding the products in the cart to the order
         foreach (var i in c.Items)
         {
             try
             {
-                DO.Product product = dal?.Product.Get(i?.ProductID ?? throw new NullReferenceException()) ?? throw new NullReferenceException();
+                DO.Product product = dal!.Product.Get(i!.ProductID);
                 if (i.Amount <= 0)
                     throw new BO.BlAmountNotValidException() { };
                 if (i.Amount > dal.OrderItem.Get(i.ID).Amount)
@@ -175,7 +177,7 @@ internal class Cart : ICart
     /// the address we verified
     /// <returns></returns>
     /// if the address is valid
-    private bool IsValidEmail(string email)
+    private bool IsValidEmail(string? email)
     {
         var trimmedEmail = email.Trim();
 

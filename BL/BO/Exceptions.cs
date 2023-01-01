@@ -25,6 +25,14 @@ public class BlNotEnoughInStockException : Exception
 {
 
 }
+
+/// <summary>
+/// Exception when the cart is empty
+/// </summary>
+public class NotItemsInCart:Exception
+{
+
+}
 /// <summary>
 /// Exception when th amount isn't valid
 /// </summary>

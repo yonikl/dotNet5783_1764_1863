@@ -17,8 +17,8 @@ internal class CartViewModel : ViewModelBase
 {
     private readonly NavigationStore navigationStore;
     private readonly Cart cart;
+
     public ICommand Back { get; }
-    public ICommand Cancal { get; }
     public ICommand Confirm { get; }
     public ICommand UpdateItem { get; }
     public ICommand DeleteItem { get; }    
@@ -34,6 +34,7 @@ internal class CartViewModel : ViewModelBase
             message = "To update item right click on the context manu";
         else
             message = "Your cart is empty";
+        Confirm = new NavigationCommand(new NavigationService(navigationStore, () => new OrderConfirmationViewModel(navigationStore,cart)));
        
     }
     private string message;

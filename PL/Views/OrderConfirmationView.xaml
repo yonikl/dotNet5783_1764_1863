@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="PL.Views.OrderConfirmationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:PL.Views"
+              mc:Ignorable="d" 
+             Foreground="Yellow"
+             Background="Black"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button
+            Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+            HorizontalAlignment="Left"
+            Content="Back"
+            Command="{Binding Back}"/>
+        <materialDesign:PackIcon
+            Kind="Account" 
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"/>
+        <TextBox
+            Grid.Row="1"
+            TextWrapping="NoWrap"
+            VerticalAlignment="Center"
+            Grid.Column="1"
+            materialDesign:HintAssist.Hint="Name"
+            materialDesign:HintAssist.HelperText="This field is mandatory"
+            Text="{Binding Name}"/>
+        <materialDesign:PackIcon
+            Kind="MapMarker"
+            Grid.Row="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center" />
+        <TextBox
+            Grid.Row="2"
+            TextWrapping="NoWrap"
+            VerticalAlignment="Center"
+            Grid.Column="1"
+            materialDesign:HintAssist.Hint="Address"
+            materialDesign:HintAssist.HelperText="This field is mandatory" 
+            Text="{Binding Address}"/>
+
+        <materialDesign:PackIcon
+            Kind="Email"
+            Grid.Row="3"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center" />
+        <TextBox
+            Grid.Row="3"
+            TextWrapping="NoWrap"
+            VerticalAlignment="Center"
+            Grid.Column="1"
+            materialDesign:HintAssist.Hint="Email"
+            materialDesign:HintAssist.HelperText="This field is mandatory"
+            Text="{Binding Email}"/>
+        <Button
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Grid.Row="4"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalContentAlignment="Center"
+            HorizontalAlignment="Center"
+            Content="Confirm" 
+            Command="{Binding Confirm}"/>
+        <TextBlock
+            Grid.Row="5"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            FontSize="25"
+            FontStyle="Italic"
+            FontWeight="ExtraBold"
+            Foreground="Red"
+            Text="{Binding Message}" />
+    </Grid>
+</UserControl>
