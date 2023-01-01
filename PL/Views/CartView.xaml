@@ -15,7 +15,7 @@
             <RowDefinition  Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
@@ -44,6 +44,7 @@
             Grid.ColumnSpan="2"
             FontSize="25"
             FontStyle="Italic"
+            HorizontalAlignment="Center"
             FontWeight="ExtraBold"
             Foreground="Red"
             Text="{Binding Message}"
@@ -59,7 +60,8 @@
             FontWeight="ExtraBold"
             Grid.Row="1"
             Grid.ColumnSpan="3"
-            ItemsSource="{Binding cart.items}">
+            ItemsSource="{Binding OrderItems}"
+            SelectedValue="{Binding OrderItem}">
             <ListView.ItemContainerStyle>
                 <Style
                     TargetType="ListViewItem"
@@ -73,8 +75,8 @@
                 <GridView>
 
                     <GridViewColumn
-                        Header="ID"
-                        DisplayMemberBinding="{Binding ID}" />
+                        Header="Product id"
+                        DisplayMemberBinding="{Binding ProductID}" />
                     <GridViewColumn
                         Header="Name"
                         DisplayMemberBinding="{Binding Name}" />
@@ -82,24 +84,12 @@
                         Header="Price"
                         DisplayMemberBinding="{Binding Price}" />
                     <GridViewColumn
-                        Header="Category"
-                        DisplayMemberBinding="{Binding Category}" />
+                        Header="In cart"
+                        DisplayMemberBinding="{Binding Amount}" />
                     <GridViewColumn
-                        Header="In cart">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <ComboBox
-                                    materialDesign:HintAssist.Hint="(editable)"
-                                    MinWidth="72"
-                                    IsEditable="True"
-                                    ItemsSource="{Binding LongIntegerList}"
-                                    Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}">
+                        Header="Total price"
+                        DisplayMemberBinding="{Binding TotalPrice}" />
 
-                                </ComboBox>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                  
                 </GridView>
                 
             </ListView.View>
