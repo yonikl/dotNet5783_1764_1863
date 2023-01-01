@@ -43,6 +43,11 @@
                 DataType="{x:Type vms:CartViewModel}">
                 <views:CartView />
             </DataTemplate>
+            <DataTemplate
+                DataType="{x:Type vms:ProducttViewModel}">
+                <views:ProductView />
+            </DataTemplate>
+                          
         </Grid.Resources>
         <ContentControl
             Content="{Binding CurrentViewModel}" />

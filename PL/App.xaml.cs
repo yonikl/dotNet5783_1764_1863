@@ -16,7 +16,6 @@ namespace PL;
 public partial class App : Application
 {
     private readonly NavigationStore navigationStore;
-    private readonly Shop shop;
 
     public App()
     {

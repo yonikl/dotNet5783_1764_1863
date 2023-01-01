@@ -15,12 +15,11 @@ internal class Product : IProduct
     /// the cart that we check if the customer put the product into
     /// <returns></returns>
     /// list of all products as ProductItems
-    public IEnumerable<ProductItem?> GetCatalog(BO.Cart c,Func<DO.Product?,bool> func)
+    public IEnumerable<ProductItem?> GetCatalog(BO.Cart c, Func<DO.Product?, bool>? func)
     {
         var products = dal!.Product.GetAll();
         if (func == null)
         {
-           
             return from p in products
                    select new ProductItem()
                    {
@@ -29,12 +28,13 @@ internal class Product : IProduct
                        InStock = p.InStock > 0,
                        Name = p.Name,
                        Price = p.Price,
-                       Amount = (from i in c.Items where i.ID == p.ID select i).Any() ? (from i in c.Items where i.ID == p.ID select i.Amount).First() : 0
+                       Amount = (from i in c.Items where i.ProductID == p.ID select i).Any() ? (from i in c.Items where i.ProductID == p.ID select i.Amount).First() : 0
 
-                   }; 
+                   };
         }
 
-        return from p in products where func(p)
+        return from p in products
+               where func(p)
                select new ProductItem()
                {
                    ID = p.ID,
@@ -42,7 +42,7 @@ internal class Product : IProduct
                    InStock = p.InStock > 0,
                    Name = p.Name,
                    Price = p.Price,
-                   Amount = (from i in c.Items where i.ID == p.ID select i).Any() ? (from i in c.Items where i.ID == p.ID select i.Amount).First() : 0
+                   Amount = (from i in c.Items where i.ProductID == p.ID select i).Any() ? (from i in c.Items where i.ProductID == p.ID select i.Amount).First() : 0
 
                };
 
@@ -64,10 +64,10 @@ internal class Product : IProduct
             if (!products.Any()) throw new BO.BlNoProductsException();
             //casting to BO.ProductForList
             return from pro in products select doProductToBoProductForList(pro);
-            
+
         }
 
-        return  from pro in dal?.Product.GetAll() where func(pro) select doProductToBoProductForList(pro);
+        return from pro in dal?.Product.GetAll() where func(pro) select doProductToBoProductForList(pro);
     }
 
     /// <summary>
@@ -132,13 +132,8 @@ internal class Product : IProduct
             throw new BO.BlItemNotFoundException("", ex);
         }
         //searching for the product in the cart
-        BO.OrderItem orderItem = c.Items.Find(x => x?.ID == id) ?? throw new NullReferenceException();
-        if (orderItem == null)
-        {
-            throw new BO.BlProductNotInCartsException();
-
-        }
-        return doProductToBoProductItem(product, orderItem.Amount);
+        BO.OrderItem? orderItem = c.Items.Find(x => x?.ProductID == id);
+        return doProductToBoProductItem(product, orderItem == null ? 0 : orderItem.Amount);
     }
 
     /// <summary>

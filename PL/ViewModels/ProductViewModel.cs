@@ -1,21 +1,34 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
+using PL.Commands;
+using PL.Services;
 using PL.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PL.ViewModels;
 
 internal class ProducttViewModel : ViewModelBase
 {
-	private readonly NavigationStore navigationStore;
+    private IBl bl = Factory.Get();
+    private readonly NavigationStore navigationStore;
 	private readonly ProductItem item;
+	private readonly Cart cart;
 
-	public ProducttViewModel(NavigationStore navigationStore, ProductItem item)
+	public ProducttViewModel(NavigationStore navigationStore, int id, Cart cart)
 	{
+		this.cart = cart;
 		this.navigationStore = navigationStore;
-		this.item = item;
+		this.item = bl.Product.GetProductForUser(id, cart);
+		AddToCart = new AddProductToCartCommand(cart, id, navigationStore);
+		GoBack = new NavigationCommand(new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore, cart)));
 	}
+	public ProductItem Item
+	{
+		get
+		{
+			return item;
+		}
+	}
+	public ICommand GoBack { get; }
+	public ICommand AddToCart { get; }
 }

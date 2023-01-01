@@ -12,6 +12,21 @@ namespace PL.ViewModels;
 
 internal class CreateNewOrderViewModel : ViewModelBase
 {
+    public CreateNewOrderViewModel(NavigationStore navigationStore, Cart? cart=null)
+    {
+        if(cart == null)
+            this.cart = new Cart() { Items = new List<OrderItem?>() };
+        else
+            this.cart = cart;
+        Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
+        GoToProduct = new NavigationCommand(new NavigationService(navigationStore, () => new ProducttViewModel(navigationStore, selectedProduct!.ID, this.cart)));
+        this.navigationStore = navigationStore;
+        GroupByCategory = false;
+        SelectedCategory = BO.Enums.Category.None;
+        ToTheCart = new NavigationCommand(new NavigationService(navigationStore, () => new CartViewModel(navigationStore, this.cart)));
+    }
+
+
     private readonly NavigationStore navigationStore;
     private IBl bl = Factory.Get();
     private Cart cart;
@@ -46,16 +61,7 @@ internal class CreateNewOrderViewModel : ViewModelBase
         }
     }
 
-    public CreateNewOrderViewModel(NavigationStore navigationStore)
-    {
-        cart = new Cart() { Items = new List<OrderItem?>() };
-        Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
-        GoToProduct = new NavigationCommand(new NavigationService(navigationStore, () => new ProducttViewModel(navigationStore, selectedProduct!)));
-        this.navigationStore = navigationStore;
-        GroupByCategory = false;
-        SelectedCategory = BO.Enums.Category.None;
-        ToTheCart = new NavigationCommand(new NavigationService(navigationStore, () => new CartViewModel(navigationStore, cart)));
-    }
+
 
     private ProductItem? selectedProduct;
     public ProductItem SelectedProduct
