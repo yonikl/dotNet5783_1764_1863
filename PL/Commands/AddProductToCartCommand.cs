@@ -17,20 +17,30 @@ internal class AddProductToCartCommand : BaseCommand
     Cart cart;
     readonly int id;
     private readonly NavigationStore navigationStore;
+    private readonly ProducttViewModel model;
 
-    public AddProductToCartCommand(Cart cart, int id, NavigationStore navigationStore)
+    public AddProductToCartCommand(Cart cart, int id, NavigationStore navigationStore,ProducttViewModel model)
     {
         this.cart = cart;
         this.id = id;
         this.navigationStore = navigationStore;
+        this.model = model;
     }
     public override void Execute(object? parameter)
     {
         try
         {
             cart = bl.Cart.Add(id, cart);
+            new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore, cart)).Navigate();
         }
-        catch { }
-        new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore, cart)).Navigate();
+        catch (BlItemNotFoundInCartException)
+        {
+            model.ErrorMessage = "Product not found";
+        }
+        catch (BlAmountNotValidException)
+        {
+            model.ErrorMessage = "Amount isn't correct";
+        }
+
     }
 }

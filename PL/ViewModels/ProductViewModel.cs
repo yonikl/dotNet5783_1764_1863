@@ -31,4 +31,17 @@ internal class ProducttViewModel : ViewModelBase
 	}
 	public ICommand GoBack { get; }
 	public ICommand AddToCart { get; }
+	private string errorMessage;
+	public  string ErrorMessage
+	{
+		get
+		{
+			return errorMessage;
+		}
+		set
+		{
+			errorMessage = value;
+			OnPropertyChanged(nameof(ErrorMessage));
+		}
+	}
 }

@@ -137,7 +137,7 @@ internal class Cart : ICart
     /// if the amount isn't correct
     public BO.Cart UpdateAmountOfOrder(int id, int amount, BO.Cart c)
     {
-        if (amount <= 0) throw new BO.BlAmountNotValidException();
+        if (amount < 0) throw new BO.BlAmountNotValidException();
        
         var productCart = from i in c.Items where i.ProductID == id select i;//searching for the product in the cart
         if (productCart.Any())
@@ -146,6 +146,8 @@ internal class Cart : ICart
             if (orderItem.Amount == amount)
                 return c;
             c.Items.Remove(orderItem);
+            if (amount == 0)
+                return c;
             c.TotalPrice += (amount - orderItem.Amount) * orderItem.Price;
             orderItem.TotalPrice = orderItem.Price * amount;
             orderItem.Amount = amount;
