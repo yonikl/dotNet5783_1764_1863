@@ -43,6 +43,7 @@ internal class UpdateDeliveryCommand: BaseCommand
         {
             model.Message = "Order already delivered";
         }
+      
         catch (Exception ex)
         {
             throw;

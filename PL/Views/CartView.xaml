@@ -42,6 +42,10 @@
             Grid.Row="0"
             Grid.Column="1"
             Grid.ColumnSpan="2"
+            FontSize="25"
+            FontStyle="Italic"
+            FontWeight="ExtraBold"
+            Foreground="Red"
             Text="{Binding Message}"
             />
         <ListView
@@ -55,8 +59,7 @@
             FontWeight="ExtraBold"
             Grid.Row="1"
             Grid.ColumnSpan="3"
-            ItemsSource="{Binding cart.items}"
-            SelectedValue="{Binding SelectedProduct}">
+            ItemsSource="{Binding cart.items}">
             <ListView.ItemContainerStyle>
                 <Style
                     TargetType="ListViewItem"
@@ -96,9 +99,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn
-                        Header="In Stock"
-                        DisplayMemberBinding="{Binding InStock}" />
+                  
                 </GridView>
                 
             </ListView.View>
