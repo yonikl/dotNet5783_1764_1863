@@ -10,38 +10,40 @@ using System.Windows.Input;
 using PL.Services;
 using BlApi;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace PL.ViewModels;
 
-internal class CartViewModel : ViewModelBase
+internal class CartViewModel : ViewModelBase, INotifyPropertyChanged
 {
     private readonly NavigationStore navigationStore;
-    private readonly Cart cart;
+    private Cart? cart;
+    private IBl? bl = Factory.Get();
 
-    public List<OrderItem?> OrderItems => cart!.Items;
+  
+    public IEnumerable<OrderItem?> OrderItems => cart!.Items;
 
+    
     public ICommand Back { get; }
     public ICommand Confirm { get; }
     public ICommand UpdateItem { get; }
-    public ICommand DeleteItem { get; }    
     public CartViewModel(NavigationStore navigationStore, Cart cart)
-	{
+    {
         this.navigationStore = navigationStore;
-        this.cart = cart;   
+        this.cart = cart;
+        
+        Back = new NavigationCommand(new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore, cart)));
 
-        Back = new NavigationCommand(new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore)));
-      
 
         if (cart.Items.Any())
             message = "To update or delete item right click on the context manu";
         else
             message = "Your cart is empty";
-        Confirm = new NavigationCommand(new NavigationService(navigationStore, () => new OrderConfirmationViewModel(navigationStore,cart)));
+        Confirm = new NavigationCommand(new NavigationService(navigationStore, () => new OrderConfirmationViewModel(navigationStore, cart)));
 
-        DeleteItem = new DeleteItemCommand(cart, orderItem!);
+        UpdateItem = new NavigationCommand(new NavigationService(navigationStore, () => new UpdateItemInCartViewModel(navigationStore, orderItem!.ProductID, cart)));
 
-        UpdateItem = new UpdateItemCommand(cart, orderItem!);
-       
     }
     private string message;
     public string Message
@@ -58,6 +60,7 @@ internal class CartViewModel : ViewModelBase
     }
 
     private OrderItem orderItem;
+
     public OrderItem OrderItem
     {
         get
@@ -70,4 +73,6 @@ internal class CartViewModel : ViewModelBase
             OnPropertyChanged(nameof(OrderItem));
         }
     }
+
+
 }

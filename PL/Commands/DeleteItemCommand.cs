@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BlApi;
+using PL.Services;
+using PL.Stores;
+using PL.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +12,26 @@ namespace PL.Commands;
 
 internal class DeleteItemCommand : BaseCommand
 {
+    private readonly IBl bl = Factory.Get();
     private BO.Cart cart;
-    private BO.OrderItem item;
+    private NavigationStore navigationStore;
+    private readonly int id;
 
-    public DeleteItemCommand(BO.Cart cart, BO.OrderItem item)
+    public DeleteItemCommand(BO.Cart cart, int id, NavigationStore navigationStore)
     {
         this.cart = cart;
-        this.item = item;   
+        this.id = id;
+        this.navigationStore = navigationStore;
     }
     public override void Execute(object? parameter)
     {
-        throw new NotImplementedException();
+        try
+        {
+            cart = bl.Cart.UpdateAmountOfOrder(id, 0, cart);
+            new NavigationService(navigationStore, () => new CartViewModel(navigationStore, cart)).Navigate();
+
+        }
+        catch { }
+
     }
 }

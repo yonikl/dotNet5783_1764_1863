@@ -96,13 +96,9 @@
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem
-                        Header="Update item"
+                        Header="Update or delete item"
                         Command="{Binding UpdateItem}"
-                        Icon= "{materialDesign:PackIcon Kind=BookEdit}" />
-                    <MenuItem
-                        Header="Delete item"
-                        Command="{Binding DeleteItem}"
-                        Icon="{materialDesign:PackIcon Kind=Delete}" />
+                        Icon="{materialDesign:PackIcon Kind=BookEdit}" />
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.Resources>

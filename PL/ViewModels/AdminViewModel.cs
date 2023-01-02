@@ -15,7 +15,7 @@ using System.Collections.Specialized;
 
 namespace PL.ViewModels;
 
-internal class AdminViewModel : ViewModelBase, INotifyCollectionChanged
+internal class AdminViewModel : ViewModelBase
 {
     private IBl? bl = Factory.Get();
 
@@ -58,8 +58,6 @@ internal class AdminViewModel : ViewModelBase, INotifyCollectionChanged
     }
     private BO.Enums.Category category;
     private BO.ProductForList selectedProduct;
-
-    public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
     public BO.Enums.Category Category
     {

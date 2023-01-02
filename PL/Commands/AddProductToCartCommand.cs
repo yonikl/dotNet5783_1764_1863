@@ -17,14 +17,18 @@ internal class AddProductToCartCommand : BaseCommand
     Cart cart;
     readonly int id;
     private readonly NavigationStore navigationStore;
-    private readonly ProducttViewModel model;
+    private readonly ProductViewModel model;
 
-    public AddProductToCartCommand(Cart cart, int id, NavigationStore navigationStore,ProducttViewModel model)
+    public AddProductToCartCommand(Cart cart, int id, NavigationStore navigationStore,ProductViewModel model)
     {
         this.cart = cart;
         this.id = id;
         this.navigationStore = navigationStore;
         this.model = model;
+    }
+    public override bool CanExecute(object? parameter)
+    {
+        return model.Item.InStock;
     }
     public override void Execute(object? parameter)
     {
@@ -35,11 +39,11 @@ internal class AddProductToCartCommand : BaseCommand
         }
         catch (BlItemNotFoundInCartException)
         {
-            model.ErrorMessage = "Product not found";
+            model.ErrorMessages = "Product not found";
         }
         catch (BlAmountNotValidException)
         {
-            model.ErrorMessage = "Amount isn't correct";
+            model.ErrorMessages = "Amount isn't correct";
         }
 
     }

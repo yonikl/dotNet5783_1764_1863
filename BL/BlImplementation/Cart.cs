@@ -52,7 +52,7 @@ internal class Cart : ICart
                 DO.Product product = dal!.Product.Get(i!.ProductID);
                 if (i.Amount <= 0)
                     throw new BO.BlAmountNotValidException() { };
-                if (i.Amount > dal.OrderItem.Get(i.ID).Amount)
+                if (i.Amount > product.InStock)
                     throw new BO.BlNotEnoughInStockException() { };
                 product.InStock -= i.Amount;
                 dal.Product.Update(product);
@@ -148,6 +148,7 @@ internal class Cart : ICart
             c.Items.Remove(orderItem);
             if (amount == 0)
                 return c;
+            
             c.TotalPrice += (amount - orderItem.Amount) * orderItem.Price;
             orderItem.TotalPrice = orderItem.Price * amount;
             orderItem.Amount = amount;

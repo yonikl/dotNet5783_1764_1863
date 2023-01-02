@@ -19,7 +19,7 @@ internal class CreateNewOrderViewModel : ViewModelBase
         else
             this.cart = cart;
         Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
-        GoToProduct = new NavigationCommand(new NavigationService(navigationStore, () => new ProducttViewModel(navigationStore, selectedProduct!.ID, this.cart)));
+        GoToProduct = new NavigationCommand(new NavigationService(navigationStore, () => new ProductViewModel(navigationStore, selectedProduct!.ID, this.cart)));
         this.navigationStore = navigationStore;
         GroupByCategory = false;
         SelectedCategory = BO.Enums.Category.None;

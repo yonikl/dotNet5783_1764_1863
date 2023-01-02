@@ -48,10 +48,13 @@
                 <views:OrderConfirmationView/>
             </DataTemplate>
             <DataTemplate
-                DataType="{x:Type vms:ProducttViewModel}">
+                DataType="{x:Type vms:ProductViewModel}">
                 <views:ProductView />
             </DataTemplate>
-                          
+            <DataTemplate
+                DataType="{x:Type vms:UpdateItemInCartViewModel}">
+                <views:UpdateItemInCartView />
+            </DataTemplate>             
         </Grid.Resources>
         <ContentControl
             Content="{Binding CurrentViewModel}" />

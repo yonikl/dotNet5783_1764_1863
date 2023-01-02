@@ -7,21 +7,23 @@ using System.Windows.Input;
 
 namespace PL.ViewModels;
 
-internal class ProducttViewModel : ViewModelBase
+internal class ProductViewModel : ViewModelBase
 {
     private IBl bl = Factory.Get();
     private readonly NavigationStore navigationStore;
 	private readonly ProductItem item;
 	private readonly Cart cart;
 
-	public ProducttViewModel(NavigationStore navigationStore, int id, Cart cart)
+	public ProductViewModel(NavigationStore navigationStore, int id, Cart cart)
 	{
-		this.cart = cart;
-		this.navigationStore = navigationStore;
-		this.item = bl.Product.GetProductForUser(id, cart);
-		AddToCart = new AddProductToCartCommand(cart, id, navigationStore, this);
-		GoBack = new NavigationCommand(new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore, cart)));
-	}
+        this.cart = cart;
+        this.navigationStore = navigationStore;
+        this.item = bl.Product.GetProductForUser(id, cart);
+        AddToCart = new AddProductToCartCommand(cart, id, navigationStore, this);
+        GoBack = new NavigationCommand(new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore, cart)));
+		if (!item.InStock) ErrorMessages = "Can't add product that isn't in stock";
+    }
+	
 	public ProductItem Item
 	{
 		get
@@ -31,17 +33,18 @@ internal class ProducttViewModel : ViewModelBase
 	}
 	public ICommand GoBack { get; }
 	public ICommand AddToCart { get; }
-	private string errorMessage;
-	public  string ErrorMessage
+
+	private string errorMessages;
+	public string ErrorMessages
 	{
 		get
 		{
-			return errorMessage;
+			return errorMessages;
 		}
 		set
 		{
-			errorMessage = value;
-			OnPropertyChanged(nameof(ErrorMessage));
+			errorMessages = value;
+			OnPropertyChanged(nameof(ErrorMessages));
 		}
 	}
 }

@@ -15,8 +15,6 @@ internal class DalOrder : IOrder
     {
         O.Id = DataSource.Config.GetIdForOrders;
         O.OrderDate = DateTime.Now;
-        O.ShipDate = DateTime.Now + TimeSpan.FromDays(10);
-        O.DeliveryDate = O.ShipDate + TimeSpan.FromDays(10);
         DataSource.s_orders.Add(O);
         return O.Id;
     }
