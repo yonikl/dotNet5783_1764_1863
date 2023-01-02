@@ -14,34 +14,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\AddAndUpdatePhoto.png" />
-    <None Remove="Images\MainWindowIconPhoto.png" />
-    <None Remove="Images\MainWindowImage.png" />
-    <None Remove="Images\OrdersIcon.png" />
-    <None Remove="Images\ProductsIcon.png" />
-    <None Remove="Images\ViewListPhoto.png" />
+    <Compile Remove="Images\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <None Remove="Images\**" />
+    <Page Remove="Images\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\OrdersIcon.png" />
-    <Resource Include="Images\ProductsIcon.png" />
-    <Resource Include="Images\ViewListPhoto.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\MainWindowIconPhoto.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\AddAndUpdatePhoto.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\MainWindowImage.png" />
   </ItemGroup>
 
   <ItemGroup>

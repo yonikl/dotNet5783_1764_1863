@@ -18,20 +18,31 @@ internal class CartCommend : BaseCommand
     readonly NavigationStore navigationStore;
     readonly BO.Cart cart;
 
+    /// <summary>
+    /// constructor for cart view command
+    /// </summary>
+    /// <param name="model">modal of order confirmation</param>
+    /// <param name="cart">the user cart</param>
+    /// <param name="navigationStore">navigation store to navigate back to main wiondow</param>
     public CartCommend(OrderConfirmationViewModel model,BO.Cart cart,NavigationStore navigationStore)
     {
         this.navigationStore = navigationStore;
         this.cart = cart;
         this.model = model;
     }
+    /// <summary>
+    /// Return the order id for the user and add the order to bl
+    /// </summary>
+    /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
         try
         {
-            int idForOrder = bl.Cart.MakeAnOrder(cart, model.Name, model.Address, model.Email);
-            model.Message = "Update succesfuly order in process\n" + "Order number is: " + idForOrder.ToString();
-            model.Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
+            int idForOrder = bl.Cart.MakeAnOrder(cart, model.Name, model.Address, model.Email);//get the id and add the order to bl
+            model.Message = "Update succesfuly order in process\n" + "Order number is: " + idForOrder.ToString();//print the order id
+            model.Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));//navigate back to main window
         }
+        ///catch exception if the there is problem whit the order
         catch(BlPersonalDetailsException)
         {
             model.Message = "One or more details is not valid";

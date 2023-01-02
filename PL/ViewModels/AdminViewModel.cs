@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BO;
 using BlApi;
-using PL.Models;
 using System.Windows.Input;
 using PL.Commands;
 using PL.Services;

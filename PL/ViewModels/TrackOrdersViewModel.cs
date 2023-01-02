@@ -27,7 +27,7 @@ internal class TrackOrdersViewModel : ViewModelBase
     {
         this.navigationStore = navigationStore;
         GoBack = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
-        Submmit = new TrackOrderCommand(this,navigationStore);
+        Submmit = new TrackOrderCommand(this);
    
     }
 
