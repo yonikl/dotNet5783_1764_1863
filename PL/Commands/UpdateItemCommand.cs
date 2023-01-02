@@ -20,18 +20,11 @@ internal class UpdateItemCommand : BaseCommand
     private readonly int amount;
     private readonly NavigationStore navigationStore;
 
-    public UpdateItemCommand(BO.Cart cart, int id, UpdateItemInCartViewModel? model, NavigationStore navigationStore, int amount = -1)
+    public UpdateItemCommand(BO.Cart cart, int id, UpdateItemInCartViewModel? model, NavigationStore navigationStore)
     {
         this.cart = cart;
         this.id = id;
-        if(amount == -1)
-        {
-            this.model = model;
-        }
-        else
-        {
-            this.amount = amount;
-        }
+        this.model = model;
         this.navigationStore = navigationStore;
 
     }
@@ -39,13 +32,21 @@ internal class UpdateItemCommand : BaseCommand
     {
         try
         {
-           cart =  bl.Cart.UpdateAmountOfOrder(id, model == null ? amount : model.SelectedAmount, cart);
+           cart =  bl.Cart.UpdateAmountOfOrder(id,model!.SelectedAmount, cart);
            new NavigationService(navigationStore, () => new CartViewModel(navigationStore,cart)).Navigate();
         }
-        catch(Exception ex)
+        catch (BlAmountNotValidException)
         {
-
+            model!.Message = "Amount not valid";
         }
-      
+        catch(BlItemNotFoundInCartException)
+        {
+            model!.Message = "Item not found in the cart";
+        }
+        catch (Exception ex)
+        {
+            model!.Message = "Unknown error";
+        }
+
     }
 }

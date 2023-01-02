@@ -12,6 +12,7 @@ using BlApi;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Collections.ObjectModel;
 
 namespace PL.ViewModels;
 
@@ -22,14 +23,18 @@ internal class CartViewModel : ViewModelBase, INotifyPropertyChanged
     private IBl? bl = Factory.Get();
 
   
-    public IEnumerable<OrderItem?> OrderItems => cart!.Items;
+   // public IEnumerable<OrderItem?> OrderItems => cart!.Items;
 
+    public ObservableCollection<OrderItem?> OrderItems => new ObservableCollection<OrderItem?>(cart!.Items);
     
     public ICommand Back { get; }
     public ICommand Confirm { get; }
     public ICommand UpdateItem { get; }
+
+    public ICommand DeleteItem { get; }
     public CartViewModel(NavigationStore navigationStore, Cart cart)
     {
+        
         this.navigationStore = navigationStore;
         this.cart = cart;
         
@@ -44,6 +49,7 @@ internal class CartViewModel : ViewModelBase, INotifyPropertyChanged
 
         UpdateItem = new NavigationCommand(new NavigationService(navigationStore, () => new UpdateItemInCartViewModel(navigationStore, orderItem!.ProductID, cart)));
 
+        DeleteItem = new DeleteItemCommand(cart,this);
     }
     private string message;
     public string Message
@@ -74,5 +80,23 @@ internal class CartViewModel : ViewModelBase, INotifyPropertyChanged
         }
     }
 
+    private int id ;
+    public int Id
+    {
+        get
+        {
+            return orderItem.ProductID;
+        }
+        set
+        {
+            id = value;
+            OnPropertyChanged(nameof(Id));
+        }
+    }
 
+    public void Refresh()
+    {
+        OnPropertyChanged(nameof(cart));
+        OnPropertyChanged(nameof(OrderItems));
+    }
 }

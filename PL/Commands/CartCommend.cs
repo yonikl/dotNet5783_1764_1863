@@ -28,23 +28,27 @@ internal class CartCommend : BaseCommand
     {
         try
         {
-            bl.Cart.MakeAnOrder(cart, model.Name, model.Address, model.Email);
-            model.Message = "Update succesfuly order in process";
-            new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore));
+            int idForOrder = bl.Cart.MakeAnOrder(cart, model.Name, model.Address, model.Email);
+            model.Message = "Update succesfuly order in process\n" + "Order number is: " + idForOrder.ToString();
+            model.Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
         }
-        catch(BO.BlPersonalDetailsException)
+        catch(BlPersonalDetailsException)
         {
-            model.Message = "One or more details is incourect";
+            model.Message = "One or more details is not valid";
         }
-        catch(BO.BlAmountNotValidException)
+        catch(BlEmailIncourect)
+        {
+            model.Message = "Email format is incourect";
+        }
+        catch(BlAmountNotValidException)
         {
             model.Message = "Amount not valid";
         }
-        catch(BO.BlNotEnoughInStockException)
+        catch(BlNotEnoughInStockException ex)
         {
-            model.Message = "There is not enough in stock";
+            model.Message = "There is not enough " + ex.Message + " in stock";
         }
-        catch(BO.BlItemNotFoundException)
+        catch(BlItemNotFoundException)
         {
             model.Message = "Item not found";
         }

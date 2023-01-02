@@ -10,65 +10,73 @@ using System.Windows.Input;
 
 namespace PL.ViewModels;
 
-internal class OrderConfirmationViewModel:ViewModelBase
+internal class OrderConfirmationViewModel : ViewModelBase
 {
-	private readonly NavigationStore navigationStore;
-	private readonly BO.Cart cart;
+    private readonly NavigationStore navigationStore;
+    private readonly BO.Cart cart;
+    private ICommand back;
+    public ICommand Back
+    {
+        get => back;
+        set
+        {
+            back = value;
+            OnPropertyChanged(nameof(Back));
+        }
+    }
 
-	public ICommand Back { get; }
+    public ICommand Confirm { get; }
+    public OrderConfirmationViewModel(NavigationStore navigationStore, BO.Cart cart)
+    {
+        this.navigationStore = navigationStore;
+        this.cart = cart;
 
-	public ICommand Confirm { get; } 
-	public OrderConfirmationViewModel(NavigationStore navigationStore, BO.Cart cart)
-	{
-		this.navigationStore = navigationStore;
-		this.cart = cart;
+        Back = new NavigationCommand(new NavigationService(navigationStore, () => new CartViewModel(navigationStore, cart)));
 
-		Back = new NavigationCommand(new NavigationService(navigationStore, () => new CartViewModel(navigationStore, cart)));
+        Confirm = new CartCommend(this, cart, navigationStore);
+    }
 
-		Confirm = new CartCommend(this,cart,navigationStore);
-	}
+    private string name;
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+            name = value;
+            OnPropertyChanged(nameof(Name));
+        }
+    }
 
-	private string name;
-	public string Name
-	{
-		get
-		{
-			return name;
-		}
-		set
-		{
-			name = value;
-			OnPropertyChanged(nameof(Name));
-		}
-	}
+    private string email;
+    public string Email
+    {
+        get
+        {
+            return email;
+        }
+        set
+        {
+            email = value;
+            OnPropertyChanged(nameof(Email));
+        }
+    }
 
-	private string email;
-	public string Email
-	{
-		get
-		{
-			return email;
-		}
-		set
-		{
-			email = value;
-			OnPropertyChanged(nameof(Email));
-		}
-	}
-
-	private string address;
-	public string Address
-	{
-		get
-		{
-			return address;
-		}
-		set
-		{
-			address = value;
-			OnPropertyChanged(nameof(Address));
-		}
-	}
+    private string address;
+    public string Address
+    {
+        get
+        {
+            return address;
+        }
+        set
+        {
+            address = value;
+            OnPropertyChanged(nameof(Address));
+        }
+    }
 
     private string message;
     public string Message

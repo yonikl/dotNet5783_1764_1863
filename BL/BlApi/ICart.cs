@@ -10,7 +10,7 @@ public interface ICart
 
     public Cart UpdateAmountOfOrder(int id, int amount, Cart c);
 
-    public void MakeAnOrder(Cart c, string name, string address, string email);
+    public int MakeAnOrder(Cart c, string name, string address, string email);
 
 }
 

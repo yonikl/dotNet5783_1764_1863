@@ -23,7 +23,9 @@ public class BlIDNotValidException : Exception
 /// </summary>
 public class BlNotEnoughInStockException : Exception
 {
-
+    public BlNotEnoughInStockException(string? message) : base(message)
+    {
+    }
 }
 
 /// <summary>
@@ -100,6 +102,13 @@ public class BlProductExistsInOrdersException : Exception
 /// Exception when personal info isn't correct
 /// </summary>
 public class BlPersonalDetailsException : Exception
+{
+
+}
+/// <summary>
+/// Exception when email incourect
+/// </summary>
+public class BlEmailIncourect : Exception
 {
 
 }

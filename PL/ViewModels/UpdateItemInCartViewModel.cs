@@ -33,7 +33,6 @@ internal class UpdateItemInCartViewModel : ViewModelBase
         this.SelectedAmount = item.Amount;
         GoBack = new NavigationCommand(new NavigationService(navigationStore, () => new CartViewModel(navigationStore,cart)));
 		ChangeInCart = new UpdateItemCommand(cart, id, this, navigationStore);
-		DeleteItem = new DeleteItemCommand(cart, id, navigationStore);
 
     }
 
@@ -49,7 +48,21 @@ internal class UpdateItemInCartViewModel : ViewModelBase
 		}
 	}
 
-	private int selectedAmount;
+    private string message;
+    public string Message
+    {
+        get
+        {
+            return message;
+        }
+        set
+        {
+            message = value;
+            OnPropertyChanged(nameof(Message));
+        }
+    }
+
+    private int selectedAmount;
 	public int SelectedAmount
     {
 		get => selectedAmount;
