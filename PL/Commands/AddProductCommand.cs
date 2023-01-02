@@ -17,16 +17,26 @@ internal class AddProductCommand : BaseCommand
     readonly IBl bl = Factory.Get();
     readonly AddOrUpdateProductViewModel model;
     readonly NavigationStore navigationStore;
+
+    /// <summary>
+    /// consructor for AddProductCommand
+    /// </summary>
+    /// <param name="model"> paramter of AddOrUpdateProduct</param>
+    /// <param name="navigationStore">for navigation in the store</param>
     public AddProductCommand(AddOrUpdateProductViewModel model, NavigationStore navigationStore)
     {
         this.model = model;
         this.navigationStore = navigationStore;
     }
+    /// <summary>
+    /// Execute for add product to bl 
+    /// </summary>
+    /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
         try
         {
-            var product = new BO.Product()
+            var product = new BO.Product()//create new product
             {
                 ID = model.ProductId,
                 Name = model.ProductName,
@@ -34,10 +44,10 @@ internal class AddProductCommand : BaseCommand
                 Category = model.ProductCategory,
                 Price = model.ProductPrice
             };
-            bl.Product.AddProduct(product);
-            bl.Product.UpdateProduct(product);
-            new NavigationService(navigationStore, () => new AdminViewModel(navigationStore)).Navigate();
+            bl.Product.AddProduct(product);//add
+            new NavigationService(navigationStore, () => new AdminViewModel(navigationStore)).Navigate();//back to Admin view
         }
+        ///catch excaptions if the details incourecct
         catch (BlIDNotValidException)
         {
             model.ErrorMessages = "Id not valid";

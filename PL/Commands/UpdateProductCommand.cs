@@ -16,21 +16,22 @@ internal class UpdateProductCommand : BaseCommand
     readonly IBl bl = Factory.Get();
     readonly AddOrUpdateProductViewModel model;
     readonly NavigationStore navigationStore;
+
+    /// <summary>
+    /// constructor for update product in bl 
+    /// </summary>
+    /// <param name="model">get product modal</param>
+    /// <param name="navigationStore">get navigation store to navigate back to admin view</param>
     public UpdateProductCommand(AddOrUpdateProductViewModel model, NavigationStore navigationStore)
     {
         this.model = model;
         this.navigationStore = navigationStore;
         
     }
-    //public override bool CanExecute(object? parameter)
-    //{
-    ////     private int productId;
-    ////private string? productName;
-    ////private double productPrice;
-    ////private int productInStock;
-    ////private BO.Enums.Category productCategory;
-    //    if(model.ProductCategory.ToString() == "None" || model.ProductName == "" || )
-    //}
+    /// <summary>
+    /// Crate new peosuct read all details from modal and update using bl
+    /// </summary>
+    /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
         try
@@ -44,8 +45,9 @@ internal class UpdateProductCommand : BaseCommand
                 Price = model.ProductPrice
             };
             bl.Product.UpdateProduct(product);
-            new NavigationService(navigationStore, () => new AdminViewModel(navigationStore)).Navigate();
+            new NavigationService(navigationStore, () => new AdminViewModel(navigationStore)).Navigate();//navigate back to admin view
         }
+        //catch exceptions if there is problem whit the detailes
         catch (BlIDNotValidException)
         {
             model.ErrorMessages = "Id not valid";

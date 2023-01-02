@@ -13,20 +13,29 @@ internal class TrackOrderCommand : BaseCommand
 {
     readonly IBl bl = Factory.Get();
     readonly TrackOrdersViewModel model;
-    readonly NavigationStore navigationStore;
 
-    public TrackOrderCommand( TrackOrdersViewModel model, NavigationStore navigationStore)
+    /// <summary>
+    /// constructor for track order
+    /// </summary>
+    /// <param name="model">get the track order modal</param>
+ 
+    public TrackOrderCommand( TrackOrdersViewModel model)
     {
         this.model = model;
-        this.navigationStore = navigationStore;
+  
     }
 
+    /// <summary>
+    /// print the order status 
+    /// </summary>
+    /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
         try
         {
-            model.Message = bl.Order.TrackOrder(model.Id).ToString();
+            model.Message = bl.Order.TrackOrder(model.Id).ToString();//get from bl the order stutus
         }
+        ///if the iten not found 
         catch(BO.BlItemNotFoundException)
         {
             model.Message = "Item not found";

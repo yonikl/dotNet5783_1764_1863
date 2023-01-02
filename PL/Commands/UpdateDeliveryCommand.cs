@@ -17,20 +17,28 @@ internal class UpdateDeliveryCommand: BaseCommand
 
     readonly IBl bl = BlApi.Factory.Get();
     readonly AdminViewModel model;
-
+    /// <summary>
+    /// constructor to update delivery
+    /// </summary>
+    /// <param name="model"></param>
     public UpdateDeliveryCommand(AdminViewModel model)
     {
         this.model = model;
     }
 
+    /// <summary>
+    /// update delivery using bl
+    /// </summary>
+    /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
         try
         {
-            bl.Order.UpdateDelivery(model.SelectedOrderTracking.ID);
+            bl.Order.UpdateDelivery(model.SelectedOrderTracking.ID);//update delivery
             model.Message = "Update succesfuly";
-            model.Refresh();
+            model.Refresh();//refrash the list view
         }
+        //catch exception if the item not found or there is problem whit the update
         catch (BlItemNotFoundException)
         {
             model.Message = "Item not found";
@@ -46,7 +54,7 @@ internal class UpdateDeliveryCommand: BaseCommand
       
         catch (Exception ex)
         {
-            throw;
+            model.Message = "Unknown error";
 
         }
 
