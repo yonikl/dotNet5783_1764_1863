@@ -7,14 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using BO;
 using BlApi;
-using PL.Models;
 using System.Windows.Input;
 using PL.Commands;
 using PL.Services;
 using System.Collections.Specialized;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// ViewModel for AdminView that let the admin to see the products/orders in the shop
+/// </summary>
 internal class AdminViewModel : ViewModelBase
 {
     private IBl? bl = Factory.Get();
@@ -41,6 +42,11 @@ internal class AdminViewModel : ViewModelBase
     public ICommand UpdateDelivery { get; }
 
     public ICommand Back { get; }
+    /// <summary>
+    /// </summary>
+    /// <param name="navigationStore">
+    /// we get the navigation store for changing userControlls
+    /// </param>
     public AdminViewModel(NavigationStore navigationStore)
     {
         AddProduct = new NavigationCommand(new NavigationService(navigationStore, () => new AddOrUpdateProductViewModel(navigationStore)));

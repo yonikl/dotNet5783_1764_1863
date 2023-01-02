@@ -5,7 +5,6 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using PL.Models;
 using PL.ViewModels;
 using PL.Stores;
 namespace PL;
@@ -19,14 +18,14 @@ public partial class App : Application
 
     public App()
     {
-        navigationStore = new NavigationStore();
+        navigationStore = new NavigationStore(); // we creating navigationStore for our app
     }
     protected override void OnStartup(StartupEventArgs e)
     {
-        navigationStore.CurrentViewModel = new MainWindowViewModel(navigationStore);
-        MainWindow = new MainWindow(navigationStore) 
+        navigationStore.CurrentViewModel = new MainWindowViewModel(navigationStore); // setting the startup point
+        MainWindow = new MainWindow() // creating the MainWindow
         { 
-            DataContext = new MainViewModel(navigationStore) 
+            DataContext = new MainViewModel(navigationStore) // setting the data context for the ContentControl
         };
         MainWindow.Show();
         base.OnStartup(e);

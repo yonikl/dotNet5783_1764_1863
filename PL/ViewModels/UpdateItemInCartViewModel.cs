@@ -12,7 +12,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// ViewModel for UpdateItemInCartView that let the user to change their amount of product in the cart
+/// </summary>
 internal class UpdateItemInCartViewModel : ViewModelBase
 {
 	private readonly IBl bl = Factory.Get();
@@ -22,7 +24,18 @@ internal class UpdateItemInCartViewModel : ViewModelBase
 	public ICommand GoBack { get; }
     public ICommand ChangeInCart { get; }
     public ICommand DeleteItem { get; }
-
+    /// <summary>
+    /// constructor
+    /// </summary>
+    /// <param name="navigationStore">
+    /// we get the navigation store for changing windows
+    /// </param>
+    /// <param name="id">
+    /// the id of the product we changing
+    /// </param>
+    /// <param name="cart">
+    /// the cart we changing
+    /// </param>
     public UpdateItemInCartViewModel(NavigationStore navigationStore, int id, Cart cart)
 	{
 		

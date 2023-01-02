@@ -8,17 +8,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using PL.Models;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// ViewModel for the MainWindowView that show the main screen
+/// </summary>
 internal class MainWindowViewModel : ViewModelBase
 {
     private readonly NavigationStore navigationStore;
     public ICommand GoToAdminView { get; }
     public ICommand GoToCreateNewOrder { get; }
     public ICommand GoToTrackOrders { get; }
-
+    /// <summary>
+    /// constuctor
+    /// </summary>
+    /// <param name="navigationStore">
+    /// we get the navigation store for changing windows
+    /// </param>
     public MainWindowViewModel(NavigationStore navigationStore)
     {
         this.navigationStore = navigationStore;

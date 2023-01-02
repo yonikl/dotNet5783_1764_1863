@@ -24,7 +24,9 @@ namespace PL.Views
     public partial class AdminView : UserControl
     {
 
-
+        /// <summary>
+        /// DependencyProperty for the MouseDoubleClick event
+        /// </summary>
         public ICommand UpdateProduct
         {
             get { return (ICommand)GetValue(UpdateProductProperty); }
@@ -43,7 +45,9 @@ namespace PL.Views
            
         }
 
-
+        /// <summary>
+        /// handle MouseDoubleClick event
+        /// </summary>
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             

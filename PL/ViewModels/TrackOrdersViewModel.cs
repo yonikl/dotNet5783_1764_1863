@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// ViewModel for TrackOrdersView that allow to track the orders status
+/// </summary>
 internal class TrackOrdersViewModel : ViewModelBase
 {
     private IBl? bl = Factory.Get();
@@ -23,6 +25,12 @@ internal class TrackOrdersViewModel : ViewModelBase
     public ICommand Submmit { get; }
 
     private string message;
+    /// <summary>
+    /// constructor
+    /// </summary>
+    /// <param name="navigationStore">
+    /// we get the navigation store for changing windows
+    /// </param>
     public TrackOrdersViewModel(NavigationStore navigationStore)
     {
         this.navigationStore = navigationStore;

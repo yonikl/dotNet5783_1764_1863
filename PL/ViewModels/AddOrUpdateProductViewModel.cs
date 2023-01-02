@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using PL.Models;
 using BlApi;
 using BO;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// ViewModdel For AddOrUpdateProductView that let the admin to add or update products
+/// </summary>
 internal class AddOrUpdateProductViewModel : ViewModelBase
 {
     private readonly IBl bl = Factory.Get();
@@ -28,20 +29,46 @@ internal class AddOrUpdateProductViewModel : ViewModelBase
     public ICommand AddOrUpdate { get; }
 
     public IEnumerable<BO.Enums.Category> Categories => (IEnumerable<Enums.Category>)Enum.GetValues(typeof(BO.Enums.Category));
+    /// <summary>
+    /// constructor
+    /// </summary>
+    /// <param name="navigationStore">
+    /// we get the navigation store for changing userControlls
+    /// </param>
+    /// <param name="id">
+    /// the id of the product we updating or 0 if we adding product
+    /// </param>
+    /// <exception cref="BlItemNotFoundException">
+    /// if the item not found
+    /// </exception>
+    /// <exception cref="BlIDNotValidException">
+    /// if the ID not valid
+    /// </exception>
     public AddOrUpdateProductViewModel(NavigationStore navigationStore, int id=0)
     {
         this.navigationStore = navigationStore;
         GoBack = new NavigationCommand(new NavigationService( this.navigationStore, () => new AdminViewModel(navigationStore)));
+        //setting the fields according to add/update state
         submitButtonText = id == 0 ? "Add product" : "Update product";
         AddOrUpdate = id == 0 ? new AddProductCommand(this, navigationStore) : new UpdateProductCommand(this, navigationStore);
         ProductId = id == 0 ? bl.Product.GetIdForProduct() : id;
-        if(id != 0)
+        if(id != 0) // if its update product
         {
-            var item = bl.Product.GetProductForAdmin(id);
+            Product item;
+            try {
+                item = bl.Product.GetProductForAdmin(id);
+            }
+            catch (BlItemNotFoundException ex)
+            {
+                throw new Exception("Item Not Found", ex);
+            }catch(BlIDNotValidException ex)
+            {
+                throw new Exception("ID Not Valid", ex);
+            }
             productCategory = item.Category ?? throw new NullReferenceException();
             productInStock = item.InStock;
             productPrice = item.Price;
-            productName = item.Name;
+            productName = item.Name!;
         }
     }
     public string submitButtonText { get; }
@@ -62,7 +89,7 @@ internal class AddOrUpdateProductViewModel : ViewModelBase
     {
         get
         {
-            return productName;
+            return productName ?? "";
         }
         set
         {

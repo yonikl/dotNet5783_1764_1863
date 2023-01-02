@@ -15,15 +15,14 @@ using System.Windows.Data;
 using System.Collections.ObjectModel;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// ViewModel for the CartView that allow user to see their cart
+/// </summary>
 internal class CartViewModel : ViewModelBase, INotifyPropertyChanged
 {
     private readonly NavigationStore navigationStore;
     private Cart? cart;
     private IBl? bl = Factory.Get();
-
-  
-   // public IEnumerable<OrderItem?> OrderItems => cart!.Items;
 
     public ObservableCollection<OrderItem?> OrderItems => new ObservableCollection<OrderItem?>(cart!.Items);
     
@@ -32,6 +31,15 @@ internal class CartViewModel : ViewModelBase, INotifyPropertyChanged
     public ICommand UpdateItem { get; }
 
     public ICommand DeleteItem { get; }
+    /// <summary>
+    /// constructor
+    /// </summary>
+    /// <param name="navigationStore">
+    /// we get the navigation store for changing userControlls
+    /// </param>
+    /// <param name="cart">
+    /// the cart to show
+    /// </param>
     public CartViewModel(NavigationStore navigationStore, Cart cart)
     {
         
@@ -93,7 +101,9 @@ internal class CartViewModel : ViewModelBase, INotifyPropertyChanged
             OnPropertyChanged(nameof(Id));
         }
     }
-
+    /// <summary>
+    /// Function to refresh the ListView
+    /// </summary>
     public void Refresh()
     {
         OnPropertyChanged(nameof(cart));

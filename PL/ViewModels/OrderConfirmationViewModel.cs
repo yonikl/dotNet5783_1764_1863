@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// ViewModel for OrderConfirmationView that let the user to fill personal details and commit to the order
+/// </summary>
 internal class OrderConfirmationViewModel : ViewModelBase
 {
     private readonly NavigationStore navigationStore;
@@ -26,6 +28,15 @@ internal class OrderConfirmationViewModel : ViewModelBase
     }
 
     public ICommand Confirm { get; }
+    /// <summary>
+    /// constructor
+    /// </summary>
+    /// <param name="navigationStore">
+    /// we get the navigation store for changing windows
+    /// </param>
+    /// <param name="cart">
+    /// the cart
+    /// </param>
     public OrderConfirmationViewModel(NavigationStore navigationStore, BO.Cart cart)
     {
         this.navigationStore = navigationStore;

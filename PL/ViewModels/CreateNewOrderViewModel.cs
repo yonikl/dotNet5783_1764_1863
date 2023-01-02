@@ -9,9 +9,20 @@ using System.Linq;
 using System.Windows.Input;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// ViewModel for the CreateNewOrderView that allow the user to create order
+/// </summary>
 internal class CreateNewOrderViewModel : ViewModelBase
 {
+    /// <summary>
+    /// constructor
+    /// </summary>
+    /// <param name="navigationStore">
+    /// we get the navigation store for changing windows
+    /// </param>
+    /// <param name="cart">
+    /// the cart if we coming back from forward userControll else we create new cart
+    /// </param>
     public CreateNewOrderViewModel(NavigationStore navigationStore, Cart? cart=null)
     {
         if(cart == null)

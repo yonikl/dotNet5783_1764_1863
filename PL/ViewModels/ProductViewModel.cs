@@ -6,15 +6,28 @@ using PL.Stores;
 using System.Windows.Input;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// ViewModel for ProductView that let the user to add the product to the cart
+/// </summary>
 internal class ProductViewModel : ViewModelBase
 {
     private IBl bl = Factory.Get();
     private readonly NavigationStore navigationStore;
 	private readonly ProductItem item;
 	private readonly Cart cart;
-
-	public ProductViewModel(NavigationStore navigationStore, int id, Cart cart)
+    /// <summary>
+    /// constructor
+    /// </summary>
+    /// <param name="navigationStore">
+    /// we get the navigation store for changing windows
+    /// </param>
+    /// <param name="id">
+	/// the id of the product we showing
+	/// </param>
+    /// <param name="cart">
+	/// the cart thar we take the amount from
+	/// </param>
+    public ProductViewModel(NavigationStore navigationStore, int id, Cart cart)
 	{
         this.cart = cart;
         this.navigationStore = navigationStore;

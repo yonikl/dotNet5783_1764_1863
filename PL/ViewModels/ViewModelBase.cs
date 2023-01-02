@@ -7,7 +7,9 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace PL.ViewModels;
-
+/// <summary>
+/// the base for all ViewModels
+/// </summary>
 public class ViewModelBase : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;

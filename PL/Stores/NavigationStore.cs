@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PL.Stores;
-
+/// <summary>
+/// The place where we saving the current ViewModel to show the relevant View
+/// </summary>
 public class NavigationStore
 {
     private ViewModelBase currentViewModel;

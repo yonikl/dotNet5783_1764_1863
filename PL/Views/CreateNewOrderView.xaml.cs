@@ -21,7 +21,9 @@ namespace PL.Views
     public partial class CreateNewOrderView : UserControl
     {
 
-
+        /// <summary>
+        /// DependencyProperty for the MouseDoubleClick event
+        /// </summary>
         public ICommand ShowProduct
         {
             get { return (ICommand)GetValue(ShowProductProperty); }
@@ -37,7 +39,9 @@ namespace PL.Views
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// handle MouseDoubleClick event
+        /// </summary>
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if(ShowProduct!=null)

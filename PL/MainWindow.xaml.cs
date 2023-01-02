@@ -10,10 +10,8 @@ namespace PL;
 public partial class MainWindow : Window
 {
     private BlApi.IBl bl = BlApi.Factory.Get();
-    private NavigationStore navigationStore;
-    public MainWindow(NavigationStore navigationStore)
+    public MainWindow()
     {
-        this.navigationStore = navigationStore;
         InitializeComponent();
     }
 }
