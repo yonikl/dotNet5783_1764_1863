@@ -156,7 +156,7 @@ internal class Product : IProduct
         if (item.ID <= 0) throw new BO.BlIDNotValidException();
         if (string.IsNullOrEmpty(item.Name)) throw new BO.BlNameEmptyException();
         if (item.InStock < 0) throw new BO.BlAmountNotValidException();
-        if (item.Price < 0) throw new BO.BlPriceNotValidException();
+        if (item.Price <= 0) throw new BO.BlPriceNotValidException();
         if (item.Category == BO.Enums.Category.None) throw new BlCategoryDoesntSet();
 
         try

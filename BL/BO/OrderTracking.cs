@@ -21,7 +21,7 @@ public class OrderTracking
         string s;
         s = ($"* {nameof(ID)}: {ID}\n* {nameof(Status)}: {Status}\n");
       
-        OrderTimeLine?.ForEach(item => s += ($"* items {item.Item2} : {item.Item1}\n").ToString());
+        OrderTimeLine?.ForEach(item => s += ($"* {item.Item2} : {item.Item1}\n").ToString());
         return s;
     }
     
