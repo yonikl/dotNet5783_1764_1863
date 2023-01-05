@@ -46,7 +46,6 @@
             HorizontalAlignment="Center"
             IsChecked="{Binding GroupByCategory}"/>
         <ComboBox
-            x:Name="category"
             Grid.Row="0"
             Text="Order by category"
             HorizontalAlignment="Left"
@@ -61,7 +60,6 @@
         <ListView
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Center"
-            Name="ProductListView"
             Foreground="#4275f5"
             FontSize="20"
             FontStyle="Italic"

@@ -40,7 +40,6 @@
                     Width="60*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label
-                x:Name="IdLabel"
                 Content="Id:"
                 Margin="183,0,0,0"
                 Grid.Row="1"
@@ -50,7 +49,6 @@
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center" />
             <Label
-                x:Name="CategoryLabel"
                 Content="Category:"
                 Margin="183,0,0,0"
                 Grid.Row="2"
@@ -58,7 +56,6 @@
                 FontSize="18"
                 VerticalContentAlignment="Center" />
             <Label
-                x:Name="NameLabel"
                 Content="Name:"
                 HorizontalAlignment="Left"
                 Margin="183,0,0,0"
@@ -68,7 +65,6 @@
                 FontSize="18"
                 VerticalContentAlignment="Center" />
             <Label
-                x:Name="PriceLabel"
                 Content="Price:"
                 HorizontalAlignment="Left"
                 Margin="183,0,0,0"
@@ -78,7 +74,6 @@
                 Width="137"
                 VerticalContentAlignment="Center" />
             <Label
-                x:Name="InStockLabel"
                 Content="In Stock:"
                 HorizontalAlignment="Left"
                 Margin="183,0,0,0"
@@ -88,7 +83,6 @@
                 Width="137"
                 VerticalContentAlignment="Center" />
             <TextBox
-                x:Name="IdTextBox"
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 Margin="10,0,0,0"
@@ -99,7 +93,6 @@
                 IsReadOnly="True"
                 Text="{Binding ProductId, UpdateSourceTrigger=PropertyChanged}" />
             <ComboBox
-                x:Name="CategorySelector"
                 ItemsSource="{Binding Categories}"
                 Grid.Column="1"
                 HorizontalAlignment="Left"
@@ -111,7 +104,6 @@
                 SelectedValue="{Binding ProductCategory, UpdateSourceTrigger=PropertyChanged}" 
                 />
             <TextBox
-                x:Name="NameTextBox"
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 Margin="10,0,0,0"
@@ -121,7 +113,6 @@
                 Width="120"
                 Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox
-                x:Name="PriceTextBox"
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 Margin="10,0,0,0"
@@ -131,7 +122,6 @@
                 Width="120"
                 Text="{Binding ProductPrice, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox
-                x:Name="InStockTextBox"
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 Margin="10,0,0,0"
@@ -141,7 +131,6 @@
                 Width="120"
                 Text="{Binding ProductInStock, UpdateSourceTrigger=PropertyChanged}" />
             <Button
-                Name="ProceedButton"
                 Content="{Binding submitButtonText}"
                 HorizontalAlignment="Left"
                 Margin="10,0,0,0"
@@ -150,7 +139,6 @@
                 Grid.Column="1"
                 Command="{Binding AddOrUpdate}"/>
             <Button
-                Name="BackButton"
                 Content="Back"
                 HorizontalAlignment="Left"
                 Margin="10,0,0,0"

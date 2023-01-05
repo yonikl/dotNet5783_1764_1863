@@ -37,7 +37,6 @@
                     Width="60*" />
             </Grid.ColumnDefinitions>
             <Label
-                x:Name="IdLabel"
                 Content="Id:"
                 Grid.Row="0"
                 Grid.Column="0"
@@ -47,7 +46,6 @@
                 VerticalContentAlignment="Center" />
             <TextBox
                 Grid.Column="1"
-                x:Name="IdTextBox"
                 HorizontalAlignment="Left"
                 Margin="15"
                 TextWrapping="Wrap"

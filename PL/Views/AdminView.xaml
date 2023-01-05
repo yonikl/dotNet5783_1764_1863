@@ -41,7 +41,6 @@
                                 Width="70"
                                 Command="{Binding Back}"/>
                             <ComboBox
-                                x:Name="category"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
                                 Margin="50 0 0 0"
@@ -110,7 +109,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition
                                 Height="auto" />
-                            <RowDefinition />
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
@@ -136,7 +135,6 @@
                         </Grid>
                         <ListView
                             HorizontalContentAlignment="Right"
-                            Name="OrdersListView"
                             Foreground="#42f5d4"
                             FontSize="20"
                             FontStyle="Italic"
@@ -144,6 +142,7 @@
                             FontWeight="ExtraBold"
                             Margin="15 0 15 15"
                             Grid.Row="1"
+                            MouseDoubleClick="ListView_MouseDoubleClick"
                             ItemsSource="{Binding Orders}"
                             SelectedValue="{Binding SelectedOrderTracking}">
                             <ListView.ItemContainerStyle>
@@ -200,6 +199,7 @@
                                 </Style>
                             </ListView.Resources>
                         </ListView>
+                
                     </Grid>
                 </TabItem>
             </TabControl>

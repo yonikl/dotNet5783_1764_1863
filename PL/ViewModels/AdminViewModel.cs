@@ -36,11 +36,9 @@ internal class AdminViewModel : ViewModelBase
 
     public ICommand AddProduct { get; }
     public ICommand UpdateProduct { get; }
-    public ICommand CategorySelctor { get; }
 
     public ICommand UpdateShipping { get; }
     public ICommand UpdateDelivery { get; }
-
     public ICommand Back { get; }
     /// <summary>
     /// </summary>
@@ -54,7 +52,6 @@ internal class AdminViewModel : ViewModelBase
 
         Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
         UpdateProduct = new NavigationCommand(new NavigationService(navigationStore, () => new AddOrUpdateProductViewModel(navigationStore, selectedProduct!.ID)));
-
         Message = "To update status for order right click on the context menu";
 
         UpdateShipping = new UpdateShippingCommand(this);
@@ -64,7 +61,7 @@ internal class AdminViewModel : ViewModelBase
     }
     private BO.Enums.Category category;
     private BO.ProductForList selectedProduct;
-
+  
     public BO.Enums.Category Category
     {
         get => category;
@@ -85,7 +82,7 @@ internal class AdminViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedProduct));
         }
     }
-
+    
     private BO.OrderForList selctedOrderTracking;
 
     public BO.OrderForList SelectedOrderTracking

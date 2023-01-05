@@ -60,6 +60,7 @@ internal class CreateNewOrderViewModel : ViewModelBase
         }
     }
 
+
     private BO.Enums.Category selectedCategory;
     public BO.Enums.Category SelectedCategory
     {

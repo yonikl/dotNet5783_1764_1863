@@ -42,7 +42,6 @@
                 Width="60*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label
-            x:Name="IdLabel"
             Content="Id:"
             Margin="183,0,0,0"
             Grid.Row="1"
@@ -52,7 +51,6 @@
             HorizontalAlignment="Left"
             VerticalContentAlignment="Center" />
         <Label
-            x:Name="CategoryLabel"
             Content="Category:"
             Margin="183,0,0,0"
             Grid.Row="2"
@@ -60,7 +58,6 @@
             FontSize="18"
             VerticalContentAlignment="Center" />
         <Label
-            x:Name="NameLabel"
             Content="Name:"
             HorizontalAlignment="Left"
             Margin="183,0,0,0"
@@ -70,7 +67,6 @@
             FontSize="18"
             VerticalContentAlignment="Center" />
         <Label
-            x:Name="PriceLabel"
             Content="Price:"
             HorizontalAlignment="Left"
             Margin="183,0,0,0"
@@ -80,7 +76,6 @@
             Width="137"
             VerticalContentAlignment="Center" />
         <Label
-            x:Name="InStockLabel"
             Content="In Stock:"
             HorizontalAlignment="Left"
             Margin="183,0,0,0"
@@ -90,7 +85,6 @@
             Width="137"
             VerticalContentAlignment="Center" />
         <Label
-            x:Name="AmountLabel"
             Content="In Cart:"
             HorizontalAlignment="Left"
             Margin="183,0,0,0"
@@ -100,45 +94,38 @@
             Width="137"
             VerticalContentAlignment="Center" />
         <TextBlock
-            x:Name="IdTextBlock"
             Grid.Column="1"
             Margin="10,0,0,0"
             Grid.Row="1"
             Text="{Binding ID, Mode=OneWay}" />
         <TextBlock
-            x:Name="CategorySelector"
             Grid.Column="1"
             Margin="10,0,0,0"
             Grid.Row="2"
             Text="{Binding Category, Mode=OneWay}" />
         <TextBlock
-            x:Name="NameTextBox"
             Grid.Column="1"
             Margin="10,0,0,0"
             Grid.Row="3"
             Text="{Binding Name, Mode=OneWay}" />
         <TextBlock
-            x:Name="PriceTextBlock"
             Grid.Column="1"
             Margin="10,0,0,0"
             Grid.Row="4"
             TextWrapping="Wrap"
             Text="{Binding Price, Mode=OneWay}" />
         <TextBlock
-            x:Name="InStockTextBlock"
             Grid.Column="1"
             Margin="10,0,0,0"
             Grid.Row="5"
             Text="{Binding InStock, Mode=OneWay}" />
         <TextBlock
-            x:Name="AmountTextBlock"
             Grid.Column="1"
             Margin="10,0,0,0"
             Grid.Row="6"
             Text="{Binding Amount, Mode=OneWay}" />
 
         <Button
-            Name="ProceedButton"
             Content="Add To Cart"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
@@ -167,7 +154,6 @@
             SelectedValue="{Binding DataContext.SelectedAmount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
 
         <Button
-            Name="BackButton"
             Content="Back"
             HorizontalAlignment="Left"
             Margin="10,0,0,0"

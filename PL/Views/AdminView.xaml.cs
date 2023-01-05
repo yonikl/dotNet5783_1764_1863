@@ -38,6 +38,19 @@ namespace PL.Views
             DependencyProperty.Register("UpdateProduct", typeof(ICommand), typeof(AdminView), new PropertyMetadata(null));
 
 
+
+        public ICommand ShowDetails
+        {
+            get { return (ICommand)GetValue(ShowDetailsProperty); }
+            set { SetValue(ShowDetailsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowDetails.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowDetailsProperty =
+            DependencyProperty.Register("ShowDetails", typeof(ICommand), typeof(AdminView), new PropertyMetadata(null));
+
+
+
         private BlApi.IBl bl = BlApi.Factory.Get();
         public AdminView()
         {
@@ -52,6 +65,11 @@ namespace PL.Views
         {
             
            if(UpdateProduct != null) UpdateProduct.Execute(null);
+        }
+
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(ShowDetails != null) ShowDetails.Execute(null);
         }
     }
 }
