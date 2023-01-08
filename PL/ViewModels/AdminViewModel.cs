@@ -21,7 +21,8 @@ internal class AdminViewModel : ViewModelBase
     private IBl? bl = Factory.Get();
 
     private string message;
-    public IEnumerable<OrderForList?> Orders => bl!.Order.GetAllOrders().OrderBy(x => x!.Status);
+    public ObservableCollection<OrderForList?> Orders => new ObservableCollection<OrderForList?>(bl!.Order.GetAllOrders().OrderBy(x => x!.Status));
+    // public IEnumerable<OrderForList?> Orders => bl!.Order.GetAllOrders().OrderBy(x => x!.Status);
     public IEnumerable<ProductForList?> Products
     {
         get
@@ -36,7 +37,8 @@ internal class AdminViewModel : ViewModelBase
 
     public ICommand AddProduct { get; }
     public ICommand UpdateProduct { get; }
-
+    public ICommand OrderDetails { get; }
+    public ICommand DeleteProduct { get; }
     public ICommand UpdateShipping { get; }
     public ICommand UpdateDelivery { get; }
     public ICommand Back { get; }
@@ -52,16 +54,33 @@ internal class AdminViewModel : ViewModelBase
 
         Back = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));
         UpdateProduct = new NavigationCommand(new NavigationService(navigationStore, () => new AddOrUpdateProductViewModel(navigationStore, selectedProduct!.ID)));
-        Message = "To update status for order right click on the context menu";
 
+        OrderDetails = new NavigationCommand(new NavigationService(navigationStore, () => new OrderViewModel(navigationStore, selctedOrder!)));
+        message = "To update status for order right click on the context menu\n" + "To view the order details double click on the context manu";
+
+        messageForProduct = "To delete product right click on the context menu";
         UpdateShipping = new UpdateShippingCommand(this);
 
         UpdateDelivery = new UpdateDeliveryCommand(this);
 
+        DeleteProduct = new DeleteProductCommand(this);
     }
     private BO.Enums.Category category;
     private BO.ProductForList selectedProduct;
-  
+
+    private string messageForProduct;
+    public string MessageForProduct
+    {
+        get
+        {
+            return messageForProduct;
+        }
+        set
+        {
+            messageForProduct = value;
+            OnPropertyChanged(nameof(MessageForProduct));
+        }
+    }
     public BO.Enums.Category Category
     {
         get => category;
@@ -73,6 +92,19 @@ internal class AdminViewModel : ViewModelBase
         }
     }
 
+    private OrderForList selctedOrder;
+    public OrderForList SelctedOrder
+    {
+        get
+        {
+            return selctedOrder;
+        }
+        set
+        {
+            selctedOrder = value;
+            OnPropertyChanged(nameof(SelctedOrder));
+        }
+    }
     public BO.ProductForList SelectedProduct
     {
         get => selectedProduct;
@@ -82,18 +114,7 @@ internal class AdminViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedProduct));
         }
     }
-    
-    private BO.OrderForList selctedOrderTracking;
-
-    public BO.OrderForList SelectedOrderTracking
-    { 
-        get => selctedOrderTracking;
-        set
-        {
-            selctedOrderTracking = value;
-            OnPropertyChanged(nameof(SelectedOrderTracking));
-        }
-    }
+   
 
     public string Message 
     {

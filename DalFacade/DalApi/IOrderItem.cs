@@ -6,6 +6,6 @@ using DO;
 /// </summary>
 public interface IOrderItem : ICrud<OrderItem>
 {
-
+    public IEnumerable<OrderItem> GetOrderItemsInSpecificOrder(int orderId);
 }
 

@@ -50,6 +50,7 @@ internal class UpdateItemInCartViewModel : ViewModelBase
     }
 
 	public IEnumerable<int> LongIntegerList => Enumerable.Range(1, 100).ToList();
+
     private ProductItem item;
     public ProductItem Item
 	{

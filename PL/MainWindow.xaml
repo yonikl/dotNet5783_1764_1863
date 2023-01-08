@@ -30,7 +30,7 @@
             </DataTemplate>
             <DataTemplate
                 DataType="{x:Type vms:AdminViewModel}">
-                <views:AdminView UpdateProduct="{Binding UpdateProduct}" ShowDetails="{Binding OrderDetailsCommand}"/>
+                <views:AdminView UpdateProduct="{Binding UpdateProduct}" ShowDetails="{Binding OrderDetails}"/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:CreateNewOrderViewModel}">
                 <views:CreateNewOrderView ShowProduct="{Binding GoToProduct}"/>
@@ -53,7 +53,11 @@
             <DataTemplate
                 DataType="{x:Type vms:UpdateItemInCartViewModel}">
                 <views:UpdateItemInCartView />
-            </DataTemplate>             
+            </DataTemplate>
+            <DataTemplate
+                DataType="{x:Type vms:OrderViewModel}">
+                <views:OrdersView />
+            </DataTemplate>
         </Grid.Resources>
         <ContentControl
             Content="{Binding CurrentViewModel}" />

@@ -30,7 +30,7 @@ internal class UpdateShippingCommand : BaseCommand
     {
         try
         {
-            bl.Order.UpdateShipping(model.SelectedOrderTracking.ID);//update shipping using bl and modal 
+            bl.Order.UpdateShipping(model.SelctedOrder.ID);//update shipping using bl and modal 
             model.Message = "Update succesfuly";
             model.Refresh();//refrash the list
         }

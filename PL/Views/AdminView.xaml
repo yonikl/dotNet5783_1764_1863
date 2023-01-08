@@ -29,7 +29,7 @@
                             Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
-                                <ColumnDefinition />
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Button
                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
@@ -59,6 +59,19 @@
                                 Command="{Binding AddProduct}">
 
                             </Button>
+                            <TextBlock
+                                Grid.Column="1"
+                                Width="400"
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="{Binding MessageForProduct}"
+                                Foreground="Blue"
+                                TextWrapping="Wrap"
+                                FontWeight="Bold"
+                                FontSize="16">
+                                
+                            </TextBlock>
                         </Grid>
                         <ListView
                             VerticalContentAlignment="Center"
@@ -99,6 +112,14 @@
                                         DisplayMemberBinding="{Binding Price}" />
                                 </GridView>
                             </ListView.View>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem
+                                        Header="Delete product"
+                                        Command="{Binding DeleteProduct}"
+                                        Icon="{materialDesign:PackIcon Kind=Trash}" />
+                                </ContextMenu>
+                            </ListView.ContextMenu>
                         </ListView>
                     </Grid>
 
@@ -144,7 +165,7 @@
                             Grid.Row="1"
                             MouseDoubleClick="ListView_MouseDoubleClick"
                             ItemsSource="{Binding Orders}"
-                            SelectedValue="{Binding SelectedOrderTracking}">
+                            SelectedValue="{Binding SelctedOrder}">
                             <ListView.ItemContainerStyle>
                                 <Style
                                     TargetType="ListViewItem"

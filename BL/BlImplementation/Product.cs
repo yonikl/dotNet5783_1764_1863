@@ -229,14 +229,14 @@ internal class Product : IProduct
     {
         try
         {
-            DO.Product product = dal.Product.Get(id);
+            DO.Product product = dal!.Product.Get(id);
         }
         catch (DO.DalItemNotFoundException ex)
         {
             throw new BO.BlItemNotFoundException("", ex);
         }
 
-        List<DO.OrderItem> orderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
+        List<DO.OrderItem> orderItems = dal.OrderItem.GetAll().ToList();
         if (orderItems.Find(x => x.ProductID == id).ProductID == id) throw new BO.BlProductExistsInOrdersException();
 
         dal.Product.Delete(id);

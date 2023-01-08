@@ -41,6 +41,7 @@ internal class Order : IOrder
         return list;
     }
 
+
     /// <summary>
     /// get order using id 
     /// </summary>
@@ -214,6 +215,7 @@ internal class Order : IOrder
         return boTracking;
 
     }
+
     /// <summary>
     /// get DO order and return the status order from kind of BO
     /// </summary>
@@ -236,7 +238,7 @@ internal class Order : IOrder
     private BO.Order setOrderItemsAndTotalPrice(BO.Order order)
     {
         IEnumerable<DO.OrderItem> orderItems = dal?.OrderItem.GetAll(x => x.OrderID == order.ID);//get the items using id
-        if (!orderItems.Any()) //if the list is empty
+        if (!orderItems!.Any()) //if the list is empty
             throw new BO.BlEmptyOrderExistsException();
 
         order.TotalPrice += orderItems!.Sum(x =>  x.Price * x.Amount);
@@ -252,5 +254,7 @@ internal class Order : IOrder
             })).ToList();
         return order;
     }
+
+   
 }
 

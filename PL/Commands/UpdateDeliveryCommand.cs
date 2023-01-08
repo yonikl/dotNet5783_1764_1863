@@ -34,7 +34,7 @@ internal class UpdateDeliveryCommand: BaseCommand
     {
         try
         {
-            bl.Order.UpdateDelivery(model.SelectedOrderTracking.ID);//update delivery
+            bl.Order.UpdateDelivery(model.SelctedOrder.ID);//update delivery
             model.Message = "Update succesfuly";
             model.Refresh();//refrash the list view
         }
