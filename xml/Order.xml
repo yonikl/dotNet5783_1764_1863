@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<orders>
+  <order>
+    <id>1</id>
+    <customer-name>aaa</customer-name>
+    <customer-address>aaa</customer-address>
+    <customer-email>aaa</customer-email>
+    <order-date>2023-01-09T16:46:21.6511465+02:00</order-date>
+    <ship-date />
+    <delivery-date />
+  </order>
+</orders>
