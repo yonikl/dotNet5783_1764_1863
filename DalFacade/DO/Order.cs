@@ -74,8 +74,9 @@ public struct Order
     public override string ToString()
     {
         return $@"
-            Order Id = {Id}: {CustomerName}
-            customer emile - {CustomerEmail}
+            Order Id = {Id}: 
+            customer name - {CustomerName}
+            customer email - {CustomerEmail}
     	    customer Adress: {CustomerAddress}
     	    Order date: {OrderDate}
             Ship Date: {ShipDate}

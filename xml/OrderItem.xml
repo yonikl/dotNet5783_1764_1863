@@ -1,2 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<order-items></order-items>
+<?xml version="1.0" encoding="utf-8"?><ArrayOfOrderItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><OrderItem><Id>0</Id><ProductID>3</ProductID><OrderID>6</OrderID><Price>3</Price><Amount>3</Amount></OrderItem><OrderItem><Id>7</Id><ProductID>4</ProductID><OrderID>4</OrderID><Price>4</Price><Amount>4</Amount></OrderItem></ArrayOfOrderItem>

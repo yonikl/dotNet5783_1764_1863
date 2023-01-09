@@ -1,8 +1,10 @@
-﻿namespace DO;
+﻿using System.Xml.Serialization;
+
+namespace DO;
 
 public struct OrderItem
 {
-
+   
     /// <summary>
     /// Id for this order item
     /// </summary>

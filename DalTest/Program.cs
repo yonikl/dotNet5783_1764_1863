@@ -86,6 +86,7 @@ public class Program
                 }
                 catch (DalItemNotFoundException)//in case the order id mot found
                 {
+                    Console.WriteLine("ERROR");
                     break;
                 }
                 break;
@@ -109,6 +110,7 @@ public class Program
                 {
                     break;
                 }
+                break;
                 //update the order
                 Console.WriteLine("Enter name, email and adrass:");
                 //read the details for the new order

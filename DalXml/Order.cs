@@ -57,9 +57,9 @@ internal class Order : IOrder
             CustomerName = order.Element("customer-name")!.Value,
             CustomerAddress = order.Element("customer-address")!.Value,
             CustomerEmail = order.Element("customer-email")!.Value,
-            OrderDate = Convert.ToDateTime(order.Element("order-date")!.Value),
-            ShipDate = Convert.ToDateTime(order.Element("ship-date")!.Value),
-            DeliveryDate = Convert.ToDateTime(order.Element("delivery-date")!.Value)
+            OrderDate = order.Element("order-date")!.IsEmpty ? null : DateTime.Parse(order.Element("order-date")!.Value),
+            ShipDate = order.Element("ship-date")!.IsEmpty ? null : DateTime.Parse(order.Element("ship-date")!.Value),
+            DeliveryDate = order.Element("delivery-date")!.IsEmpty ? null : DateTime.Parse(order.Element("delivery-date")!.Value)
 
         };
 
@@ -118,6 +118,7 @@ internal class Order : IOrder
         var id = Convert.ToInt32(config.Element("orders-id")!.Value);
         id++;
         config.Element("orders-id")!.Value = id.ToString();
+        config.Save(configPath);
         return --id;
     }
 
@@ -129,9 +130,9 @@ internal class Order : IOrder
             CustomerName = i.Element("customer-name")!.Value,
             CustomerAddress = i.Element("customer-address")!.Value,
             CustomerEmail = i.Element("customer-email")!.Value,
-            OrderDate = i.Element("order-date")!.Value != null ? DateTime.Parse(i.Element("order-date")!.Value) : null,
-            ShipDate = i.Element("ship-date")!.Value != null ? DateTime.Parse(i.Element("ship-date")!.Value) : null,
-            DeliveryDate = i.Element("delivery-date")!.Value != null ? DateTime.Parse(i.Element("delivery-date")!.Value) : null
+            OrderDate = i.Element("order-date")!.IsEmpty ? null : DateTime.Parse(i.Element("order-date")!.Value),
+            ShipDate = i.Element("ship-date")!.IsEmpty ? null : DateTime.Parse(i.Element("ship-date")!.Value),
+            DeliveryDate = i.Element("delivery-date")!.IsEmpty ? null : DateTime.Parse(i.Element("delivery-date")!.Value)
 
         };
     }
