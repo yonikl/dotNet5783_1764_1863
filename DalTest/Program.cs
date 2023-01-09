@@ -155,7 +155,7 @@ public class Program
                 p.Name = Console.ReadLine();
                 p.Price = double.Parse(Console.ReadLine());
                 p.InStock =  int.Parse(Console.ReadLine());
-                p.Category = (Enums.Category)Convert.ToInt32(Console.ReadLine());
+                p.Category = (DO.Enums.Category)System.Enum.Parse(typeof(DO.Enums.Category), Console.ReadLine());
                 s_dalList.Product.Add(p);//add the new product
                 break;
             

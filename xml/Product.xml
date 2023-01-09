@@ -1,2 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<products></products>
+<?xml version="1.0" encoding="utf-8"?><ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Product><ID>178817</ID><Name>aaa</Name><Price>21</Price><InStock>12</InStock><Category>Pants</Category></Product><Product><ID>301674</ID><Name>eew</Name><Price>211</Price><InStock>122</InStock><Category>Shoe</Category></Product></ArrayOfProduct>
