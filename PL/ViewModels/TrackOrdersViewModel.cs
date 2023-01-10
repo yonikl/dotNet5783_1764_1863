@@ -31,7 +31,9 @@ internal class TrackOrdersViewModel : ViewModelBase
     /// <param name="navigationStore">
     /// we get the navigation store for changing windows
     /// </param>
+#pragma warning disable CS8618 // Non-nullable field 'message' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     public TrackOrdersViewModel(NavigationStore navigationStore)
+#pragma warning restore CS8618 // Non-nullable field 'message' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     {
         this.navigationStore = navigationStore;
         GoBack = new NavigationCommand(new NavigationService(navigationStore, () => new MainWindowViewModel(navigationStore)));

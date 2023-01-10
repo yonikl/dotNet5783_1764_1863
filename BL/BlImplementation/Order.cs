@@ -237,11 +237,14 @@ internal class Order : IOrder
     /// <exception cref="BO.BlEmptyOrderExistsException">if the list is empty</exception>
     private BO.Order setOrderItemsAndTotalPrice(BO.Order order)
     {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         IEnumerable<DO.OrderItem> orderItems = dal?.OrderItem.GetAll(x => x.OrderID == order.ID);//get the items using id
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
         if (!orderItems!.Any()) //if the list is empty
             throw new BO.BlEmptyOrderExistsException();
 
         order.TotalPrice += orderItems!.Sum(x =>  x.Price * x.Amount);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         order.Items = ((IEnumerable<BO.OrderItem?>)(from i in orderItems
             select new BO.OrderItem()
             {
@@ -252,6 +255,7 @@ internal class Order : IOrder
                 ProductID = i.ProductID,
                 TotalPrice = i.Price * i.Amount
             })).ToList();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         return order;
     }
 

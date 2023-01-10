@@ -31,6 +31,7 @@ internal class TrackOrderCommand : BaseCommand
     /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
         try
         {
             model.Message = bl.Order.TrackOrder(model.Id).ToString();//get from bl the order stutus
@@ -44,5 +45,6 @@ internal class TrackOrderCommand : BaseCommand
         {
             model.Message = "Unknown error";
         }
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
     }
 }

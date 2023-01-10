@@ -36,6 +36,7 @@ internal class CartCommend : BaseCommand
     /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
         try
         {
             int idForOrder = bl.Cart.MakeAnOrder(cart, model.Name, model.Address, model.Email);//get the id and add the order to bl
@@ -71,6 +72,7 @@ internal class CartCommend : BaseCommand
         {
             model.Message = "Unnown error"; 
         }
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
     }
 
    

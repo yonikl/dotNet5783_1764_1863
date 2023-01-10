@@ -4,6 +4,9 @@ namespace Dal;
 
 sealed internal class DalXml : IDal
 {
+    /// <summary>
+    /// implament IDal using xml files for each entity 
+    /// </summary>
     public static IDal Instance { get; } = new DalXml();
     DalXml() { }
     public IProduct Product { get; } = new Product();

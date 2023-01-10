@@ -37,7 +37,17 @@ internal class OrderConfirmationViewModel : ViewModelBase
     /// <param name="cart">
     /// the cart
     /// </param>
+#pragma warning disable CS8618 // Non-nullable field 'message' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning disable CS8618 // Non-nullable field 'name' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning disable CS8618 // Non-nullable field 'address' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning disable CS8618 // Non-nullable field 'back' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning disable CS8618 // Non-nullable field 'email' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     public OrderConfirmationViewModel(NavigationStore navigationStore, BO.Cart cart)
+#pragma warning restore CS8618 // Non-nullable field 'email' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning restore CS8618 // Non-nullable field 'back' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning restore CS8618 // Non-nullable field 'address' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning restore CS8618 // Non-nullable field 'name' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning restore CS8618 // Non-nullable field 'message' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     {
         this.navigationStore = navigationStore;
         this.cart = cart;

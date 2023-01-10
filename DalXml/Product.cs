@@ -64,16 +64,22 @@ internal class Product : IProduct
         {
             try
             {
-                list = xmlSerializer.Deserialize(reader) as List<DO.Product> ?? new List<DO.Product>();
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+                list = xmlSerializer.Deserialize(reader) as List<DO.Product>;
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             }
             catch(InvalidOperationException)
             {
+#pragma warning disable CS8603 // Possible null reference return.
                 return list;
+#pragma warning restore CS8603 // Possible null reference return.
             }
         }
         if (func == null)
         {
+#pragma warning disable CS8603 // Possible null reference return.
             return list;
+#pragma warning restore CS8603 // Possible null reference return.
         }
         else
         {
@@ -90,7 +96,6 @@ internal class Product : IProduct
     {
         Delete(p.ID);
         Add(p);
-
     }
 
     private void WriteToXml(List<DO.Product> list)
@@ -101,5 +106,4 @@ internal class Product : IProduct
             xmlSerializer.Serialize(writer, list);
         }
     }
-
 }

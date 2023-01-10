@@ -36,7 +36,11 @@ internal class UpdateItemInCartViewModel : ViewModelBase
     /// <param name="cart">
     /// the cart we changing
     /// </param>
+#pragma warning disable CS8618 // Non-nullable property 'DeleteItem' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
+#pragma warning disable CS8618 // Non-nullable field 'message' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     public UpdateItemInCartViewModel(NavigationStore navigationStore, int id, Cart cart)
+#pragma warning restore CS8618 // Non-nullable field 'message' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning restore CS8618 // Non-nullable property 'DeleteItem' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
 	{
 		
 		this.navigationStore = navigationStore;

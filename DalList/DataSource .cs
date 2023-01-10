@@ -1,5 +1,7 @@
 ﻿namespace Dal;
 using DO;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
 internal static class DataSource
 {
@@ -67,10 +69,14 @@ internal static class DataSource
             for (int j = 0; j < s_generator.Next(2, 4); j++)
             {
                 orderItem.Id = Config.GetIdForOrdersItems;
+#pragma warning disable CS8629 // Nullable value type may be null.
                 orderItem.OrderID = (int)s_orders[i]?.Id;
+#pragma warning restore CS8629 // Nullable value type may be null.
 
                 //random product
+#pragma warning disable CS8629 // Nullable value type may be null.
                 Product product = (Product)s_products[s_generator.Next(0, s_products.Count)];
+#pragma warning restore CS8629 // Nullable value type may be null.
                 orderItem.ProductID = product.ID;
                 orderItem.Price = product.Price;
                 orderItem.Amount = s_generator.Next(1, 10);
@@ -97,9 +103,9 @@ internal static class DataSource
         s_products.Add(new Product { Category = Enums.Category.Shirt, ID = 867452, InStock = 10, Name = "Castro T-Shirt L", Price = 150.0 }); 
         s_products.Add(new Product { Category = Enums.Category.Shirt, ID = 398475, InStock = 20, Name = "MJ Sport Shirt S", Price = 450.0 });
         s_products.Add(new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Nike training Socks 38-42", Price = 80.0 });
-        s_products.Add(new Product { Category = Enums.Category.Sock, ID = 899384, InStock = 35, Name = "Kumi Sneakers Socks 32-36", Price = 45.0 });
+        s_products.Add(new Product { Category = Enums.Category.Sock, ID = 234763, InStock = 35, Name = "Kumi Sneakers Socks 32-36", Price = 45.0 });
         
-        
+
     }
 
     /// <summary>

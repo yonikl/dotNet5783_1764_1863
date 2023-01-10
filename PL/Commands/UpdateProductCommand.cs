@@ -34,6 +34,7 @@ internal class UpdateProductCommand : BaseCommand
     /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
+#pragma warning disable CS0168 // The variable 'exception' is declared but never used
         try
         {
             var product = new BO.Product()
@@ -76,6 +77,7 @@ internal class UpdateProductCommand : BaseCommand
         {
             model.ErrorMessages = "Unknown error";
         }
+#pragma warning restore CS0168 // The variable 'exception' is declared but never used
 
     }
 
