@@ -14,7 +14,9 @@ internal class NavigationService
 {
     private NavigationStore navigationStore;
     private Func<ViewModelBase> createViewModel;
+#pragma warning disable CS0169 // The field 'NavigationService.value' is never used
     private object value;
+#pragma warning restore CS0169 // The field 'NavigationService.value' is never used
     /// <summary>
     /// constructor
     /// </summary>
@@ -24,7 +26,9 @@ internal class NavigationService
     /// <param name="createViewModel">
     /// Function that returns the ViewModel that we changing to
     /// </param>
+#pragma warning disable CS8618 // Non-nullable field 'value' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     public NavigationService(NavigationStore navigationStore, Func<ViewModelBase> createViewModel)
+#pragma warning restore CS8618 // Non-nullable field 'value' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     {
         this.navigationStore = navigationStore;
         this.createViewModel = createViewModel;

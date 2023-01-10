@@ -44,7 +44,9 @@ internal class AddOrUpdateProductViewModel : ViewModelBase
     /// <exception cref="BlIDNotValidException">
     /// if the ID not valid
     /// </exception>
+#pragma warning disable CS8618 // Non-nullable field 'errorMessages' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     public AddOrUpdateProductViewModel(NavigationStore navigationStore, int id=0)
+#pragma warning restore CS8618 // Non-nullable field 'errorMessages' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     {
         this.navigationStore = navigationStore;
         GoBack = new NavigationCommand(new NavigationService( this.navigationStore, () => new AdminViewModel(navigationStore)));

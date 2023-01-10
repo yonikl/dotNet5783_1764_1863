@@ -10,10 +10,9 @@
     d:DesignHeight="450"
     d:DesignWidth="800">
     <Grid>
-        
+
         <materialDesign:Card>
             <TabControl
-                
                 HorizontalAlignment="Stretch"
                 materialDesign:ColorZoneAssist.Mode="PrimaryLight"
                 Style="{StaticResource MaterialDesignFilledTabControl}">
@@ -29,17 +28,17 @@
                             Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
-                                <ColumnDefinition/>
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Button
                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                HorizontalAlignment="Left" 
+                                HorizontalAlignment="Left"
                                 Margin="15"
                                 Content="Back"
                                 Width="70"
-                                Command="{Binding Back}"/>
+                                Command="{Binding Back}" />
                             <ComboBox
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
@@ -48,7 +47,7 @@
                                 Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                 SelectedValue="{Binding Category}"
                                 Width="256">
-                               
+
                             </ComboBox>
                             <Button
                                 Grid.Column="1"
@@ -70,7 +69,7 @@
                                 TextWrapping="Wrap"
                                 FontWeight="Bold"
                                 FontSize="16">
-                                
+
                             </TextBlock>
                         </Grid>
                         <ListView
@@ -130,32 +129,33 @@
                         <Grid.RowDefinitions>
                             <RowDefinition
                                 Height="auto" />
-                            <RowDefinition Height="auto"/>
+                            <RowDefinition
+                                />
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
+                        <Grid
+                            Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Button
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Grid.Column="0"
-                            HorizontalAlignment="Left"
-                            Margin="15 15 0 0"
-                            Content="Back"
-                            Width="70"
-                            Command="{Binding Back}" />
-                        <TextBlock 
-                            Grid.ColumnSpan ="2"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Text="{Binding Message}"
-                            Foreground="Blue"
-                            FontSize="20"
-                            />
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                Margin="15 15 0 0"
+                                Content="Back"
+                                Width="70"
+                                Command="{Binding Back}" />
+                            <TextBlock
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="{Binding Message}"
+                                Foreground="Blue"
+                                FontSize="20" />
                         </Grid>
                         <ListView
-                            HorizontalContentAlignment="Right"
+                            VerticalContentAlignment="Center"
                             Foreground="#42f5d4"
                             FontSize="20"
                             FontStyle="Italic"
@@ -175,20 +175,10 @@
                                         Value="Center" />
                                 </Style>
                             </ListView.ItemContainerStyle>
-                            <ListView.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem
-                                        Header="Update shipping"
-                                        Command="{Binding UpdateShipping}"
-                                        Icon="{materialDesign:PackIcon Kind=AirplaneTakeoff}"/>
-                                    <MenuItem
-                                        Header="Update Delivery"
-                                        Command="{Binding UpdateDelivery}"
-                                        Icon="{materialDesign:PackIcon Kind=Truck}"/>
-                                </ContextMenu>
-                            </ListView.ContextMenu>
-                            <ListView.View >
-                                <GridView >
+
+                            <ListView.View>
+
+                                <GridView>
 
                                     <GridViewColumn
                                         Header="ID"
@@ -201,13 +191,24 @@
                                         DisplayMemberBinding="{Binding Status}" />
                                     <GridViewColumn
                                         Header="Amount of items"
-                                        DisplayMemberBinding="{Binding AmountOfItems}" 
-                                        />
+                                        DisplayMemberBinding="{Binding AmountOfItems}" />
                                     <GridViewColumn
                                         Header="Total price"
                                         DisplayMemberBinding="{Binding TotalPrice}" />
                                 </GridView>
                             </ListView.View>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem
+                                        Header="Update shipping"
+                                        Command="{Binding UpdateShipping}"
+                                        Icon="{materialDesign:PackIcon Kind=AirplaneTakeoff}" />
+                                    <MenuItem
+                                        Header="Update Delivery"
+                                        Command="{Binding UpdateDelivery}"
+                                        Icon="{materialDesign:PackIcon Kind=Truck}" />
+                                </ContextMenu>
+                            </ListView.ContextMenu>
                             <ListView.Resources>
                                 <Style
                                     TargetType="ListViewItem">
@@ -220,11 +221,11 @@
                                 </Style>
                             </ListView.Resources>
                         </ListView>
-                
+
                     </Grid>
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
     </Grid>
-    
+
 </UserControl>

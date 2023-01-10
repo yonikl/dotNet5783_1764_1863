@@ -19,6 +19,7 @@ internal class DeleteProductCommand : BaseCommand
     }
     public override void Execute(object? parameter)
     {
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
         try
         {
             bl.Product.RemoveProduct(model.SelectedProduct.ID);
@@ -39,5 +40,6 @@ internal class DeleteProductCommand : BaseCommand
         {
             model.MessageForProduct = "Unknown error";
         }
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
     }
 }

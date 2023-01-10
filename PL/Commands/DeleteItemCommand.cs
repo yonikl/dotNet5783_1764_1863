@@ -34,6 +34,7 @@ internal class DeleteItemCommand : BaseCommand
     /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
         try
         {
             cart = bl.Cart.UpdateAmountOfOrder(model.Id, 0, cart);//delete the item from the cart using bl
@@ -54,6 +55,7 @@ internal class DeleteItemCommand : BaseCommand
         {
             model!.Message = "Unknown error";
         }
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
                                                            
     }
 }

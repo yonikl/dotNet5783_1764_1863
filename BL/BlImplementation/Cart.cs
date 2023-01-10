@@ -192,7 +192,9 @@ internal class Cart : ICart
     /// if the address is valid
     private bool IsValidEmail(string? email)
     {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         var trimmedEmail = email.Trim();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
         if (trimmedEmail.EndsWith("."))
         {

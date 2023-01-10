@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#pragma warning disable CS0105 // The using directive for 'BlApi' appeared previously in this namespace
 using BlApi;
+#pragma warning restore CS0105 // The using directive for 'BlApi' appeared previously in this namespace
 using System.Windows;
 
 namespace PL.Commands;
@@ -32,6 +34,7 @@ internal class UpdateDeliveryCommand: BaseCommand
     /// <param name="parameter"></param>
     public override void Execute(object? parameter)
     {
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
         try
         {
             bl.Order.UpdateDelivery(model.SelctedOrder.ID);//update delivery
@@ -57,6 +60,7 @@ internal class UpdateDeliveryCommand: BaseCommand
             model.Message = "Unknown error";
 
         }
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
 
     }
 }

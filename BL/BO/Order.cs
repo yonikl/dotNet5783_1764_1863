@@ -48,7 +48,9 @@ public class Order
     /// <summary>
     /// items that the customer choose
     /// </summary>
+#pragma warning disable CS8618 // Non-nullable property 'Items' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
     public List<OrderItem?> Items { get; set; }
+#pragma warning restore CS8618 // Non-nullable property 'Items' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
 
     /// <summary>
     /// The total price
@@ -60,7 +62,9 @@ public class Order
         Console.WriteLine(
             $" * {nameof(ID)}: {ID}\n * {nameof(CustomerName)}: {CustomerName}\n * {nameof(CustomerEmail)}: {CustomerEmail}\n * {nameof(CustomerAddress)}: {CustomerAddress}\n * {nameof(OrderDate)}: {OrderDate}\n * {nameof(Status)}: {Status}\n * {nameof(ShipDate)}: {ShipDate}\n * {nameof(DeliveryDate)}: {DeliveryDate}\n * Product's:");
         int j = 1;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         Items.ForEach(x => Console.WriteLine($"   {j++}) {nameof(x.Name)} : {x.Name}"));
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         return ($" * {nameof(TotalPrice)} : {TotalPrice}");
     }
 }

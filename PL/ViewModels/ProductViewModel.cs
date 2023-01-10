@@ -27,7 +27,9 @@ internal class ProductViewModel : ViewModelBase
     /// <param name="cart">
 	/// the cart thar we take the amount from
 	/// </param>
+#pragma warning disable CS8618 // Non-nullable field 'errorMessages' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     public ProductViewModel(NavigationStore navigationStore, int id, Cart cart)
+#pragma warning restore CS8618 // Non-nullable field 'errorMessages' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
 	{
         this.cart = cart;
         this.navigationStore = navigationStore;

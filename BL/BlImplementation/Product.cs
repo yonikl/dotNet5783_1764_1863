@@ -20,6 +20,7 @@ internal class Product : IProduct
         var products = dal!.Product.GetAll();
         if (func == null)
         {
+#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
             return from p in products
                    select new ProductItem()
                    {
@@ -31,8 +32,10 @@ internal class Product : IProduct
                        Amount = (from i in c.Items where i.ProductID == p.ID select i).Any() ? (from i in c.Items where i.ProductID == p.ID select i.Amount).First() : 0
 
                    };
+#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
         }
 
+#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
         return from p in products
                where func(p)
                select new ProductItem()
@@ -45,6 +48,7 @@ internal class Product : IProduct
                    Amount = (from i in c.Items where i.ProductID == p.ID select i).Any() ? (from i in c.Items where i.ProductID == p.ID select i.Amount).First() : 0
 
                };
+#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
 
 
     }
@@ -59,9 +63,8 @@ internal class Product : IProduct
     {
         if (func == null)
         {
-            IEnumerable<DO.Product> products = dal.Product.GetAll();
-            //check if products exists
-            if (!products.Any()) throw new BO.BlNoProductsException();
+            IEnumerable<DO.Product> products = dal!.Product.GetAll();
+
             //casting to BO.ProductForList
             return from pro in products select doProductToBoProductForList(pro);
 
@@ -125,7 +128,9 @@ internal class Product : IProduct
         DO.Product product;
         try//trying to retrieve from Dal
         {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             product = dal.Product.Get(id);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
         catch (DO.DalItemNotFoundException ex)
         {
@@ -162,6 +167,7 @@ internal class Product : IProduct
         try
         {
             //sending the product to Dal
+#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
             dal?.Product.Add(new DO.Product()
             {
                 ID = item.ID,
@@ -170,6 +176,7 @@ internal class Product : IProduct
                 InStock = item.InStock,
                 Price = item.Price
             });
+#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
 
         }
         catch (DO.DalItemAlreadyExistException ex)//if the id already exists
@@ -202,6 +209,7 @@ internal class Product : IProduct
 
         try
         {
+#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
             dal?.Product.Update((new DO.Product()//trying to update in Dal
             {
                 ID = item.ID,
@@ -210,6 +218,7 @@ internal class Product : IProduct
                 InStock = item.InStock,
                 Price = item.Price
             }));
+#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
         }
         catch (DO.DalItemNotFoundException ex)//if the id doesn't exists
         {
@@ -250,6 +259,7 @@ internal class Product : IProduct
     /// the casted BO.ProductForList
     private BO.ProductForList doProductToBoProductForList(DO.Product p)
     {
+#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
         return new BO.ProductForList
         {
             ID = p.ID,
@@ -257,6 +267,7 @@ internal class Product : IProduct
             Price = p.Price,
             Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString())
         };
+#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
     }
     /// <summary>
     /// casting DO.Product to BO.Product

@@ -47,7 +47,11 @@ internal class AdminViewModel : ViewModelBase
     /// <param name="navigationStore">
     /// we get the navigation store for changing userControlls
     /// </param>
+#pragma warning disable CS8618 // Non-nullable field 'selectedProduct' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning disable CS8618 // Non-nullable field 'selctedOrder' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     public AdminViewModel(NavigationStore navigationStore)
+#pragma warning restore CS8618 // Non-nullable field 'selctedOrder' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
+#pragma warning restore CS8618 // Non-nullable field 'selectedProduct' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     {
         AddProduct = new NavigationCommand(new NavigationService(navigationStore, () => new AddOrUpdateProductViewModel(navigationStore)));
         navigationStore.CurrentViewModel = this;
