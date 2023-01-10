@@ -12,11 +12,7 @@ internal class Order : IOrder
     /// <summary>
     /// The constructor Load the date from the file
     /// </summary>
-#pragma warning disable CS8618 // Non-nullable field 'ordersRoot' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
-#pragma warning disable CS8618 // Non-nullable field 'config' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     public Order()
-#pragma warning restore CS8618 // Non-nullable field 'config' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
-#pragma warning restore CS8618 // Non-nullable field 'ordersRoot' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.
     {
         if (!File.Exists(pathToOrders))
             CreateFiles();
@@ -42,13 +38,12 @@ internal class Order : IOrder
     public int Add(DO.Order entity)
     {
         LoadData();
-        int id = entity.Id;
         if (entity.Id == 0)//if we wont to add new order to  file get the next id for the order
         {
             entity.OrderDate = DateTime.Now;
-            id = GetNextID();
+            entity.Id = GetNextID();
         }
-        ordersRoot.Add(new XElement("order", new XElement("id", id), new XElement("customer-name", entity.CustomerName), new XElement("customer-address", entity.CustomerAddress), new XElement("customer-email", entity.CustomerEmail), new XElement("order-date", entity.OrderDate), new XElement("ship-date", entity.ShipDate), new XElement("delivery-date", entity.DeliveryDate)));//adding the new order
+        ordersRoot.Add(new XElement("order", new XElement("id", entity.Id), new XElement("customer-name", entity.CustomerName), new XElement("customer-address", entity.CustomerAddress), new XElement("customer-email", entity.CustomerEmail), new XElement("order-date", entity.OrderDate), new XElement("ship-date", entity.ShipDate), new XElement("delivery-date", entity.DeliveryDate)));//adding the new order
         ordersRoot.Save(pathToOrders);//save the file
         return entity.Id;//return the order id
     }
