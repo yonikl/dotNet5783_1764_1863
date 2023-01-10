@@ -1,1 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?><ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Product><ID>189456</ID><Name>Jeans Pants 45</Name><Price>250</Price><InStock>7</InStock><Category>Pants</Category></Product><Product><ID>347348</ID><Name>The North Face Coat 43</Name><Price>340</Price><InStock>12</InStock><Category>Coat</Category></Product><Product><ID>298765</ID><Name>Nike Shoes 38</Name><Price>290</Price><InStock>18</InStock><Category>Shoe</Category></Product><Product><ID>867452</ID><Name>Castro T-Shirt L</Name><Price>150</Price><InStock>10</InStock><Category>Shirt</Category></Product><Product><ID>398475</ID><Name>MJ Sport Shirt S</Name><Price>450</Price><InStock>20</InStock><Category>Shirt</Category></Product><Product><ID>656475</ID><Name>Kumi Sneakers Socks 32-36</Name><Price>45</Price><InStock>35</InStock><Category>Sock</Category></Product><Product><ID>944737</ID><Name>Simon Pants 48</Name><Price>200</Price><InStock>10</InStock><Category>Pants</Category></Product><Product><ID>365462</ID><Name>Adidas Shoes 40</Name><Price>280</Price><InStock>2</InStock><Category>Shoe</Category></Product><Product><ID>242897</ID><Name>Outdoor Coat 42</Name><Price>300</Price><InStock>2</InStock><Category>Coat</Category></Product><Product><ID>899384</ID><Name>Nike training Socks 38-42</Name><Price>80</Price><InStock>34</InStock><Category>Sock</Category></Product></ArrayOfProduct>
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Product>
+		<ID>189456</ID>
+		<Name>Jeans Pants 45</Name>
+		<Price>250</Price>
+		<InStock>7</InStock>
+		<Category>Pants</Category>
+	</Product>
+	<Product>
+		<ID>298765</ID>
+		<Name>Nike Shoes 38</Name>
+		<Price>290</Price>
+		<InStock>18</InStock>
+		<Category>Shoe</Category>
+	</Product>
+	<Product>
+		<ID>867452</ID>
+		<Name>Castro T-Shirt L</Name>
+		<Price>150</Price>
+		<InStock>10</InStock>
+		<Category>Shirt</Category>
+	</Product>
+	<Product>
+		<ID>398475</ID>
+		<Name>MJ Sport Shirt S</Name>
+		<Price>450</Price>
+		<InStock>20</InStock>
+		<Category>Shirt</Category>
+	</Product>
+	<Product>
+		<ID>656475</ID>
+		<Name>Kumi Sneakers Socks 32-36</Name>
+		<Price>45</Price>
+		<InStock>35</InStock>
+		<Category>Sock</Category>
+	</Product>
+	<Product>
+		<ID>944737</ID>
+		<Name>Simon Pants 48</Name>
+		<Price>200</Price>
+		<InStock>10</InStock>
+		<Category>Pants</Category>
+	</Product>
+	<Product>
+		<ID>365462</ID>
+		<Name>Adidas Shoes 40</Name>
+		<Price>280</Price>
+		<InStock>2</InStock>
+		<Category>Shoe</Category>
+	</Product>
+	<Product>
+		<ID>242897</ID>
+		<Name>Outdoor Coat 42</Name>
+		<Price>300</Price>
+		<InStock>2</InStock>
+		<Category>Coat</Category>
+	</Product>
+	<Product>
+		<ID>899384</ID>
+		<Name>Nike training Socks 38-42</Name>
+		<Price>80</Price>
+		<InStock>34</InStock>
+		<Category>Sock</Category>
+	</Product>
+	<Product>
+		<ID>347348</ID>
+		<Name>The North Face Coat 43</Name>
+		<Price>340</Price>
+		<InStock>11</InStock>
+		<Category>Coat</Category>
+	</Product>
+</ArrayOfProduct>

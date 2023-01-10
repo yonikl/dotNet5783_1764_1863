@@ -145,15 +145,6 @@
     <delivery-date />
   </order>
   <order>
-    <id>17</id>
-    <customer-name>Sara_Klein</customer-name>
-    <customer-address>Degel_Reuven_31_Petach_Tikvah</customer-address>
-    <customer-email>Sara_Klein@gmail.com</customer-email>
-    <order-date>2022-02-23T12:55:02.218216+02:00</order-date>
-    <ship-date>2022-05-21T12:55:02.218216+03:00</ship-date>
-    <delivery-date />
-  </order>
-  <order>
     <id>19</id>
     <customer-name>Tova_Rosental</customer-name>
     <customer-address>Uziel_22_Ramat_Gan</customer-address>
@@ -181,21 +172,21 @@
     <delivery-date>2023-01-10T13:13:52.9565627+02:00</delivery-date>
   </order>
   <order>
-    <id>21</id>
-    <customer-name>Raz</customer-name>
-    <customer-address>Tel Aviv</customer-address>
-    <customer-email>r@gmail.com</customer-email>
-    <order-date>2023-01-10T13:15:34.7982752+02:00</order-date>
-    <ship-date />
-    <delivery-date />
+    <id>17</id>
+    <customer-name>Sara_Klein</customer-name>
+    <customer-address>Degel_Reuven_31_Petach_Tikvah</customer-address>
+    <customer-email>Sara_Klein@gmail.com</customer-email>
+    <order-date>2022-02-23T12:55:02.218216+02:00</order-date>
+    <ship-date>2022-05-21T12:55:02.218216+03:00</ship-date>
+    <delivery-date>2023-01-10T20:13:54.0740148+02:00</delivery-date>
   </order>
   <order>
-    <id>22</id>
-    <customer-name>sdf</customer-name>
-    <customer-address>sdf</customer-address>
-    <customer-email>ss@gmail.com</customer-email>
-    <order-date>2023-01-10T15:04:14.5066498+02:00</order-date>
-    <ship-date />
+    <id>21</id>
+    <customer-name>Raz</customer-name>
+    <customer-address>Tal Aviv </customer-address>
+    <customer-email>raz@l.com</customer-email>
+    <order-date>2023-01-10T20:14:59.1511536+02:00</order-date>
+    <ship-date>2023-01-10T20:15:46.2909043+02:00</ship-date>
     <delivery-date />
   </order>
 </orders>
