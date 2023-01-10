@@ -7,21 +7,34 @@ namespace Dal;
 
 internal class Product : IProduct
 {
+    //path to the xml file for the products
     private readonly string pathToProducts = @"..\xml\Product.xml";
+    /// <summary>
+    /// add the product
+    /// </summary>
+    /// <param name="entity">
+    /// the product to add
+    /// </param>
+    /// <returns>
+    /// return the id of that product
+    /// </returns>
+    /// <exception cref="DO.DalItemAlreadyExistException">
+    /// if the item already exists
+    /// </exception>
     public int Add(DO.Product entity)
     {
-        if (entity.ID == 0)
+        if (entity.ID == 0) // if the product have no id
         {
             int id = 0;
             bool isIdExist = true;
             while (isIdExist)
             {
-                id = new Random().Next(100000, 999999);
+                id = new Random().Next(100000, 999999);//try to get new id
                 try
                 {
                     Get(id);
                 }
-                catch (DalItemNotFoundException)
+                catch (DalItemNotFoundException)// if the id isn't exists
                 {
                     isIdExist = false;
                 }
@@ -31,10 +44,10 @@ internal class Product : IProduct
         }
         try
         {
-            Get(entity.ID);
+            Get(entity.ID); //check if the product already exists
             throw new DO.DalItemAlreadyExistException();
         }
-        catch (DO.DalItemNotFoundException)
+        catch (DO.DalItemNotFoundException)//if the product doesn't exists
         {
             var list = GetAll().ToList();
             list.Add(entity);
@@ -43,6 +56,12 @@ internal class Product : IProduct
         return entity.ID;
     }
 
+
+    /// <summary>
+    /// deleting product by ID
+    /// </summary>
+    /// <param name="ID"></param>
+    /// the id we looking by
     public void Delete(int ID)
     {
         Get(ID);
@@ -50,17 +69,33 @@ internal class Product : IProduct
         list.RemoveAll(x => x.ID == ID);
         WriteToXml(list);
     }
-
+    /// <summary>
+    /// get product by id
+    /// </summary>
+    /// <param name="ID">
+    /// the id we looking by
+    /// </param>
+    /// <returns>
+    /// the product
+    /// </returns>
     public DO.Product Get(int ID)
     {
         return GetByCondition(x => x.ID == ID);
     }
-
+    /// <summary>
+    /// get all product that match the func if provides
+    /// </summary>
+    /// <param name="func">
+    /// the function to look by
+    /// </param>
+    /// <returns>
+    /// list of eligible products
+    /// </returns>
     public IEnumerable<DO.Product> GetAll(Func<DO.Product, bool>? func = null)
     {
         List<DO.Product> list = new List<DO.Product>();
         var xmlSerializer = new XmlSerializer(typeof(List<DO.Product>));
-        using (var reader = new StreamReader(pathToProducts))
+        using (var reader = new StreamReader(pathToProducts)) // read from xml
         {
             try
             {
@@ -80,19 +115,40 @@ internal class Product : IProduct
             return from i in list where func(i) select i;
         }
     }
-
+    /// <summary>
+    /// get the first product that match the condition
+    /// </summary>
+    /// <param name="func">
+    /// the condition
+    /// </param>
+    /// <returns>
+    /// the first product that match the condition
+    /// </returns>
+    /// <exception cref="DO.DalItemNotFoundException">
+    /// if the item doesn't exists
+    /// </exception>
     public DO.Product GetByCondition(Func<DO.Product, bool> func)
     {
         return GetAll(func).Any() ? GetAll(func).First() : throw new DO.DalItemNotFoundException();
     }
-
+    /// <summary>
+    /// update product
+    /// </summary>
+    /// <param name="p">
+    /// the product to update
+    /// </param>
     public void Update(DO.Product p)
     {
         Delete(p.ID);
         Add(p);
 
     }
-
+    /// <summary>
+    /// write back to xml
+    /// </summary>
+    /// <param name="list">
+    /// the list to write
+    /// </param>
     private void WriteToXml(List<DO.Product> list)
     {
         var xmlSerializer = new XmlSerializer(typeof(List<DO.Product>));
