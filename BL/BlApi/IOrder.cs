@@ -11,5 +11,6 @@ public interface IOrder
     public Order UpdateShipping(int id);
     public Order UpdateDelivery(int id);
     public OrderTracking TrackOrder(int id);
+    public int? GetNextOrderToHandle();
 }
 

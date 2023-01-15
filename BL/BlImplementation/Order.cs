@@ -237,28 +237,35 @@ internal class Order : IOrder
     /// <exception cref="BO.BlEmptyOrderExistsException">if the list is empty</exception>
     private BO.Order setOrderItemsAndTotalPrice(BO.Order order)
     {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         IEnumerable<DO.OrderItem> orderItems = dal?.OrderItem.GetAll(x => x.OrderID == order.ID);//get the items using id
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
         if (!orderItems!.Any()) //if the list is empty
             throw new BO.BlEmptyOrderExistsException();
 
         order.TotalPrice += orderItems!.Sum(x =>  x.Price * x.Amount);
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
         order.Items = ((IEnumerable<BO.OrderItem?>)(from i in orderItems
             select new BO.OrderItem()
             {
                 Amount = i.Amount,
                 ID = i.Id,
-                Name = dal.Product.Get(i.ProductID).Name,
+                Name = dal!.Product.Get(i.ProductID).Name,
                 Price = i.Price,
                 ProductID = i.ProductID,
                 TotalPrice = i.Price * i.Amount
             })).ToList();
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
         return order;
     }
 
-   
+    public int? GetNextOrderToHandle()
+    {
+        var orders = dal?.Order.GetAll(x => getOrderStatus(x) != BO.Enums.OrderStatus.Delivered);
+        if (!orders!.Any()) return null;
+        orders!.OrderByDescending(x => x.ShipDate ?? x.OrderDate);
+        return orders!.First().Id;
+    }
+
+    private DateTime? getPriority(DO.Order order)
+    {
+        return order.ShipDate ?? order.OrderDate;
+    }
 }
 
