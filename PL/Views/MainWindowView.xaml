@@ -21,6 +21,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label
@@ -41,6 +42,10 @@
             Grid.Row="3"
             Content="Track orders"
             Command="{Binding GoToTrackOrders}" />
+        <Button
+            Grid.Row="4"
+            Content="Start simulator"
+            Command="{Binding GoToSimulator}" />
         <Grid.Resources>
             <Style
                 TargetType="Button"

@@ -20,10 +20,8 @@ public class OrderTracking
     {
         string s;
         s = ($"* {nameof(ID)}: {ID}\n* {nameof(Status)}: {Status}\n");
-      
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-        OrderTimeLine?.ForEach(item => s += ($"* {item.Item2} : {item.Item1}\n").ToString());
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+     
+        OrderTimeLine?.ForEach(item => s += ($"* {item!.Item2} : {item.Item1}\n").ToString());
         return s;
     }
     
