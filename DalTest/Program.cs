@@ -9,18 +9,14 @@ public class Program
     /// <summary>
     /// define del order, del order item, del product
     /// </summary>
-#pragma warning disable CS8601 // Possible null reference assignment.
     private static IDal s_dalList = DalApi.Factory.Get();
-#pragma warning restore CS8601 // Possible null reference assignment.
     
     public static int Main(string[] args)
     {
         init();
         int choice;
         PrintMenu();//print the menu 
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
         choice = int.Parse(Console.ReadLine());//read choice.
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
 
         while (choice != 0)// if choice not equal to zero
         {
@@ -44,9 +40,7 @@ public class Program
                     break;
             }
             PrintMenu();
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
             choice = int.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
 
         }
 
@@ -159,9 +153,7 @@ public class Program
                           "To see all your orders - c\n" +
                           "To update your order - d\n" +
                           "To delete order from your list- e\n");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'char char.Parse(string s)'.
         char choose = char.Parse(Console.ReadLine());//read the choose
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'char char.Parse(string s)'.
         int id;
         Order o = new Order();
         switch (choose)
@@ -176,9 +168,7 @@ public class Program
                 break;
             case 'b'://check the order
                 Console.WriteLine("Enter order id:");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 id = int.Parse(Console.ReadLine());//read the order id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 { 
                     o = s_dalList.Order.Get(id);//get the order using the id
@@ -200,9 +190,7 @@ public class Program
                 break;
             case 'd'://update the order
                 Console.WriteLine("Enter order id");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 o.Id = int.Parse(Console.ReadLine());//read the id order
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                     o = s_dalList.Order.Get(o.Id);//get the order by using the id
@@ -214,9 +202,7 @@ public class Program
                 }
                 break;
                 //update the order
-#pragma warning disable CS0162 // Unreachable code detected
                 Console.WriteLine("Enter name, email and adrass:");
-#pragma warning restore CS0162 // Unreachable code detected
                 //read the details for the new order
                 o.CustomerName = Console.ReadLine();
                 o.CustomerEmail = Console.ReadLine();
@@ -225,9 +211,7 @@ public class Program
                 break;
             case 'e'://delete order from the array
                 Console.WriteLine("Enter order id:");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 id = int.Parse(Console.ReadLine());//read the order id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                      s_dalList.Order.Delete(id);//delete the order
@@ -250,9 +234,7 @@ public class Program
                           "To see all your products - c\n" +
                           "To update your product - d\n" +
                           "To delete product from your list- e\n");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'char char.Parse(string s)'.
         char choose = char.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'char char.Parse(string s)'.
         int id;
         Product p = new Product();
         switch (choose)
@@ -261,23 +243,15 @@ public class Program
                 Console.WriteLine("Enter product name, price, in stock and category\n");
                 //read the details of the product
                 p.Name = Console.ReadLine();
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'double double.Parse(string s)'.
                 p.Price = double.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'double double.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 p.InStock =  int.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
                 p.Category = (DO.Enums.Category)System.Enum.Parse(typeof(DO.Enums.Category), Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
                 s_dalList.Product.Add(p);//add the new product
                 break;
             
             case 'b'://check the product
                 Console.WriteLine("Enter product id:");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 id = int.Parse(Console.ReadLine());//read the product id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                     p = s_dalList.Product.Get(id);
@@ -300,9 +274,7 @@ public class Program
                 break;
             case 'd'://update product
                 Console.WriteLine("Enter product id");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 p.ID = int.Parse(Console.ReadLine());//read product id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                     p = s_dalList.Product.Get(p.ID);
@@ -315,20 +287,14 @@ public class Program
                 Console.WriteLine("Enter product name, price, in stock and category\n");
                 //update the product
                 p.Name = Console.ReadLine();
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'double double.Parse(string s)'.
                 p.Price = double.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'double double.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 p.InStock = int.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 p.Category = (Enums.Category)Convert.ToInt32(Console.ReadLine());
                 s_dalList.Product.Update(p);
                 break;
             case 'e'://delete product from the array
                 Console.WriteLine("Enter product id:");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 id = int.Parse(Console.ReadLine());//read product id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                     s_dalList.Product.Delete(id);//delete the product
@@ -354,9 +320,7 @@ public class Program
                           "To delete order item from your list- e\n"+
                           "check your order item by order id and product id - f"+
                           "print all orders whit the same product id - g");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'char char.Parse(string s)'.
         char choose = char.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'char char.Parse(string s)'.
         int orderId;
         OrderItem o = new OrderItem();
         switch (choose)
@@ -364,25 +328,15 @@ public class Program
             case 'a'://add new order item
                 Console.WriteLine("Enter  product id, order id, price and amount\n");
                 //read the details of the order
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 o.ProductID = int.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 o.OrderID = int.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'double double.Parse(string s)'.
                 o.Price = double.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'double double.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 o.Amount = int.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 s_dalList.OrderItem.Add(o);//add the order item to the list
                 break;
             case 'b'://get order from the list 
                 Console.WriteLine("Enter order item id:");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 orderId = int.Parse(Console.ReadLine());//read thr item id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                     o = s_dalList.OrderItem.Get(orderId);
@@ -403,9 +357,7 @@ public class Program
                 break;
             case 'd'://update the item
                 Console.WriteLine("Enter order item id");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 o.Id = int.Parse(Console.ReadLine());//read the item id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                     o = s_dalList.OrderItem.Get(o.Id);
@@ -418,25 +370,15 @@ public class Program
              
                 Console.WriteLine("Enter  product id, order id, price and amount\n");
                 //read the details to update
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 o.ProductID = int.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 o.OrderID = int.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'double double.Parse(string s)'.
                 o.Price = double.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'double double.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 o.Amount = int.Parse(Console.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 s_dalList.OrderItem.Update(o);//update item
                 break;
             case 'e'://delete item from the list
                 Console.WriteLine("Enter order item id:");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 orderId = int.Parse(Console.ReadLine());//read the id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                     s_dalList.OrderItem.Delete(orderId);//delete the item
@@ -448,12 +390,8 @@ public class Program
                 break;
             case 'f'://delete item from the list
                 Console.WriteLine("Enter order id and product id:");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 orderId = int.Parse(Console.ReadLine());//read the id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 int productId = int.Parse(Console.ReadLine());//read product id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                     o = s_dalList.OrderItem.GetByCondition(x => x.OrderID == orderId && x.ProductID == productId);
@@ -467,9 +405,7 @@ public class Program
                 break;
             case 'g'://delete item from the list
                 Console.WriteLine("Enter order id:");
-#pragma warning disable CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 orderId = int.Parse(Console.ReadLine());//read order id
-#pragma warning restore CS8604 // Possible null reference argument for parameter 's' in 'int int.Parse(string s)'.
                 try
                 {
                     IEnumerable<OrderItem> orders = s_dalList.OrderItem.GetAll(x => x.OrderID == orderId);//get the items

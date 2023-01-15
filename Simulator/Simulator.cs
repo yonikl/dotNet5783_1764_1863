@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulator;
 
 public static class Simulator
 {
-    private static event EventHandler<SimulationArguments>? updateSimulation;
+    private static event EventHandler<Tuple<Order, int>>? updateSimulation;
     private static event EventHandler? stopSimulation;
     private static volatile bool isSimulationStoped = false;
     private static IBl bl = Factory.Get();
@@ -20,9 +20,19 @@ public static class Simulator
         stopSimulation += handler;
     }
 
-    public static void SubscribeToupdateSimulation(EventHandler<SimulationArguments> handler)
+    public static void SubscribeToUpdateSimulation(EventHandler<Tuple<Order, int>> handler)
     {
         updateSimulation += handler;
+    }
+
+    public static void UnsubscribeFromStopSimulation(EventHandler handler)
+    {
+        if(stopSimulation!.GetInvocationList().Contains(handler)) stopSimulation -= handler;
+    }
+
+    public static void UnsubscribeFromUpdateSimulation(EventHandler<Tuple<Order, int>> handler)
+    {
+        if (updateSimulation!.GetInvocationList().Contains(handler)) updateSimulation -= handler;
     }
 
     public static void StartSimulation()
@@ -34,21 +44,29 @@ public static class Simulator
                 var order = bl.Order.GetOrder(bl.Order.GetNextOrderToHandle() ?? throw new NullReferenceException());
                 var timeToHandle = new Random().Next(3, 7);
                 var aproximateTime = new Random().Next(timeToHandle - 2, timeToHandle + 2);
-                updateSimulation?.Invoke(null, new SimulationArguments(order, aproximateTime));
-                Thread.Sleep(timeToHandle);
+                updateSimulation?.Invoke(null, new Tuple<Order, int>(order, aproximateTime));
+                Thread.Sleep(timeToHandle * 1000);
                 if (isSimulationStoped) break;
                 if (order.Status == BO.Enums.OrderStatus.InProcess) bl.Order.UpdateShipping(order.ID);
                 else bl.Order.UpdateDelivery(order.ID);
             }
             stopSimulation?.Invoke(null, EventArgs.Empty);
         }
-        )
-        { Name = "simulation" };
+        ).Start();
+        
     }
 
     public static void StopSimulation()
     {
         isSimulationStoped = true;
+    }
+
+    public static void ClearSubscribers()
+    {
+        foreach(EventHandler e in stopSimulation!.GetInvocationList())
+        {
+            stopSimulation -= e;
+        }
     }
 }
 
