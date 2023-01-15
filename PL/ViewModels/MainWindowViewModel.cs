@@ -19,6 +19,8 @@ internal class MainWindowViewModel : ViewModelBase
     public ICommand GoToAdminView { get; }
     public ICommand GoToCreateNewOrder { get; }
     public ICommand GoToTrackOrders { get; }
+
+    public ICommand GoToSimulator { get; }    
     /// <summary>
     /// constuctor
     /// </summary>
@@ -32,6 +34,7 @@ internal class MainWindowViewModel : ViewModelBase
         GoToAdminView = new NavigationCommand(new NavigationService(navigationStore, () => new AdminViewModel(navigationStore)));
         GoToCreateNewOrder = new NavigationCommand(new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore)));
         GoToTrackOrders = new NavigationCommand(new NavigationService(navigationStore, () => new TrackOrdersViewModel(navigationStore)));
+        GoToSimulator = new NavigationCommand(new NavigationService(navigationStore, () => new SimulatorViewModel(navigationStore)));
     }
 }
 

@@ -99,9 +99,7 @@ internal class Product : IProduct
         {
             try
             {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                 list = xmlSerializer.Deserialize(reader) as List<DO.Product>;
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             }
             catch(InvalidOperationException)
             {
