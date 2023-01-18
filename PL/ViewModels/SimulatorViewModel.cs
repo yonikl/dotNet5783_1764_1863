@@ -19,6 +19,9 @@ internal class SimulatorViewModel : ViewModelBase
     BackgroundWorker bw;
     Stopwatch sw;
     public ICommand StopCommand { get; }
+    /// <summary>
+    /// cofig the bw
+    /// </summary>
     public SimulatorViewModel()
     {
         StopCommand = new StopSimulatorCommand();
@@ -29,7 +32,9 @@ internal class SimulatorViewModel : ViewModelBase
         bw.RunWorkerCompleted += atEndOfSimulation;
         bw.RunWorkerAsync();
     }
-
+    /// <summary>
+    /// the DoWork method for the bw
+    /// </summary>
     private void DoWork(object? sender, DoWorkEventArgs e)
     {
         Simulator.SubscribeToStopSimulation(stopSimulation);
@@ -42,7 +47,9 @@ internal class SimulatorViewModel : ViewModelBase
             bw.ReportProgress(0);
         }
     }
-
+    /// <summary>
+    /// update the needed properties for the view
+    /// </summary>
     private void progressChanged(object? sender, ProgressChangedEventArgs e)
     {
         CurrentTime = sw.Elapsed.ToString().Substring(0, 8);
@@ -51,14 +58,14 @@ internal class SimulatorViewModel : ViewModelBase
         {
             var args = e.UserState as Tuple<Order, int>;
             var now = DateTime.Now;
+            AproximateTime = args?.Item2;
             currentOrderStartTime = now;
-            aproximateTimeToFinish = now + new TimeSpan(0, 0, aproximateTime);
+            aproximateTimeToFinish = now + new TimeSpan(0, 0, aproximateTime ?? 0);
             OnPropertyChanged(nameof(AproximateTimeToFinish));
             OnPropertyChanged(nameof(CurrentOrderStartTime));
             CurrentOrder = args!.Item1!;
             CurrentStatus = args.Item1.Status ?? throw new NullReferenceException();
             NextStatus = args.Item1.Status == BO.Enums.OrderStatus.InProcess ? BO.Enums.OrderStatus.shipped : BO.Enums.OrderStatus.Delivered;
-            AproximateTime = args.Item2;
             CurrentId = args.Item1.ID; 
         }
 
@@ -67,28 +74,36 @@ internal class SimulatorViewModel : ViewModelBase
 
 
 
-
+    /// <summary>
+    /// method that subscribed to the simulator for the sake of updating the display
+    /// </summary>
     private void strartWorkingOnOrder(object? sender, Tuple<Order, int> args)
     {
         bw.ReportProgress(0, args);
     }
-
+    /// <summary>
+    /// method that subscribed to the simulator for the sake of knowing when simulation stopped
+    /// </summary>
     private void stopSimulation(object? sender, EventArgs e)
     {
         bw.CancelAsync();
     }
-
+    /// <summary>
+    /// clear subscription
+    /// </summary>
     private void atEndOfSimulation(object? sender, RunWorkerCompletedEventArgs e)
     {
         Simulator.UnsubscribeFromStopSimulation(stopSimulation);
         Simulator.UnsubscribeFromUpdateSimulation(strartWorkingOnOrder);
     }
 
-    private DateTime currentOrderStartTime;
-    public string CurrentOrderStartTime => currentOrderStartTime.ToString("HH:mm:ss");
 
-    private BO.Enums.OrderStatus currentStatus;
-    public BO.Enums.OrderStatus CurrentStatus
+    /// properties
+    private DateTime? currentOrderStartTime;
+    public string? CurrentOrderStartTime => currentOrderStartTime?.ToString("HH:mm:ss");
+
+    private BO.Enums.OrderStatus? currentStatus;
+    public BO.Enums.OrderStatus? CurrentStatus
     {
         get => currentStatus;
 
@@ -98,8 +113,8 @@ internal class SimulatorViewModel : ViewModelBase
             OnPropertyChanged(nameof(CurrentStatus));
         }
     }
-    private BO.Enums.OrderStatus nextStatus;
-    public BO.Enums.OrderStatus NextStatus
+    private BO.Enums.OrderStatus? nextStatus;
+    public BO.Enums.OrderStatus? NextStatus
     {
         get => nextStatus;
         set
@@ -109,8 +124,8 @@ internal class SimulatorViewModel : ViewModelBase
         }
     }
 
-    private int aproximateTime;
-    public int AproximateTime
+    private int? aproximateTime;
+    public int? AproximateTime
     {
         get => aproximateTime;
         set
@@ -120,8 +135,8 @@ internal class SimulatorViewModel : ViewModelBase
         }
     }
 
-    private int currentId;
-    public int CurrentId
+    private int? currentId;
+    public int? CurrentId
     {
         get => currentId;
         set
@@ -131,8 +146,8 @@ internal class SimulatorViewModel : ViewModelBase
         }
     }
 
-    private Order currentOrder;
-    public Order CurrentOrder
+    private Order? currentOrder;
+    public Order? CurrentOrder
     {
         get
         {
@@ -145,8 +160,8 @@ internal class SimulatorViewModel : ViewModelBase
         }
     }
 
-    private string currentTime;
-    public string CurrentTime
+    private string? currentTime;
+    public string? CurrentTime
     {
         get
         {
@@ -159,8 +174,8 @@ internal class SimulatorViewModel : ViewModelBase
         }
     }
 
-    private DateTime aproximateTimeToFinish;
-    public string AproximateTimeToFinish => aproximateTimeToFinish.ToString("HH:mm:ss");
+    private DateTime? aproximateTimeToFinish;
+    public string? AproximateTimeToFinish => aproximateTimeToFinish?.ToString("HH:mm:ss");
 
-    public int ProgressValue => (int)(((DateTime.Now - currentOrderStartTime).TotalSeconds / aproximateTime) * 100);
+    public int? ProgressValue => (int)(((DateTime.Now - currentOrderStartTime)?.TotalSeconds / aproximateTime ?? 1) * 100);
 }

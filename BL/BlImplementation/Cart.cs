@@ -34,9 +34,9 @@ internal class Cart : ICart
             throw new BO.BlPersonalDetailsException();
         if (!IsValidEmail(email))
             throw new BO.BlEmailIncourect();
-
+        int id;
         //making new order in dal
-        int id = dal!.Order.Add(new DO.Order()
+        lock (dal!) id = dal!.Order.Add(new DO.Order()
         {
             CustomerAddress = address,
             CustomerEmail = email,
@@ -49,34 +49,37 @@ internal class Cart : ICart
         //adding the products in the cart to the order
         foreach (var i in c.Items)
         {
-            try
+            lock (dal)
             {
-                DO.Product product = dal!.Product.Get(i!.ProductID);
-                if (i.Amount <= 0)
+                try
                 {
-                    RemoveFromDal(id);
-                    throw new BO.BlAmountNotValidException() { };
+                    DO.Product product = dal!.Product.Get(i!.ProductID);
+                    if (i.Amount <= 0)
+                    {
+                        RemoveFromDal(id);
+                        throw new BO.BlAmountNotValidException() { };
+                    }
+                    if (i.Amount > product.InStock)
+                    {
+                        RemoveFromDal(id);
+                        throw new BO.BlNotEnoughInStockException(i!.Name!.ToString()) { };
+                    }
+                    product.InStock -= i.Amount;
+                    dal.Product.Update(product);
                 }
-                if (i.Amount > product.InStock)
+                catch (DO.DalItemNotFoundException ex)
                 {
-                    RemoveFromDal(id);
-                    throw new BO.BlNotEnoughInStockException(i!.Name!.ToString()) { };
+                    throw new BO.BlItemNotFoundException("", ex);
                 }
-                product.InStock -= i.Amount;
-                dal.Product.Update(product);
-            }
-            catch (DO.DalItemNotFoundException ex)
-            {
-                throw new BO.BlItemNotFoundException("", ex);
-            }
 
-            dal.OrderItem.Add(new DO.OrderItem()
-            {
-                Amount = i.Amount,
-                OrderID = id,
-                Price = i.Price,
-                ProductID = i.ProductID
-            });
+                dal.OrderItem.Add(new DO.OrderItem()
+                {
+                    Amount = i.Amount,
+                    OrderID = id,
+                    Price = i.Price,
+                    ProductID = i.ProductID
+                }); 
+            }
 
         }
           
@@ -98,36 +101,39 @@ internal class Cart : ICart
     /// when the stock is empty
     public BO.Cart Add(int id, BO.Cart c)
     {
-        DO.Product product;
+        lock (dal!)
+        {
+            DO.Product product;
 
-        try
-        {
-            product = dal?.Product.Get(id) ?? throw new NullReferenceException();
-        }
-        catch (DO.DalItemNotFoundException ex)
-        {
-            throw new BO.BlItemNotFoundException("", ex);
-        }
+            try
+            {
+                product = dal?.Product.Get(id) ?? throw new NullReferenceException();
+            }
+            catch (DO.DalItemNotFoundException ex)
+            {
+                throw new BO.BlItemNotFoundException("", ex);
+            }
 
-        var productCart = from i in c.Items where i.ProductID == id select i;//searching for the product in the cart
-        if (productCart.Any() && product.InStock > 0)
-        {
-            var i = productCart.First();
-            c.Items.Remove(i);
-            i.TotalPrice += i.Price;
-            c.TotalPrice += i.Price;
-            i.Amount++;
-            c.Items.Add(i);
-            return c;
-        }
-        //if the product isn't in the cart
-        if (product.InStock > 0)
-        {
-            c.Items.Add(doProductToBoOrderItem(product));
-            return c;
-        }
+            var productCart = from i in c.Items where i.ProductID == id select i;//searching for the product in the cart
+            if (productCart.Any() && product.InStock > 0)
+            {
+                var i = productCart.First();
+                c.Items.Remove(i);
+                i.TotalPrice += i.Price;
+                c.TotalPrice += i.Price;
+                i.Amount++;
+                c.Items.Add(i);
+                return c;
+            }
+            //if the product isn't in the cart
+            if (product.InStock > 0)
+            {
+                c.Items.Add(doProductToBoOrderItem(product));
+                return c;
+            }
 
-        throw new BO.BlAmountNotValidException();
+            throw new BO.BlAmountNotValidException(); 
+        }
     }
 
 

@@ -14,7 +14,12 @@ public static class Simulator
     private static event EventHandler? stopSimulation;
     private static volatile bool isSimulationStoped = false;
     private static IBl bl = Factory.Get();
+    private static Thread? thread;
 
+
+    /// <summary>
+    /// functions to subscribe/unsubscribe to/from the events
+    /// </summary>
     public static void SubscribeToStopSimulation(EventHandler handler)
     {
         stopSimulation += handler;
@@ -27,7 +32,7 @@ public static class Simulator
 
     public static void UnsubscribeFromStopSimulation(EventHandler handler)
     {
-        if(stopSimulation!.GetInvocationList().Contains(handler)) stopSimulation -= handler;
+        if (stopSimulation!.GetInvocationList().Contains(handler)) stopSimulation -= handler;
     }
 
     public static void UnsubscribeFromUpdateSimulation(EventHandler<Tuple<Order, int>> handler)
@@ -35,50 +40,49 @@ public static class Simulator
         if (updateSimulation!.GetInvocationList().Contains(handler)) updateSimulation -= handler;
     }
 
+    /// <summary>
+    /// start the simulation
+    /// </summary>
     public static void StartSimulation()
     {
-        new Thread(() =>
+        isSimulationStoped = false;
+        thread = new Thread(() =>
         {
             while (!isSimulationStoped && bl.Order.GetNextOrderToHandle() != null)
             {
                 var order = bl.Order.GetOrder(bl.Order.GetNextOrderToHandle() ?? throw new NullReferenceException());
-                var timeToHandle = new Random().Next(3, 7);
-                var aproximateTime = new Random().Next(timeToHandle - 2, timeToHandle + 2);
-                updateSimulation?.Invoke(null, new Tuple<Order, int>(order, aproximateTime));
-                Thread.Sleep(timeToHandle * 1000);
-                if (isSimulationStoped) break;
+                var timeToHandle = new Random().Next(3, 7);//calculate time to handle
+                var aproximateTime = new Random().Next(timeToHandle - 2, timeToHandle + 2);//calculate approximate time to handle
+                updateSimulation?.Invoke(null, new Tuple<Order, int>(order, aproximateTime)); // update
+                sleep(timeToHandle);
+                if (isSimulationStoped) break; // if we stopped during the sleep
+                // handle the order
                 if (order.Status == BO.Enums.OrderStatus.InProcess) bl.Order.UpdateShipping(order.ID);
-                else bl.Order.UpdateDelivery(order.ID);
+                else if (order.Status == Enums.OrderStatus.shipped) bl.Order.UpdateDelivery(order.ID);
+                else stopSimulation?.Invoke(null, EventArgs.Empty); // if there is a problem
             }
             stopSimulation?.Invoke(null, EventArgs.Empty);
         }
-        ).Start();
-        
-    }
+        )
+        { Name = "Simulation" };
+        thread.Start();
 
+    }
+    /// <summary>
+    /// stop simulation
+    /// </summary>
     public static void StopSimulation()
     {
         isSimulationStoped = true;
+        thread?.Interrupt();
     }
 
-    public static void ClearSubscribers()
+    /// <summary>
+    /// sleep the given amout of seconds
+    /// </summary>
+    /// <param name="seconds"></param>
+    private static void sleep(int seconds)
     {
-        foreach(EventHandler e in stopSimulation!.GetInvocationList())
-        {
-            stopSimulation -= e;
-        }
-    }
-}
-
-public struct SimulationArguments
-{
-    public BO.Enums.OrderStatus nextStatus, currentStatus;
-    int aproximateTime, id;
-    public SimulationArguments(BO.Order order, int aproximateTime)
-    {
-        currentStatus = order.Status ?? throw new NullReferenceException();
-        nextStatus = order.Status == BO.Enums.OrderStatus.InProcess ? BO.Enums.OrderStatus.shipped : BO.Enums.OrderStatus.Delivered;
-        this.aproximateTime = aproximateTime;
-        id = order.ID;
+        try { Thread.Sleep(seconds * 1000); } catch (ThreadInterruptedException) { }
     }
 }

@@ -13,9 +13,9 @@ internal class Order : IOrder
     /// <exception cref="BO.BlEmptyOrderExistsException">if the list is empty throw exception</exception>
     public IEnumerable<BO.OrderForList> GetAllOrders()
     {
-        
+
         IEnumerable<DO.Order> orders = dal?.Order.GetAll() ?? throw new NullReferenceException();//get all order
-        List <BO.OrderForList> list = new List<BO.OrderForList>();//create new list
+        List<BO.OrderForList> list = new List<BO.OrderForList>();//create new list
         foreach (var i in orders)//copy and convert from DO orders to BO orders
         {
             BO.OrderForList order = new BO.OrderForList
@@ -108,7 +108,7 @@ internal class Order : IOrder
         doOrder.ShipDate = DateTime.Now;//update the ship date
         try//try to update the order
         {
-            dal.Order.Update(doOrder);
+            lock (dal) dal.Order.Update(doOrder);
         }
         catch (DO.DalItemNotFoundException ex)
         {
@@ -162,7 +162,7 @@ internal class Order : IOrder
 
         try//try to update the product
         {
-            dal.Order.Update(doOrder);
+            lock (dal) dal.Order.Update(doOrder);
         }
         catch (DO.DalItemNotFoundException ex)
         {
@@ -208,7 +208,7 @@ internal class Order : IOrder
             Status = getOrderStatus(doOrder),
             OrderTimeLine = new List<Tuple<DateTime?, string?>?>()//create list tuple from king of date time and string 
         };
-        boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.OrderDate,"Ordered"));
+        boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.OrderDate, "Ordered"));
         //update the list
         if (doOrder.ShipDate != null) boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.ShipDate, "Order shipped"));
         if (doOrder.DeliveryDate != null) boTracking.OrderTimeLine.Add(new Tuple<DateTime?, string?>(doOrder.DeliveryDate, "Order delivered"));
@@ -241,17 +241,17 @@ internal class Order : IOrder
         if (!orderItems!.Any()) //if the list is empty
             throw new BO.BlEmptyOrderExistsException();
 
-        order.TotalPrice += orderItems!.Sum(x =>  x.Price * x.Amount);
+        order.TotalPrice += orderItems!.Sum(x => x.Price * x.Amount);
         order.Items = ((IEnumerable<BO.OrderItem?>)(from i in orderItems
-            select new BO.OrderItem()
-            {
-                Amount = i.Amount,
-                ID = i.Id,
-                Name = dal!.Product.Get(i.ProductID).Name,
-                Price = i.Price,
-                ProductID = i.ProductID,
-                TotalPrice = i.Price * i.Amount
-            })).ToList();
+                                                    select new BO.OrderItem()
+                                                    {
+                                                        Amount = i.Amount,
+                                                        ID = i.Id,
+                                                        Name = dal!.Product.Get(i.ProductID).Name,
+                                                        Price = i.Price,
+                                                        ProductID = i.ProductID,
+                                                        TotalPrice = i.Price * i.Amount
+                                                    })).ToList();
         return order;
     }
 

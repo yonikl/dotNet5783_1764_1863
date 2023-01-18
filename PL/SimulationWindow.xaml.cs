@@ -42,4 +42,9 @@ public partial class SimulationWindow : Window, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
+    private void Window_Closing(object sender, CancelEventArgs e)
+    {
+        e.Cancel = true;
+    }
 }

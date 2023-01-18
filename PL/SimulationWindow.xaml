@@ -17,7 +17,7 @@
     TextElement.FontWeight="Medium"
     TextElement.FontSize="30"
     FontFamily="{materialDesign:MaterialDesignFont}"
-    >
+    Closing="Window_Closing">
     <Grid>
         <Grid.Resources>
             <DataTemplate

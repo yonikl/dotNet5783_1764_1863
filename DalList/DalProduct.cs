@@ -1,6 +1,8 @@
 ﻿namespace Dal;
 using DO;
 using DalApi;
+using System.Runtime.CompilerServices;
+
 internal class DalProduct : IProduct
 {
     /// <summary>
@@ -8,6 +10,7 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <param name="product"></param>
     /// the product that we adding
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Product product)
     {
         if (product.ID != 0)//if it already have ID
@@ -56,6 +59,7 @@ internal class DalProduct : IProduct
     /// the product with the given id
     /// <exception cref="Exception"></exception>
     /// if we didn't found
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Product Get(int ID)
     {
         var orderId = from product in DataSource.s_products where product?.ID == ID select product;
@@ -70,6 +74,7 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <returns></returns>
     /// return array of all products
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Product> GetAll(Func<Product,bool>? func)
     {
         
@@ -83,7 +88,7 @@ internal class DalProduct : IProduct
         return (IEnumerable<Product>)DataSource.s_products.Where(pro => func(pro ?? throw new NullReferenceException()));
 
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Product GetByCondition(Func<Product, bool> func)
     {
         var product =   DataSource.s_products.Where(x => func(x ?? throw new NullReferenceException()));
@@ -99,6 +104,7 @@ internal class DalProduct : IProduct
     /// the id we looking by
     /// <exception cref="Exception"></exception>
     /// if we didn't found this id
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int ID)
     {
         var productToDelete = from product in DataSource.s_products where product?.ID == ID select product ?? throw new NullReferenceException();
@@ -117,6 +123,7 @@ internal class DalProduct : IProduct
     /// the product we updating
     /// <exception cref="Exception"></exception>
     /// if we didn't found what to update
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Product product)
     {
        Delete(product.ID);

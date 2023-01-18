@@ -1,6 +1,7 @@
 ﻿namespace Dal;
 using DO;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 internal class DalOrder : IOrder
 {
@@ -11,6 +12,7 @@ internal class DalOrder : IOrder
     /// the product that we adding
     /// <returns></returns>
     /// return the id that was given to this order
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order O)
     {
         O.Id = DataSource.Config.GetIdForOrders;
@@ -28,6 +30,7 @@ internal class DalOrder : IOrder
     /// return the order item
     /// <exception cref="Exception"></exception>
     /// if we didn't found
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order Get(int ID)
     {
         if((DataSource.s_orders.Where(x => x?.Id == ID)).Any())
@@ -40,6 +43,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <returns></returns>
     /// array of all the orders
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order> GetAll(Func<Order,bool>? func)
     {
         List<Order> orders = new List<Order>();
@@ -51,7 +55,7 @@ internal class DalOrder : IOrder
         return from x in DataSource.s_orders where func(x ?? throw new NullReferenceException()) select x ?? throw new NullReferenceException();
 
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order GetByCondition(Func<Order, bool> func)
     {
         var order = from x in DataSource.s_orders where func(x ?? throw new NullReferenceException()) select x;
@@ -67,6 +71,7 @@ internal class DalOrder : IOrder
     /// the id that we looking to delete
     /// <exception cref="Exception"></exception>
     /// if we didn't found this id
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int Id)
     {
         var order = Get(Id);
@@ -80,6 +85,7 @@ internal class DalOrder : IOrder
     /// the order that we are updating
     /// <exception cref="Exception"></exception>
     /// if we didn't found what to update
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order orderItem)
     {
         Delete(orderItem.Id);

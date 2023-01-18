@@ -2,6 +2,7 @@
 using DO;
 using System;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 internal class DalOrderItem : IOrderItem
 {
@@ -12,6 +13,7 @@ internal class DalOrderItem : IOrderItem
     /// the order item to add
     /// <returns></returns>
     /// return the id that was given to this order item
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(OrderItem orderItem)
     {
         orderItem.Id = DataSource.Config.GetIdForOrdersItems;
@@ -27,6 +29,7 @@ internal class DalOrderItem : IOrderItem
     /// return the order item
     /// <exception cref="Exception"></exception>
     /// if we didn't found
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem Get(int ID)
     {
         var order_item = DataSource.s_ordersItems.Where(x => x?.Id == ID);
@@ -41,6 +44,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <returns></returns>
     /// array of all the orders items
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem> GetAll(Func<OrderItem,bool>? func = null)
     {
         if (func == null)
@@ -53,6 +57,7 @@ internal class DalOrderItem : IOrderItem
         
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem GetByCondition(Func<OrderItem, bool> func)
     {
         var orderItem = DataSource.s_ordersItems.Where(x => func(x ?? throw new NullReferenceException()));
@@ -69,6 +74,7 @@ internal class DalOrderItem : IOrderItem
     /// the id that we looking to delete
     /// <exception cref="Exception"></exception>
     /// if we didn't found this id
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int Id)
     {
         var order_item = from ord in DataSource.s_ordersItems where ord?.Id == Id select ord;
@@ -87,6 +93,7 @@ internal class DalOrderItem : IOrderItem
     /// the order item that we are updating
     /// <exception cref="Exception"></exception>
     /// if we didn't found what to update
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(OrderItem orderItem)
     {
         Delete(orderItem.Id);
@@ -102,6 +109,7 @@ internal class DalOrderItem : IOrderItem
     /// return array of the orders items in given order
     /// <exception cref="Exception"></exception>
     /// if we didn't found at all
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem> GetOrderItemsInSpecificOrder(int orderId)
     {
         return from ordItem in DataSource.s_ordersItems where ordItem?.OrderID == orderId select ordItem ?? throw new NullReferenceException();
