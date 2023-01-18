@@ -68,7 +68,7 @@ internal class SimulatorViewModel : ViewModelBase
             NextStatus = args.Item1.Status == BO.Enums.OrderStatus.InProcess ? BO.Enums.OrderStatus.shipped : BO.Enums.OrderStatus.Delivered;
             CurrentId = args.Item1.ID; 
         }
-
+       
     }
 
 

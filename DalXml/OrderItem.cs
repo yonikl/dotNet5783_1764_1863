@@ -1,4 +1,5 @@
 ﻿using DalApi;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -13,6 +14,7 @@ internal class OrderItem : IOrderItem
     /// </summary>
     /// <param name="entity">The order item to add</param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(DO.OrderItem entity)
     {
         entity.Id = GetNextID();//get the next id
@@ -26,6 +28,8 @@ internal class OrderItem : IOrderItem
     /// Delete order item from xml
     /// </summary>
     /// <param name="ID">the order item id to delete</param>
+   
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int ID)
     {
         var orderItems = ReadFromXml();//read all the order items from xml
@@ -36,6 +40,8 @@ internal class OrderItem : IOrderItem
     /// update order item in the xml file
     /// </summary>
     /// <param name="o">order item to update</param>
+   
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(DO.OrderItem o)
     {
         Delete(o.Id);
@@ -47,6 +53,7 @@ internal class OrderItem : IOrderItem
     /// </summary>
     /// <param name="ID">using id to get it</param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DO.OrderItem Get(int ID)
     {
        return GetByCondition(x => x.Id == ID);
@@ -57,6 +64,8 @@ internal class OrderItem : IOrderItem
     /// </summary>
     /// <param name="func">filter order items using func</param>
     /// <returns></returns>
+   
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<DO.OrderItem> GetAll(Func<DO.OrderItem, bool>? func = null)
     {
         var orderItems = ReadFromXml();//read from xml all the order items
@@ -72,6 +81,7 @@ internal class OrderItem : IOrderItem
     /// <param name="func">func to filter</param>
     /// <returns></returns>
     /// <exception cref="DO.DalItemNotFoundException">throw exception if the order item not found</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DO.OrderItem GetByCondition(Func<DO.OrderItem, bool> func)
     {
         return GetAll(func).Any() ? GetAll(func).First() : throw new DO.DalItemNotFoundException();
@@ -81,6 +91,8 @@ internal class OrderItem : IOrderItem
     /// </summary>
     /// <param name="orderId">the order id to return</param>
     /// <returns></returns>
+   
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<DO.OrderItem> GetOrderItemsInSpecificOrder(int orderId)
     {
         return GetAll(x => x.OrderID == orderId);

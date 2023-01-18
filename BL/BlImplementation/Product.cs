@@ -20,35 +20,31 @@ internal class Product : IProduct
         var products = dal!.Product.GetAll();
         if (func == null)
         {
-#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
             return from p in products
                    select new ProductItem()
                    {
                        ID = p.ID,
-                       Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString()),
+                       Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString()!),
                        InStock = p.InStock > 0,
                        Name = p.Name,
                        Price = p.Price,
                        Amount = (from i in c.Items where i.ProductID == p.ID select i).Any() ? (from i in c.Items where i.ProductID == p.ID select i.Amount).First() : 0
 
                    };
-#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
         }
 
-#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
         return from p in products
                where func(p)
                select new ProductItem()
                {
                    ID = p.ID,
-                   Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString()),
+                   Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p!.Category.ToString()!),
                    InStock = p.InStock > 0,
                    Name = p.Name,
                    Price = p.Price,
                    Amount = (from i in c.Items where i.ProductID == p.ID select i).Any() ? (from i in c.Items where i.ProductID == p.ID select i.Amount).First() : 0
 
                };
-#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
 
 
     }
@@ -128,9 +124,7 @@ internal class Product : IProduct
         DO.Product product;
         try//trying to retrieve from Dal
         {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            product = dal.Product.Get(id);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            product = dal!.Product.Get(id);
         }
         catch (DO.DalItemNotFoundException ex)
         {
@@ -164,24 +158,25 @@ internal class Product : IProduct
         if (item.Price <= 0) throw new BO.BlPriceNotValidException();
         if (item.Category == BO.Enums.Category.None) throw new BlCategoryDoesntSet();
 
-        try
+        lock (dal!)
         {
-            //sending the product to Dal
-#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
-            dal?.Product.Add(new DO.Product()
+            try
             {
-                ID = item.ID,
-                Category = (Enums.Category)Enum.Parse(typeof(Enums.Category), item.Category.ToString()),
-                Name = item.Name,
-                InStock = item.InStock,
-                Price = item.Price
-            });
-#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
+                //sending the product to Dal
+                dal?.Product.Add(new DO.Product()
+                {
+                    ID = item.ID,
+                    Category = (Enums.Category)Enum.Parse(typeof(Enums.Category), item.Category.ToString()!),
+                    Name = item.Name,
+                    InStock = item.InStock,
+                    Price = item.Price
+                });
 
-        }
-        catch (DO.DalItemAlreadyExistException ex)//if the id already exists
-        {
-            throw new BO.BlItemAlreadyExistException("", ex);
+            }
+            catch (DO.DalItemAlreadyExistException ex)//if the id already exists
+            {
+                throw new BO.BlItemAlreadyExistException("", ex);
+            } 
         }
 
     }
@@ -207,22 +202,23 @@ internal class Product : IProduct
         if (item.InStock < 0) throw new BO.BlAmountNotValidException();
         if (item.Price <= 0) throw new BO.BlPriceNotValidException();
 
-        try
+        lock (dal!)
         {
-#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
-            dal?.Product.Update((new DO.Product()//trying to update in Dal
+            try
             {
-                ID = item.ID,
-                Category = (DO.Enums.Category)System.Enum.Parse(typeof(DO.Enums.Category), item.Category.ToString()),
-                Name = item.Name,
-                InStock = item.InStock,
-                Price = item.Price
-            }));
-#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
-        }
-        catch (DO.DalItemNotFoundException ex)//if the id doesn't exists
-        {
-            throw new BO.BlItemNotFoundException("", ex);
+                dal?.Product.Update((new DO.Product()//trying to update in Dal
+                {
+                    ID = item.ID,
+                    Category = (DO.Enums.Category)System.Enum.Parse(typeof(DO.Enums.Category), item.Category.ToString()!),
+                    Name = item.Name,
+                    InStock = item.InStock,
+                    Price = item.Price
+                }));
+            }
+            catch (DO.DalItemNotFoundException ex)//if the id doesn't exists
+            {
+                throw new BO.BlItemNotFoundException("", ex);
+            } 
         }
     }
     /// <summary>
@@ -248,7 +244,7 @@ internal class Product : IProduct
         List<DO.OrderItem> orderItems = dal.OrderItem.GetAll().ToList();
         if (orderItems.Find(x => x.ProductID == id).ProductID == id) throw new BO.BlProductExistsInOrdersException();
 
-        dal.Product.Delete(id);
+        lock(dal)dal.Product.Delete(id);
     }
     /// <summary>
     /// casting DO.Product to BO.ProductForList
@@ -259,15 +255,13 @@ internal class Product : IProduct
     /// the casted BO.ProductForList
     private BO.ProductForList doProductToBoProductForList(DO.Product p)
     {
-#pragma warning disable CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
         return new BO.ProductForList
         {
             ID = p.ID,
             Name = p.Name,
             Price = p.Price,
-            Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString())
+            Category = (BO.Enums.Category)System.Enum.Parse(typeof(BO.Enums.Category), p.Category.ToString()!)
         };
-#pragma warning restore CS8604 // Possible null reference argument for parameter 'value' in 'object Enum.Parse(Type enumType, string value)'.
     }
     /// <summary>
     /// casting DO.Product to BO.Product
