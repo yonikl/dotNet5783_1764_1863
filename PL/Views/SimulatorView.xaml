@@ -61,13 +61,6 @@
             Width="150"
             Command="{Binding StopCommand}"
             Content="Stop Simulation" />
-        <TextBlock
-            HorizontalAlignment="Left"
-            FontSize="20"
-            Grid.Row="3"
-            Height="20"
-            Width="200"
-            Text="{Binding ProgressValue, Mode=OneWay}" />
 
     </Grid>
 </UserControl>

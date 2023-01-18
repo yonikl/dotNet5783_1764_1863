@@ -59,26 +59,9 @@ public static class Simulator
     public static void StopSimulation()
     {
         isSimulationStoped = true;
+        stopSimulation?.Invoke(null, EventArgs.Empty);
     }
 
-    public static void ClearSubscribers()
-    {
-        foreach(EventHandler e in stopSimulation!.GetInvocationList())
-        {
-            stopSimulation -= e;
-        }
-    }
+
 }
 
-public struct SimulationArguments
-{
-    public BO.Enums.OrderStatus nextStatus, currentStatus;
-    int aproximateTime, id;
-    public SimulationArguments(BO.Order order, int aproximateTime)
-    {
-        currentStatus = order.Status ?? throw new NullReferenceException();
-        nextStatus = order.Status == BO.Enums.OrderStatus.InProcess ? BO.Enums.OrderStatus.shipped : BO.Enums.OrderStatus.Delivered;
-        this.aproximateTime = aproximateTime;
-        id = order.ID;
-    }
-}

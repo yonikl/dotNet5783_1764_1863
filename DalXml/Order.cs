@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using System.Dynamic;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace Dal;
@@ -35,6 +36,8 @@ internal class Order : IOrder
     /// </summary>
     /// <param name="entity">new order to add</param>
     /// <returns></returns>
+   
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(DO.Order entity)
     {
         LoadData();
@@ -52,6 +55,7 @@ internal class Order : IOrder
     /// Delete order from the xml file
     /// </summary>
     /// <param name="ID">product id to delete</param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int ID)
     {
         XElement orderElement = GetXElement(ID);//get the element
@@ -65,6 +69,7 @@ internal class Order : IOrder
     /// <param name="ID">id to get</param>
     /// <returns></returns>
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DO.Order Get(int ID)
     {
         LoadData();
@@ -89,6 +94,8 @@ internal class Order : IOrder
     /// </summary>
     /// <param name="func">get func to filter the orders</param>
     /// <returns></returns>
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<DO.Order> GetAll(Func<DO.Order, bool>? func = null)
     {
         LoadData();
@@ -110,6 +117,8 @@ internal class Order : IOrder
     /// <param name="func">Get func to filter</param>
     /// <returns></returns>
     /// <exception cref="DO.DalItemNotFoundException">throw exception if it didnt find the order</exception>
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DO.Order GetByCondition(Func<DO.Order, bool> func)
     {
         LoadData();
@@ -123,6 +132,7 @@ internal class Order : IOrder
     /// update order in the file
     /// </summary>
     /// <param name="o">order to update</param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(DO.Order o)
     {
         LoadData();
@@ -166,6 +176,7 @@ internal class Order : IOrder
     /// </summary>
     /// <param name="i">the xelement to convert</param>
     /// <returns></returns>
+    
     private DO.Order XElementToDoOrder(XElement i)
     {
         return new DO.Order()

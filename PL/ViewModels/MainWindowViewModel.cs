@@ -35,7 +35,6 @@ internal class MainWindowViewModel : ViewModelBase
         GoToCreateNewOrder = new NavigationCommand(new NavigationService(navigationStore, () => new CreateNewOrderViewModel(navigationStore)));
         GoToTrackOrders = new NavigationCommand(new NavigationService(navigationStore, () => new TrackOrdersViewModel(navigationStore)));
         GoToSimulator = new OpenSimulatorCommand();
-        //GoToSimulator = new NavigationCommand(new NavigationService(navigationStore, () => new SimulatorViewModel()));
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -21,6 +22,7 @@ internal class Product : IProduct
     /// <exception cref="DO.DalItemAlreadyExistException">
     /// if the item already exists
     /// </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(DO.Product entity)
     {
         if (entity.ID == 0) // if the product have no id
@@ -62,6 +64,7 @@ internal class Product : IProduct
     /// </summary>
     /// <param name="ID"></param>
     /// the id we looking by
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int ID)
     {
         Get(ID);
@@ -78,6 +81,8 @@ internal class Product : IProduct
     /// <returns>
     /// the product
     /// </returns>
+   
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DO.Product Get(int ID)
     {
         return GetByCondition(x => x.ID == ID);
@@ -91,6 +96,8 @@ internal class Product : IProduct
     /// <returns>
     /// list of eligible products
     /// </returns>
+   
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<DO.Product> GetAll(Func<DO.Product, bool>? func = null)
     {
         List<DO.Product> list = new List<DO.Product>();
@@ -103,16 +110,12 @@ internal class Product : IProduct
             }
             catch(InvalidOperationException)
             {
-#pragma warning disable CS8603 // Possible null reference return.
-                return list;
-#pragma warning restore CS8603 // Possible null reference return.
+                return list!;
             }
         }
         if (func == null)
         {
-#pragma warning disable CS8603 // Possible null reference return.
-            return list;
-#pragma warning restore CS8603 // Possible null reference return.
+            return list!;
         }
         else
         {
@@ -131,6 +134,7 @@ internal class Product : IProduct
     /// <exception cref="DO.DalItemNotFoundException">
     /// if the item doesn't exists
     /// </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DO.Product GetByCondition(Func<DO.Product, bool> func)
     {
         return GetAll(func).Any() ? GetAll(func).First() : throw new DO.DalItemNotFoundException();
@@ -141,6 +145,7 @@ internal class Product : IProduct
     /// <param name="p">
     /// the product to update
     /// </param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(DO.Product p)
     {
         Delete(p.ID);
@@ -152,6 +157,7 @@ internal class Product : IProduct
     /// <param name="list">
     /// the list to write
     /// </param>
+   
     private void WriteToXml(List<DO.Product> list)
     {
         var xmlSerializer = new XmlSerializer(typeof(List<DO.Product>));

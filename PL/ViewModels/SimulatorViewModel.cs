@@ -61,7 +61,7 @@ internal class SimulatorViewModel : ViewModelBase
             AproximateTime = args.Item2;
             CurrentId = args.Item1.ID; 
         }
-
+       
     }
 
 
