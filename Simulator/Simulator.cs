@@ -16,6 +16,8 @@ public static class Simulator
     private static IBl bl = Factory.Get();
     private static Thread? thread;
 
+    private static bool isSimulationRunning = false;
+    public static bool IsSimulationRunning { get => isSimulationRunning; set => isSimulationRunning = value; }
 
     /// <summary>
     /// functions to subscribe/unsubscribe to/from the events
@@ -46,6 +48,7 @@ public static class Simulator
     public static void StartSimulation()
     {
         isSimulationStoped = false;
+        isSimulationRunning = true;
         thread = new Thread(() =>
         {
             while (!isSimulationStoped && bl.Order.GetNextOrderToHandle() != null)
@@ -62,6 +65,7 @@ public static class Simulator
                 else stopSimulation?.Invoke(null, EventArgs.Empty); // if there is a problem
             }
             stopSimulation?.Invoke(null, EventArgs.Empty);
+            isSimulationRunning = false;
         }
         )
         { Name = "Simulation" };

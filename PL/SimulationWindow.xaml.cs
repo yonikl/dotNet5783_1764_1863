@@ -45,6 +45,6 @@ public partial class SimulationWindow : Window, INotifyPropertyChanged
 
     private void Window_Closing(object sender, CancelEventArgs e)
     {
-        e.Cancel = true;
+        e.Cancel = Simulator.IsSimulationRunning;
     }
 }
