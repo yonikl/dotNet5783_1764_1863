@@ -100,15 +100,6 @@
     <delivery-date>2022-07-14T12:55:02.218216+03:00</delivery-date>
   </order>
   <order>
-    <id>15</id>
-    <customer-name>Tova_Ansbacher</customer-name>
-    <customer-address>Hertzel_16_Rishon_letzion</customer-address>
-    <customer-email>Tova_Ansbacher@gmail.com</customer-email>
-    <order-date>2022-03-16T12:55:02.218216+02:00</order-date>
-    <ship-date>2022-04-30T12:55:02.218216+03:00</ship-date>
-    <delivery-date />
-  </order>
-  <order>
     <id>16</id>
     <customer-name>Avraham_Cohen</customer-name>
     <customer-address>Nehalel_17_Haifa</customer-address>
@@ -188,5 +179,14 @@
     <order-date>2022-05-04T12:55:02.218216+03:00</order-date>
     <ship-date>2022-06-06T12:55:02.218216+03:00</ship-date>
     <delivery-date>2023-01-18T13:12:53.3598792+02:00</delivery-date>
+  </order>
+  <order>
+    <id>15</id>
+    <customer-name>Tova_Ansbacher</customer-name>
+    <customer-address>Hertzel_16_Rishon_letzion</customer-address>
+    <customer-email>Tova_Ansbacher@gmail.com</customer-email>
+    <order-date>2022-03-16T12:55:02.218216+02:00</order-date>
+    <ship-date>2022-04-30T12:55:02.218216+03:00</ship-date>
+    <delivery-date>2023-01-19T21:59:40.0422746+02:00</delivery-date>
   </order>
 </orders>

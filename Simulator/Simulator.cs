@@ -51,10 +51,16 @@ public static class Simulator
         isSimulationRunning = true;
         thread = new Thread(() =>
         {
-            while (!isSimulationStoped && bl.Order.GetNextOrderToHandle() != null)
+            while (!isSimulationStoped)
             {
-                var order = bl.Order.GetOrder(bl.Order.GetNextOrderToHandle() ?? throw new NullReferenceException());
-                var timeToHandle = new Random().Next(3, 7);//calculate time to handle
+                var id = bl.Order.GetNextOrderToHandle();
+                if(id == null)
+                {
+                    sleep(1);
+                    continue;
+                }
+                var order = bl.Order.GetOrder(id ?? throw new NullReferenceException());
+                var timeToHandle = new Random().Next(3, 10);//calculate time to handle
                 var aproximateTime = new Random().Next(timeToHandle - 2, timeToHandle + 2);//calculate approximate time to handle
                 updateSimulation?.Invoke(null, new Tuple<Order, int>(order, aproximateTime)); // update
                 sleep(timeToHandle);
@@ -63,6 +69,7 @@ public static class Simulator
                 if (order.Status == BO.Enums.OrderStatus.InProcess) bl.Order.UpdateShipping(order.ID);
                 else if (order.Status == Enums.OrderStatus.shipped) bl.Order.UpdateDelivery(order.ID);
                 else stopSimulation?.Invoke(null, EventArgs.Empty); // if there is a problem
+                sleep(1);
             }
             stopSimulation?.Invoke(null, EventArgs.Empty);
             isSimulationRunning = false;
